@@ -2,14 +2,19 @@
 import 'react-native-gesture-handler';
 import { Component } from 'react';
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+  Platform
+} from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
-import {
-  FontAwesome,
-  Ionicons,
-  MaterialCommunityIcons
-} from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
+import * as MediaLibrary from 'expo-media-library';
 
 interface Props {
   navigation: any;
@@ -24,13 +29,40 @@ class CameraPage extends Component<Props> {
   camera: Camera | null = null;
 
   async componentDidMount() {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ hasPermission: status === 'granted' });
+    this.getPermissionAsync();
   }
+  getPermissionAsync = async () => {
+    // Camera roll Permission
+    if (Platform.OS === 'ios') {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status === 'granted') {
+        this.setState({ rollGranted: true });
+      }
+    }
+    // Camera Permission
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    if (status === 'granted') {
+      this.setState({ hasPermission: status === 'granted' });
+    }
+  };
 
   takePicture = async () => {
     if (this.camera) {
       let photo = await this.camera.takePictureAsync();
+      const asset = await MediaLibrary.saveToLibraryAsync(photo.uri);
+    }
+  };
+
+  pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1
+    });
+    console.log(result, 'result');
+    if (!result.cancelled) {
+      this.setState({ image: result.uri });
     }
   };
 
@@ -71,7 +103,7 @@ class CameraPage extends Component<Props> {
             style={{ flex: 1 }}
             type={this.state.cameraType}
             ref={ref => {
-              camera = ref;
+              this.camera = ref;
             }}>
             <TouchableOpacity
               style={{
@@ -82,6 +114,18 @@ class CameraPage extends Component<Props> {
               onPress={() => this.takePicture()}>
               <FontAwesome
                 name='camera'
+                style={{ color: '#fff', fontSize: 40 }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                alignSelf: 'flex-end',
+                alignItems: 'center',
+                backgroundColor: 'transparent'
+              }}
+              onPress={() => this.pickImage()}>
+              <Ionicons
+                name='ios-photos'
                 style={{ color: '#fff', fontSize: 40 }}
               />
             </TouchableOpacity>

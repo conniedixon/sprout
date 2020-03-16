@@ -1,10 +1,26 @@
 /** @format */
+import 'react-native-gesture-handler';
+import { Component } from 'react';
+import * as React from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
-import React, { Component } from 'react';
+// import { StackNavigator } from 'react-navigation';
 
-class Camera extends Component {
+interface Props {
+  navigation: any;
+}
+
+class Camera extends Component<Props> {
   render() {
-    return <div></div>;
+    return (
+      <View>
+        <Text>Camera Here</Text>
+        <Button
+          title='Go to Details'
+          onPress={() => this.props.navigation.navigate('MyGarden')}
+        />
+      </View>
+    );
   }
 }
 

@@ -15,6 +15,7 @@ import * as Permissions from 'expo-permissions';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
+import * as api from '../api';
 
 interface Props {
   navigation: any;
@@ -47,9 +48,11 @@ class CameraPage extends Component<Props> {
   };
 
   takePicture = async () => {
+    console.log('Picture Taken!');
     if (this.camera) {
-      let photo = await this.camera.takePictureAsync();
-      const asset = await MediaLibrary.saveToLibraryAsync(photo.uri);
+      const options = { base64: true };
+      let photo = await this.camera.takePictureAsync(options);
+      api.getPlantById(photo);
     }
   };
 

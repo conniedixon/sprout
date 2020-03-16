@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Camera from './components/Camera';
 import MyGarden from './components/MyGarden';
+import UserPage from './components/UserPage';
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,7 @@ export default function App() {
       <Stack.Navigator initialRouteName='Camera'>
         <Stack.Screen name='Camera' component={Camera} />
         <Stack.Screen name='MyGarden' component={MyGarden} />
+        <Stack.Screen name='UserPage' component={UserPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

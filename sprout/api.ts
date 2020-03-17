@@ -81,3 +81,19 @@ const getCareInstructions = (plantFamilyId, plantData) => {
     })
     .catch(err => console.log(err));
 };
+
+export const getScientificName = searchText => {
+  console.log("getting the scientific_name by querying the common name");
+  return axios
+    .get(
+      `https://trefle.io/api/plants?common_name=${searchText}&&token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09`
+    )
+    .then(({ data }) => {
+      console.log(data);
+      const scientificName = data[0].scientific_name;
+      return getPlantByName(scientificName);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};

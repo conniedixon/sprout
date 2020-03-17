@@ -78,5 +78,3 @@ export const getStats = ({
     wateringSchedule: wateringSchedule
   };
 };
-
-export const findEaseOfCare = () => {};

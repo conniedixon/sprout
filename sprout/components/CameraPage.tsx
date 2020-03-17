@@ -2,16 +2,20 @@
 import "react-native-gesture-handler";
 import { Component } from "react";
 import * as React from "react";
-import { Text, View, Button, TouchableOpacity, Platform } from "react-native";
+import {
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+  Platform,
+  RecyclerViewBackedScrollView
+} from "react-native";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as api from "../api";
-import { SearchBar } from "react-native-elements";
-// import  from "expo-font";
-// import FontAwesome from "../node_modules/@expo/vector-icons/FontAwesome";
-// import MaterialIcons from "../node_modules/@expo/vector-icons/MaterialIcons";
+import Search from "react-native-search-box";
 
 interface Props {
   navigation: any;
@@ -23,26 +27,13 @@ class CameraPage extends Component<Props> {
     cameraType: Camera.Constants.Type.back,
     plantInfo: {},
     plantImage: "",
-    search: "",
-    fontLoaded: false
+    searchText: ""
   };
 
   camera: Camera | null = null;
 
   async componentDidMount() {
-    // try {
-    //   await Font.loadAsync({
-    //     FontAwesome,
-
-    //     MaterialIcons
-    //   });
-
-    //   this.setState({ fontLoaded: true });
-
     this.getPermissionAsync();
-    // } catch (error) {
-    //   console.log("error loading icon fonts", error);
-    // }
   }
   getPermissionAsync = async () => {
     // Camera roll Permission
@@ -110,41 +101,39 @@ class CameraPage extends Component<Props> {
     });
   }
 
-  // updateSearch = search => {
-  //   this.setState({ search });
-  // };
+  onSearch = searchText => {
+    return new Promise((resolve, reject) => {
+      console.log(searchText);
+      // return api.getScientificName(searchText.toLowerCase());
+      resolve(api.getScientificName(searchText.toLowerCase()));
+    })
+      .then(plantInfo => {
+        console.log(plantInfo);
+        this.setState({ plantInfo });
+      })
+      .then(() => {
+        this.props.navigation.navigate("PlantPage", {
+          plantInfo: this.state.plantInfo
+        });
+      });
+  };
 
   render() {
-    const { hasPermission, search, fontLoaded } = this.state;
-    // console.log(this.state.plantImage);
+    const { hasPermission } = this.state;
 
-    // if (!fontLoaded) {
-    //   return <Text>Loading</Text>;
-    // }
-
-    if (hasPermission === null) {
+    if (hasPermission === null || hasPermission === false) {
       return (
         <View>
-          {/* <SearchBar
-            placeholder="Type Here..."
-            onChangeText={this.updateSearch}
-            value={search}
-          /> */}
-          <Button
-            title="Go to My Garden"
-            onPress={() => this.props.navigation.navigate("MyGarden")}
-          />
-          <Button
-            title="Go to My Account"
-            onPress={() => this.props.navigation.navigate("UserPage")}
-          />
-        </View>
-      );
-    } else if (hasPermission === false) {
-      return (
-        <View>
-          <Text>No access to camera</Text>
+          <Search
+            ref="search_box"
+            onSearch={this.onSearch}
 
+            /**
+             * There many props that can customizable
+             * Please scroll down to Props section
+             */
+          />
+          <Text>No access to camera or no permission</Text>
           <Button
             title="Go to My Garden"
             onPress={() => this.props.navigation.navigate("MyGarden")}
@@ -158,6 +147,14 @@ class CameraPage extends Component<Props> {
     } else {
       return (
         <View style={{ flex: 1 }}>
+          <Search
+            ref="search_box"
+            onSearch={this.onSearch}
+            /**
+             * There many props that can customizable
+             * Please scroll down to Props section
+             */
+          />
           <Camera
             style={{ flex: 1 }}
             type={this.state.cameraType}

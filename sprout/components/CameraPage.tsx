@@ -8,6 +8,10 @@ import * as Permissions from "expo-permissions";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as api from "../api";
+import { SearchBar } from "react-native-elements";
+// import  from "expo-font";
+// import FontAwesome from "../node_modules/@expo/vector-icons/FontAwesome";
+// import MaterialIcons from "../node_modules/@expo/vector-icons/MaterialIcons";
 
 interface Props {
   navigation: any;
@@ -18,13 +22,27 @@ class CameraPage extends Component<Props> {
     hasPermission: null,
     cameraType: Camera.Constants.Type.back,
     plantInfo: {},
-    plantImage: ""
+    plantImage: "",
+    search: "",
+    fontLoaded: false
   };
 
   camera: Camera | null = null;
 
   async componentDidMount() {
+    // try {
+    //   await Font.loadAsync({
+    //     FontAwesome,
+
+    //     MaterialIcons
+    //   });
+
+    //   this.setState({ fontLoaded: true });
+
     this.getPermissionAsync();
+    // } catch (error) {
+    //   console.log("error loading icon fonts", error);
+    // }
   }
   getPermissionAsync = async () => {
     // Camera roll Permission
@@ -92,13 +110,26 @@ class CameraPage extends Component<Props> {
     });
   }
 
+  // updateSearch = search => {
+  //   this.setState({ search });
+  // };
+
   render() {
-    const { hasPermission } = this.state;
+    const { hasPermission, search, fontLoaded } = this.state;
     // console.log(this.state.plantImage);
+
+    // if (!fontLoaded) {
+    //   return <Text>Loading</Text>;
+    // }
 
     if (hasPermission === null) {
       return (
         <View>
+          {/* <SearchBar
+            placeholder="Type Here..."
+            onChangeText={this.updateSearch}
+            value={search}
+          /> */}
           <Button
             title="Go to My Garden"
             onPress={() => this.props.navigation.navigate("MyGarden")}
@@ -113,6 +144,7 @@ class CameraPage extends Component<Props> {
       return (
         <View>
           <Text>No access to camera</Text>
+
           <Button
             title="Go to My Garden"
             onPress={() => this.props.navigation.navigate("MyGarden")}

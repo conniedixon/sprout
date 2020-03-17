@@ -4,7 +4,12 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import PlantCard from '../components/PlantCard';
 
-class MyGarden extends Component {
+interface Props {
+  plantInfo: any;
+  navigation: any;
+}
+
+class MyGarden extends Component<Props> {
   state = {
     myPlants: [],
     myScannedPlants: []
@@ -13,7 +18,9 @@ class MyGarden extends Component {
     return (
       <View>
         <Text>MyGarden</Text>
-        <PlantCard />
+        {this.state.myPlants.map(plant => {
+          return <PlantCard plantInfo={this.props.plantInfo} />;
+        })}
       </View>
     );
   }

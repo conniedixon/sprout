@@ -1,17 +1,10 @@
 /** @format */
+import React from 'react';
+import { Text, View, Button, Image } from 'react-native';
 
 interface Props {
   navigation: any;
 }
-import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-  Image
-} from 'react-native';
 
 const PlantPage = ({ route }) => {
   const { plantInfo, plantImage } = route.params;
@@ -30,7 +23,7 @@ const PlantPage = ({ route }) => {
       </Text>
       <Button
         title='Add to My Garden'
-        onPress={() => console.log('This does nothing')} // Not functional
+        onPress={() => this.props.navigation.navigate('My Plant Garden')} // Not functional -- call function back to camera page => app? prop drilling.
       />
     </View>
   );

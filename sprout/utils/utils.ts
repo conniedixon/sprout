@@ -63,9 +63,8 @@ export const getStats = ({
   else if (difficultyRating >= 5) trafficLight = 'red';
   else trafficLight = 'amber';
 
-  if (commonName === '') commonName = scientificName;
-  if (duration === null) duration = 'n/a';
-  console.log(difficultyRating);
+  if (!commonName) commonName = scientificName;
+  if (!duration) duration = 'n/a';
   return {
     commonName: commonName,
     duration: duration,

@@ -1,4 +1,6 @@
-import React from "react";
+/** @format */
+
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,13 +8,19 @@ import {
   Button,
   TouchableOpacity,
   Image
-} from "react-native";
+} from 'react-native';
 
 const PlantPage = ({ route }) => {
   const { plantInfo, plantImage } = route.params;
-  //   console.log(plantInfo, "<===");
   return (
     <View>
+      <Text>
+        {plantInfo.commonName}, {plantInfo.scientificName}
+        Duration: {plantInfo.duration}, Family: {plantInfo.family}, Difficulty:{' '}
+        {plantInfo.difficulty}, Care Instructions: Light level:{' '}
+        {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{' '}
+        {plantInfo.wateringSchedule}
+      </Text>
       <Image
         style={{ width: 350, height: 300 }}
         source={{ uri: `data:image/gif;base64,${plantImage}` }}

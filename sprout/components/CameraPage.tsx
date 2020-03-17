@@ -2,19 +2,11 @@
 import "react-native-gesture-handler";
 import { Component } from "react";
 import * as React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-  Platform
-} from "react-native";
+import { Text, View, Button, TouchableOpacity, Platform } from "react-native";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import * as MediaLibrary from "expo-media-library";
 import * as api from "../api";
 
 interface Props {
@@ -57,8 +49,8 @@ class CameraPage extends Component<Props> {
         this.camera
           .takePictureAsync(options)
           .then(photo => {
-            this.setState({ plantImage: photo.uri });
-            return api.getPlantById(photo);
+            this.setState({ plantImage: photo.base64 });
+            return api.getPlantById(photo.base64);
           })
           .then(plantInfo => {
             this.setState({ plantInfo });
@@ -73,22 +65,36 @@ class CameraPage extends Component<Props> {
     });
   }
 
-  pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1
+  pickImage() {
+    return new Promise((resolve, reject) => {
+      ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+        base64: true
+      })
+        .then(result => {
+          if (result.cancelled === false) {
+            this.setState({ plantImage: result.base64 });
+            return api.getPlantById(result.base64);
+          }
+        })
+        .then(plantInfo => {
+          this.setState({ plantInfo });
+        })
+        .then(() => {
+          this.props.navigation.navigate("PlantPage", {
+            plantInfo: this.state.plantInfo,
+            plantImage: this.state.plantImage
+          });
+        });
     });
-    console.log(result, "result");
-    if (!result.cancelled) {
-      this.setState({ image: result.uri });
-    }
-  };
+  }
 
   render() {
     const { hasPermission } = this.state;
-    console.log(this.state.plantImage);
+    // console.log(this.state.plantImage);
 
     if (hasPermission === null) {
       return (

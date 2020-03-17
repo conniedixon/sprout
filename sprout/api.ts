@@ -2,9 +2,9 @@
 
 const axios = require("axios");
 
-export const getPlantById = (photo: any) => {
+export const getPlantById = (base64: any) => {
   console.log("in the api");
-  const plantImg = { images: [photo.base64] };
+  const plantImg = { images: [base64] };
   let axiosConfig = {
     headers: {
       "Content-Type": "application/json",

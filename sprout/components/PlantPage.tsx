@@ -10,12 +10,13 @@ import {
 
 const PlantPage = ({ route }) => {
   const { plantInfo, plantImage } = route.params;
-  console.log(plantInfo, "<===");
-  console.log(plantImage, "<===");
+  //   console.log(plantInfo, "<===");
   return (
     <View>
-      <Text>plant page</Text>
-      {/* <Image source={{ uri: plantImage.uri }} /> */}
+      <Image
+        style={{ width: 350, height: 300 }}
+        source={{ uri: `data:image/gif;base64,${plantImage}` }}
+      />
     </View>
   );
 };

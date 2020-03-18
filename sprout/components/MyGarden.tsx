@@ -5,7 +5,6 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import PlantCard from '../components/PlantCard';
 
 interface Props {
-  plantInfo: any;
   navigation: any;
 }
 

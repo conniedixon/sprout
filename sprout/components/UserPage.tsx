@@ -23,7 +23,9 @@ class UserPage extends Component<Props> {
         ph: 6.5,
         precipitation: 70,
         scientificName: 'Beaucarnea recurvata',
-        wateringSchedule: 'medium: once a week'
+        wateringSchedule: 'medium: once a week',
+        plantImage:
+          'https://ih1.redbubble.net/image.756430694.0911/flat,750x,075,f-pad,750x1000,f8f8f8.u4.jpg'
       },
       {
         commonName: 'bottle-palm',
@@ -35,7 +37,9 @@ class UserPage extends Component<Props> {
         ph: 6.5,
         precipitation: 70,
         scientificName: 'Beaucarnea recurvata',
-        wateringSchedule: 'medium: once a week'
+        wateringSchedule: 'medium: once a week',
+        plantImage:
+          'https://ih1.redbubble.net/image.756430694.0911/flat,750x,075,f-pad,750x1000,f8f8f8.u4.jpg'
       }
     ]
   };
@@ -65,11 +69,9 @@ class UserPage extends Component<Props> {
           title='See Scanned Plants'
           onPress={() =>
             this.props.navigation.navigate('ScannedPlants', {
-              plants: this.state.scannedPlants
+              scannedPlants: this.state.scannedPlants
             })
           }></Button>
-        {/* <ScannedPlantCard />
-        <UserMedals /> */}
       </View>
     );
   }

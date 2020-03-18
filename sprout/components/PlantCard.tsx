@@ -19,7 +19,7 @@ class PlantCard extends Component<Props> {
     } = this.props.plantInfo;
     return (
       <View>
-        <Header>{commonName}</Header> //need to check this out
+        <Text>{commonName}</Text> //need to check this out
         <Text>
           ph:{ph}, lightLevel:{lightLevel}, minTemp:{minTemp}
         </Text>

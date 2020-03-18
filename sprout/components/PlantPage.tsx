@@ -2,11 +2,7 @@
 import React from 'react';
 import { Text, View, Button, Image } from 'react-native';
 
-interface Props {
-  navigation: any;
-}
-
-const PlantPage = ({ route }) => {
+const PlantPage = ({ route, navigation }) => {
   const { plantInfo, plantImage } = route.params;
   return (
     <View>
@@ -23,7 +19,7 @@ const PlantPage = ({ route }) => {
       </Text>
       <Button
         title='Add to My Garden'
-        onPress={() => this.props.navigation.navigate('My Plant Garden')} // Not functional -- call function back to camera page => app? prop drilling.
+        onPress={() => navigation.navigate('MyGarden')} // Not functional -- call function back to camera page => app? prop drilling.
       />
     </View>
   );

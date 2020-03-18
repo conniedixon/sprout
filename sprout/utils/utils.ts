@@ -67,6 +67,8 @@ export const getStats = ({
 
   if (!commonName) commonName = scientificName;
   if (!duration) duration = "n/a";
+
+  if (!images.length || images === undefined) images = "No pictures available";
   return {
     images: images,
     commonName: commonName,

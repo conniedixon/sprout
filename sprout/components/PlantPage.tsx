@@ -5,7 +5,10 @@ import ImageCarousel from "./ImageCarousel";
 
 const PlantPage = ({ route, navigation }) => {
   const { plantInfo, plantImage } = route.params;
-  const images = { images: [{ url: plantImage }, plantInfo.images] };
+  const images = {
+    images: [{ url: plantImage }, plantInfo.images]
+  };
+
   return (
     <View>
       <ImageCarousel key={plantInfo.images.url} images={images} />

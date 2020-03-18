@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
+import MedalsPage from './MedalsPage';
 
 interface Props {
   navigation: any;
@@ -11,7 +12,7 @@ class UserPage extends Component<Props> {
   state = {
     isLoading: false,
     username: 'Connie',
-    medals: [],
+    medals: ['scannedOnePlant', 'addedOnePlant'],
     scannedPlants: [
       {
         commonName: 'bottle-palm',
@@ -72,6 +73,7 @@ class UserPage extends Component<Props> {
               scannedPlants: this.state.scannedPlants
             })
           }></Button>
+        <MedalsPage medals={this.state.medals} />
       </View>
     );
   }

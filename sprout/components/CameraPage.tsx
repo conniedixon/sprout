@@ -16,6 +16,7 @@ import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as api from "../api";
 import Search from "react-native-search-box";
+import SearchBar from "./SearchBar";
 
 interface Props {
   navigation: any;
@@ -147,6 +148,7 @@ class CameraPage extends Component<Props> {
     } else {
       return (
         <View style={{ flex: 1 }}>
+          <SearchBar />
           <Search
             ref="search_box"
             onSearch={this.onSearch}

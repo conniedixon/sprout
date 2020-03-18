@@ -15,7 +15,6 @@ import * as Permissions from "expo-permissions";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as api from "../api";
-import Search from "react-native-search-box";
 import SearchBar from "./SearchBar";
 
 interface Props {
@@ -27,8 +26,7 @@ class CameraPage extends Component<Props> {
     hasPermission: null,
     cameraType: Camera.Constants.Type.back,
     plantInfo: {},
-    plantImage: "",
-    searchText: ""
+    plantImage: ""
   };
 
   camera: Camera | null = null;
@@ -104,8 +102,6 @@ class CameraPage extends Component<Props> {
 
   onSearch = searchText => {
     return new Promise((resolve, reject) => {
-      console.log(searchText);
-      // return api.getScientificName(searchText.toLowerCase());
       resolve(api.getScientificName(searchText.toLowerCase()));
     })
       .then(plantInfo => {
@@ -125,15 +121,7 @@ class CameraPage extends Component<Props> {
     if (hasPermission === null || hasPermission === false) {
       return (
         <View>
-          <Search
-            ref="search_box"
-            onSearch={this.onSearch}
-
-            /**
-             * There many props that can customizable
-             * Please scroll down to Props section
-             */
-          />
+          <SearchBar onSearch={this.onSearch} />
           <Text>No access to camera or no permission</Text>
           <Button
             title="Go to My Garden"
@@ -148,15 +136,7 @@ class CameraPage extends Component<Props> {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          <SearchBar />
-          <Search
-            ref="search_box"
-            onSearch={this.onSearch}
-            /**
-             * There many props that can customizable
-             * Please scroll down to Props section
-             */
-          />
+          <SearchBar onSearch={this.onSearch} />
           <Camera
             style={{ flex: 1 }}
             type={this.state.cameraType}

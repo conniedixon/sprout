@@ -64,7 +64,6 @@ const getCareInstructions = (plantFamilyId, plantData) => {
       `https://trefle.io/api/species/${plantFamilyId}?token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09`
     )
     .then(({ data }) => {
-      // console.log(data.images, "<-- images");
       const plantImages = data.images;
       const careInstructions = {
         family: data.family_common_name,
@@ -83,7 +82,6 @@ const getCareInstructions = (plantFamilyId, plantData) => {
         ...careInstructions,
         images: plantImages
       };
-      // console.log(plantInfo, "<---plantImages");
       return utils.getStats(plantInfo);
     })
     .catch(err => console.log(err));

@@ -2,20 +2,13 @@
 import "react-native-gesture-handler";
 import { Component } from "react";
 import * as React from "react";
-import {
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-  Platform,
-  RecyclerViewBackedScrollView
-} from "react-native";
+import { Text, View, Button, TouchableOpacity, Platform } from "react-native";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as api from "../api";
-import Search from "react-native-search-box";
+import SearchBar from "./SearchBar";
 
 interface Props {
   navigation: any;
@@ -26,8 +19,7 @@ class CameraPage extends Component<Props> {
     hasPermission: null,
     cameraType: Camera.Constants.Type.back,
     plantInfo: {},
-    plantImage: "",
-    searchText: ""
+    plantImage: ""
   };
 
   camera: Camera | null = null;
@@ -58,7 +50,7 @@ class CameraPage extends Component<Props> {
         this.camera
           .takePictureAsync(options)
           .then(photo => {
-            this.setState({ plantImage: photo.base64 });
+            this.setState({ plantImage: photo.uri });
             return api.getPlantById(photo.base64);
           })
           .then(plantInfo => {
@@ -85,7 +77,7 @@ class CameraPage extends Component<Props> {
       })
         .then(result => {
           if (result.cancelled === false) {
-            this.setState({ plantImage: result.base64 });
+            this.setState({ plantImage: result.uri });
             return api.getPlantById(result.base64);
           }
         })
@@ -103,12 +95,9 @@ class CameraPage extends Component<Props> {
 
   onSearch = searchText => {
     return new Promise((resolve, reject) => {
-      console.log(searchText);
-      // return api.getScientificName(searchText.toLowerCase());
       resolve(api.getScientificName(searchText.toLowerCase()));
     })
       .then(plantInfo => {
-        console.log(plantInfo);
         this.setState({ plantInfo });
       })
       .then(() => {
@@ -124,15 +113,7 @@ class CameraPage extends Component<Props> {
     if (hasPermission === null || hasPermission === false) {
       return (
         <View>
-          <Search
-            ref="search_box"
-            onSearch={this.onSearch}
-
-            /**
-             * There many props that can customizable
-             * Please scroll down to Props section
-             */
-          />
+          <SearchBar onSearch={this.onSearch} />
           <Text>No access to camera or no permission</Text>
           <Button
             title="Go to My Garden"
@@ -147,14 +128,7 @@ class CameraPage extends Component<Props> {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          <Search
-            ref="search_box"
-            onSearch={this.onSearch}
-            /**
-             * There many props that can customizable
-             * Please scroll down to Props section
-             */
-          />
+          <SearchBar onSearch={this.onSearch} />
           <Camera
             style={{ flex: 1 }}
             type={this.state.cameraType}

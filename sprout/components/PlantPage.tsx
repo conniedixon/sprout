@@ -5,7 +5,7 @@ import ImageCarousel from "./ImageCarousel";
 
 const PlantPage = ({ route, navigation }) => {
   const { plantInfo, plantImage } = route.params;
-  console.log(plantInfo, "<--- in the plant page");
+  // console.log(plantInfo, "<--- in the plant page");
   // console.log(plantImage, "<---PLANTIMAGE");
   const images = { images: [{ url: plantImage }, plantInfo.images] };
   return (

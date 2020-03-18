@@ -9,6 +9,7 @@ import MyGarden from './components/MyGarden';
 import UserPage from './components/UserPage';
 import PlantPage from './components/PlantPage';
 import PlantCard from './components/PlantCard';
+import ScannedPlants from './components/ScannedPlants';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,7 @@ export default function App() {
         <Stack.Screen name='UserPage' component={UserPage} />
         <Stack.Screen name='PlantPage' component={PlantPage} />
         <Stack.Screen name='PlantCard' component={PlantCard} />
+        <Stack.Screen name='ScannedPlants' component={ScannedPlants} />
       </Stack.Navigator>
     </NavigationContainer>
   );

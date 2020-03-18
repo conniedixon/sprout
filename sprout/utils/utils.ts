@@ -12,8 +12,10 @@ export const getStats = ({
   phMax,
   phMin,
   waterMax,
-  waterMin
+  waterMin,
+  images
 }) => {
+  // console.log(images[0], "<--fro utils page");
   let difficultyRating = 0;
   let precipitation = 70;
   let ph = 6.5;
@@ -21,16 +23,16 @@ export const getStats = ({
   let trafficLight;
 
   let lightLevel;
-  if (shadeTol === 'High') lightLevel = 'Low';
-  else if (shadeTol === 'Low')
-    (lightLevel = 'High'), (difficultyRating = difficultyRating + 2);
-  else (lightLevel = 'Medium'), (difficultyRating = difficultyRating + 1);
+  if (shadeTol === "High") lightLevel = "Low";
+  else if (shadeTol === "Low")
+    (lightLevel = "High"), (difficultyRating = difficultyRating + 2);
+  else (lightLevel = "Medium"), (difficultyRating = difficultyRating + 1);
 
-  if (droughtTol === 'Medium') difficultyRating = difficultyRating + 1;
-  if (droughtTol === 'Intolerant') difficultyRating = difficultyRating + 2;
+  if (droughtTol === "Medium") difficultyRating = difficultyRating + 1;
+  if (droughtTol === "Intolerant") difficultyRating = difficultyRating + 2;
 
-  if (fertility === 'High') difficultyRating = difficultyRating + 2;
-  if (fertility === 'Medium') difficultyRating = difficultyRating + 1;
+  if (fertility === "High") difficultyRating = difficultyRating + 2;
+  if (fertility === "Medium") difficultyRating = difficultyRating + 1;
 
   if (waterMax) {
     const precAverage = (waterMax + waterMin) / 2;
@@ -40,15 +42,15 @@ export const getStats = ({
   }
 
   let wateringSchedule;
-  if (precipitation < 25) wateringSchedule = 'low: once a month';
+  if (precipitation < 25) wateringSchedule = "low: once a month";
   else if (precipitation > 25 && precipitation < 60)
-    wateringSchedule = 'medium-low: twice a month';
+    wateringSchedule = "medium-low: twice a month";
   else if (precipitation > 60 && precipitation < 95)
-    wateringSchedule = 'medium: once a week';
+    wateringSchedule = "medium: once a week";
   else if (precipitation > 95 && precipitation < 130)
-    wateringSchedule = 'medium-high: once every five days';
+    wateringSchedule = "medium-high: once every five days";
   else if (precipitation > 130)
-    wateringSchedule = 'high: once every one to three days';
+    wateringSchedule = "high: once every one to three days";
 
   if (phMax) {
     const phAverage = (phMax + phMin) / 2;
@@ -59,13 +61,14 @@ export const getStats = ({
     tempMin = Number.isInteger(minTemp) ? minTemp : Number(minTemp.toFixed(1));
   }
 
-  if (difficultyRating <= 2) trafficLight = 'green';
-  else if (difficultyRating >= 5) trafficLight = 'red';
-  else trafficLight = 'amber';
+  if (difficultyRating <= 2) trafficLight = "green";
+  else if (difficultyRating >= 5) trafficLight = "red";
+  else trafficLight = "amber";
 
   if (!commonName) commonName = scientificName;
-  if (!duration) duration = 'n/a';
+  if (!duration) duration = "n/a";
   return {
+    images: images,
     commonName: commonName,
     duration: duration,
     family: family,

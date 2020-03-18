@@ -1,18 +1,18 @@
 /** @format */
-import * as utils from './utils/utils';
-const axios = require('axios');
+import * as utils from "./utils/utils";
+const axios = require("axios");
 
 export const getPlantById = (base64: any) => {
-  console.log('in the api');
+  console.log("in the api");
   const plantImg = { images: [base64] };
   let axiosConfig = {
     headers: {
-      'Content-Type': 'application/json',
-      'Api-Key': 'oEk029eOZyIto6lZoAWI4WKqVxPiV4Tt6Dl3JMIGDOXQ3V3Uu9'
+      "Content-Type": "application/json",
+      "Api-Key": "oEk029eOZyIto6lZoAWI4WKqVxPiV4Tt6Dl3JMIGDOXQ3V3Uu9"
     }
   };
   return axios
-    .post('https://api.plant.id/v2/identify', plantImg, axiosConfig)
+    .post("https://api.plant.id/v2/identify", plantImg, axiosConfig)
     .then(({ data: { suggestions } }) => {
       const scientificName = suggestions[0].plant_details.scientific_name;
 
@@ -24,7 +24,7 @@ export const getPlantById = (base64: any) => {
 };
 
 function getPlantByName(scientificName) {
-  console.log('in the second function');
+  console.log("in the second function");
   return axios
     .get(
       `https://trefle.io/api/plants?token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09&&scientific_name=${scientificName}`
@@ -39,7 +39,7 @@ function getPlantByName(scientificName) {
 }
 
 function getSingularPlant(plantId) {
-  console.log('in the third function');
+  console.log("in the third function");
   return axios
     .get(
       `https://trefle.io/api/plants/${plantId}?token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09`
@@ -58,12 +58,14 @@ function getSingularPlant(plantId) {
 }
 
 const getCareInstructions = (plantFamilyId, plantData) => {
-  console.log('in the fourth function');
+  console.log("in the fourth function");
   return axios
     .get(
       `https://trefle.io/api/species/${plantFamilyId}?token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09`
     )
     .then(({ data }) => {
+      // console.log(data.images, "<-- images");
+      const plantImages = data.images;
       const careInstructions = {
         family: data.family_common_name,
         duration: data.duration,
@@ -76,20 +78,24 @@ const getCareInstructions = (plantFamilyId, plantData) => {
         waterMax: data.growth.precipitation_maximum.cm,
         waterMin: data.growth.precipitation_minimum.cm
       };
-      const plantInfo = { ...plantData, ...careInstructions };
+      const plantInfo = {
+        ...plantData,
+        ...careInstructions,
+        images: plantImages
+      };
+      // console.log(plantInfo, "<---plantImages");
       return utils.getStats(plantInfo);
     })
     .catch(err => console.log(err));
 };
 
 export const getScientificName = searchText => {
-  console.log('getting the scientific_name by querying the common name');
+  console.log("getting the scientific_name by querying the common name");
   return axios
     .get(
       `https://trefle.io/api/plants?common_name=${searchText}&&token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09`
     )
     .then(({ data }) => {
-      console.log(data);
       const scientificName = data[0].scientific_name;
       return getPlantByName(scientificName);
     })

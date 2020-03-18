@@ -11,7 +11,20 @@ interface Props {
 
 class MyGarden extends Component<Props> {
   state = {
-    myPlants: [],
+    myPlants: [
+      {
+        commonName: 'bottle-palm',
+        difficulty: 'green',
+        duration: 'n/a',
+        family: 'Lily family',
+        lightLevel: 'Medium',
+        minTemp: 15,
+        ph: 6.5,
+        precipitation: 70,
+        scientificName: 'Beaucarnea recurvata',
+        wateringSchedule: 'medium: once a week'
+      }
+    ],
     myScannedPlants: []
   };
   render() {
@@ -19,7 +32,9 @@ class MyGarden extends Component<Props> {
       <View>
         <Text>MyGarden</Text>
         {this.state.myPlants.map(plant => {
-          return <PlantCard plantInfo={this.props.plantInfo} />;
+          return (
+            <PlantCard plantInfo={plant} navigation={this.props.navigation} />
+          );
         })}
       </View>
     );

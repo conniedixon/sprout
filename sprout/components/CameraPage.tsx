@@ -50,7 +50,7 @@ class CameraPage extends Component<Props> {
         this.camera
           .takePictureAsync(options)
           .then(photo => {
-            this.setState({ plantImage: photo.base64 });
+            this.setState({ plantImage: photo.uri });
             return api.getPlantById(photo.base64);
           })
           .then(plantInfo => {
@@ -77,7 +77,7 @@ class CameraPage extends Component<Props> {
       })
         .then(result => {
           if (result.cancelled === false) {
-            this.setState({ plantImage: result.base64 });
+            this.setState({ plantImage: result.uri });
             return api.getPlantById(result.base64);
           }
         })

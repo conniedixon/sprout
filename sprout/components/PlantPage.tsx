@@ -1,19 +1,22 @@
 /** @format */
 import React from "react";
 import { Text, View, Button, Image } from "react-native";
+import ImageCarousel from "./ImageCarousel";
 
 const PlantPage = ({ route, navigation }) => {
   const { plantInfo, plantImage } = route.params;
   console.log(plantInfo, "<--- in the plant page");
+  // console.log(plantImage, "<---PLANTIMAGE");
+  const images = { images: [{ url: plantImage }, plantInfo.images] };
   return (
     <View>
-      <Image
+      {/* <Image
         style={{ width: 350, height: 300 }}
-        source={{ uri: `data:image/gif;base64,${plantImage}` }}
-      />
-      {plantInfo.images.map(image => {
-        console.log(image.url);
-      })}
+        // source={{ uri: `data:image/gif;base64,${plantImage}` }}
+        source={{ uri: plantImage }}
+      /> */}
+
+      <ImageCarousel key={plantInfo.images.url} images={images} />
 
       <Text>
         {plantInfo.commonName}, {plantInfo.scientificName},Duration:{" "}

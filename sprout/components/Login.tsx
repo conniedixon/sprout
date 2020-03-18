@@ -16,7 +16,7 @@ class Login extends Component<Props> {
     password: "",
     validationError: {
       errorExists: false,
-      message: ""
+      message: "hello"
     }
   };
 
@@ -45,6 +45,7 @@ class Login extends Component<Props> {
 
   render() {
     const { errorExists, message } = this.state.validationError;
+    console.log(message);
     return (
       <View
         style={{ alignItems: "center", height: 300, justifyContent: "center" }}
@@ -59,9 +60,9 @@ class Login extends Component<Props> {
           placeholder="Type your password here"
         />
         <Button title="Sign Up!" onPress={this.signUp} />
-        {this.state.validationError.errorExists && (
-          <ValidationErrorMessage>{message}</ValidationErrorMessage>
-        )}
+        {/* {errorExists && ( */}
+        <ValidationErrorMessage>{message}</ValidationErrorMessage>
+        {/* )} */}
       </View>
     );
   }

@@ -9,7 +9,12 @@ interface Props {
 }
 
 class PlantCard extends Component<Props> {
+  state = {
+    isLoading: false
+  };
+
   render() {
+    if (this.state.isLoading) return 'Loading...';
     const {
       commonName,
       ph,
@@ -24,6 +29,7 @@ class PlantCard extends Component<Props> {
           ph:{ph}, lightLevel:{lightLevel}, minTemp:{minTemp}
         </Text>
         <Text>watering schedule: {wateringSchedule}</Text>
+        <Text>Planted: (date here!)</Text>
         <Button
           title='View full details'
           onPress={() =>
@@ -34,7 +40,9 @@ class PlantCard extends Component<Props> {
         />
       </View>
       //set reminder to water
-      //button to view full plant
+      //delete
+      //edit values and picture
+      //add date and image from BEN
     );
   }
 }

@@ -25,6 +25,9 @@ const ScannedPlants = ({ navigation, route }) => {
         );
       })}
     </View>
+    //sort by date added
+    //delete a scanned plant
+    //add to my wishlist
   );
 };
 

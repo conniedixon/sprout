@@ -75,6 +75,9 @@ class UserPage extends Component<Props> {
       </View>
     );
   }
+  //change my name and password
+  //see my wishlist
+  //
 }
 
 export default UserPage;

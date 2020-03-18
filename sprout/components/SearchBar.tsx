@@ -2,21 +2,17 @@ import React, { Component } from "react";
 import {
   Text,
   View,
-  Button,
   TextInput,
-  ScrollView,
   Keyboard,
   StyleSheet,
-  TouchableOpacity,
-  Platform,
-  RecyclerViewBackedScrollView
+  TouchableOpacity
 } from "react-native";
 
 interface SearchProps {
   onSearch: any;
 }
 
-class SearchBar extends Component {
+class SearchBar extends Component<SearchProps> {
   state = {
     searchText: ""
   };
@@ -26,29 +22,32 @@ class SearchBar extends Component {
     this.setState({ searchText });
   };
 
-  handleSubmit = () => {};
+  handleSubmit = () => {
+    console.log("clickeded");
+    this.props.onSearch(this.state.searchText);
+    this.setState({ searchText: "" });
+  };
 
   render() {
     console.log(this.state.searchText);
     return (
-      <ScrollView>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Search for a plant"
-            maxLength={20}
-            onBlur={Keyboard.dismiss}
-            value={this.state.searchText}
-            onChangeText={this.handleSearchChange}
-          />
-          <TouchableOpacity
-            style={styles.searchButton}
-            onPress={this.handleSubmit}
-          >
-            <Text style={styles.searchButtonText}>Search</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Search for a plant"
+          maxLength={20}
+          onBlur={Keyboard.dismiss}
+          value={this.state.searchText}
+          onChangeText={this.handleSearchChange}
+          ref={this.state.searchText}
+        />
+        <TouchableOpacity
+          style={styles.searchButton}
+          onPress={this.handleSubmit}
+        >
+          <Text style={styles.searchButtonText}>Search</Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 }

@@ -5,7 +5,8 @@ import {
   TextInput,
   Keyboard,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableWithoutFeedback
 } from "react-native";
 
 interface SearchProps {
@@ -31,23 +32,30 @@ class SearchBar extends Component<SearchProps> {
   render() {
     console.log(this.state.searchText);
     return (
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Search for a plant"
-          maxLength={20}
-          onBlur={Keyboard.dismiss}
-          value={this.state.searchText}
-          onChangeText={this.handleSearchChange}
-          ref={this.state.searchText}
-        />
-        <TouchableOpacity
-          style={styles.searchButton}
-          onPress={this.handleSubmit}
-        >
-          <Text style={styles.searchButtonText}>Search</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          console.log("dismissed keyboard");
+          Keyboard.dismiss();
+        }}
+      >
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Search for a plant"
+            maxLength={20}
+            onBlur={Keyboard.dismiss}
+            value={this.state.searchText}
+            onChangeText={this.handleSearchChange}
+            ref={this.state.searchText}
+          />
+          <TouchableOpacity
+            style={styles.searchButton}
+            onPress={this.handleSubmit}
+          >
+            <Text style={styles.searchButtonText}>Search</Text>
+          </TouchableOpacity>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }

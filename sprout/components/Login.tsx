@@ -3,10 +3,14 @@
 import React, { Component } from "react";
 import { Authenticator } from "aws-amplify-react-native";
 import { Auth } from "aws-amplify";
-
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import ValidationErrorMessage from "./ValidationErrorMessage";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import ConfirmEmail from "./ConfirmEmail";
+
+const Stack = createStackNavigator();
 
 interface Props {
   navigation: any;
@@ -16,7 +20,6 @@ interface Props {
 
 class Login extends Component<Props> {
   state = {
-    newUser: false,
     username: "",
     password: "",
     confirmedPassword: "",
@@ -38,12 +41,12 @@ class Login extends Component<Props> {
     this.setState({ confirmedPassword: text });
   };
 
-  handleValidationError = message => {
-    this.setState({ validationError: { errorExists: true, message } });
+  updateCode = ({ nativeEvent: { text } }) => {
+    this.setState({ code: text });
   };
 
-  setNewUser = () => {
-    this.setState({ newUser: true });
+  handleValidationError = message => {
+    this.setState({ validationError: { errorExists: true, message } });
   };
 
   signUp = () => {
@@ -82,27 +85,31 @@ class Login extends Component<Props> {
       });
   };
 
+  params = {
+    signIn: this.signIn,
+    updatePassword: this.updatePassword,
+    updateUsername: this.updateUsername
+  };
+
   render() {
     const { errorExists, message } = this.state.validationError;
-    const { newUser } = this.state;
     return (
       <>
-        {!newUser && (
-          <SignIn
-            signIn={this.signIn}
-            updatePassword={this.updatePassword}
-            updateUsername={this.updateUsername}
-            setNewUser={this.setNewUser}
-          />
-        )}
-        {newUser && (
-          <SignUp
-            signUp={this.signUp}
-            updatePassword={this.updatePassword}
-            updateUsername={this.updateUsername}
-            updateConfirmedPassword={this.updateConfirmedPassword}
-          />
-        )}
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Sign In"
+              component={SignIn}
+              initialParams={this.params}
+            />
+            <Stack.Screen
+              name="Sign Up"
+              component={SignUp}
+              initialParams={this.params}
+            />
+            <Stack.Screen name="Confirm Email" component={ConfirmEmail} />
+          </Stack.Navigator>
+        </NavigationContainer>
         {errorExists && (
           <ValidationErrorMessage>{message}</ValidationErrorMessage>
         )}

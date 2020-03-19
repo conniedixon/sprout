@@ -12,8 +12,6 @@ import MyGarden from "./components/MyGarden";
 import UserPage from "./components/UserPage";
 import PlantPage from "./components/PlantPage";
 import Login from "./components/Login";
-import ConfirmEmail from "./components/ConfirmEmail";
-import SignUp from "./components/SignUp";
 
 const Stack = createStackNavigator();
 
@@ -41,18 +39,7 @@ class App extends React.Component {
           </Stack.Navigator>
         </NavigationContainer>
       );
-    } else
-      return (
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              initialParams={{ authenticateUser: this.authenticateUser }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      );
+    } else return <Login authenticateUser={this.authenticateUser} />;
   }
 }
 

@@ -14,7 +14,6 @@ const Stack = createStackNavigator();
 
 interface Props {
   navigation: any;
-  authenticateUser: any;
   route: any;
 }
 
@@ -23,6 +22,7 @@ class Login extends Component<Props> {
     username: "",
     password: "",
     confirmedPassword: "",
+    code: "",
     validationError: {
       errorExists: false,
       message: ""
@@ -60,7 +60,7 @@ class Login extends Component<Props> {
         }
       })
         .then(({ user }) => {
-          console.log(user);
+          this.props.navigation.navigate("Login", { screen: "Confirm Email" });
         })
         .catch(({ message }) => {
           this.handleValidationError(message);
@@ -77,7 +77,6 @@ class Login extends Component<Props> {
       password
     })
       .then(({ username }) => {
-        console.log(this.props);
         this.props.route.params.authenticateUser(username);
       })
       .catch(({ message }) => {
@@ -85,31 +84,45 @@ class Login extends Component<Props> {
       });
   };
 
+  submitCode = () => {
+    const { username, code } = this.state;
+    Auth.confirmSignUp(username, code).then(data => {
+      console.log(data);
+      this.props.route.params.authenticateUser(username);
+    });
+  };
+
   params = {
     signIn: this.signIn,
     updatePassword: this.updatePassword,
-    updateUsername: this.updateUsername
+    updateUsername: this.updateUsername,
+    updateConfirmedPassword: this.updateConfirmedPassword,
+    signUp: this.signUp,
+    updateCode: this.updateCode,
+    submitCode: this.submitCode
   };
 
   render() {
     const { errorExists, message } = this.state.validationError;
     return (
       <>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Sign In"
-              component={SignIn}
-              initialParams={this.params}
-            />
-            <Stack.Screen
-              name="Sign Up"
-              component={SignUp}
-              initialParams={this.params}
-            />
-            <Stack.Screen name="Confirm Email" component={ConfirmEmail} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Sign In"
+            component={SignIn}
+            initialParams={this.params}
+          />
+          <Stack.Screen
+            name="Sign Up"
+            component={SignUp}
+            initialParams={this.params}
+          />
+          <Stack.Screen
+            name="Confirm Email"
+            component={ConfirmEmail}
+            initialParams={this.params}
+          />
+        </Stack.Navigator>
         {errorExists && (
           <ValidationErrorMessage>{message}</ValidationErrorMessage>
         )}

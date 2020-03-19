@@ -61,6 +61,7 @@ class CameraPage extends Component<Props> {
           })
           .then(() => {
             this.props.navigation.navigate('PlantPage', {
+              isInGarden: false,
               plantInfo: this.state.plantInfo,
               plantImage: this.state.plantImage
             });
@@ -89,6 +90,7 @@ class CameraPage extends Component<Props> {
         })
         .then(() => {
           this.props.navigation.navigate('PlantPage', {
+            isInGarden: false,
             plantInfo: this.state.plantInfo,
             plantImage: this.state.plantImage
           });
@@ -105,7 +107,8 @@ class CameraPage extends Component<Props> {
       })
       .then(() => {
         this.props.navigation.navigate('PlantPage', {
-          plantInfo: this.state.plantInfo
+          plantInfo: this.state.plantInfo,
+          isInGarden: false
         });
       });
   };

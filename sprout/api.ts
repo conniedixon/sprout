@@ -1,6 +1,7 @@
 /** @format */
 import * as utils from './utils/utils';
 import axios from 'axios';
+import * as index from './components/spec/index';
 
 export const getPlantById = (base64: any) => {
   console.log('in the api');
@@ -82,6 +83,7 @@ const getCareInstructions = (plantFamilyId, plantData) => {
         ...careInstructions,
         images: plantImages
       };
+      index.addPlantToScanned(plantInfo, 'conniedixon106@gmail.com');
       return utils.getStats(plantInfo);
     })
     .catch(err => console.log(err));

@@ -12,6 +12,8 @@ import MyGarden from './components/MyGarden';
 import UserPage from './components/UserPage';
 import PlantPage from './components/PlantPage';
 import Login from './components/Login';
+import Wishlist from './components/Wishlist';
+import ScannedPlants from './components/ScannedPlants';
 
 const Stack = createStackNavigator();
 
@@ -36,6 +38,8 @@ class App extends React.Component {
             <Stack.Screen name='MyGarden' component={MyGarden} />
             <Stack.Screen name='UserPage' component={UserPage} />
             <Stack.Screen name='PlantPage' component={PlantPage} />
+            <Stack.Screen name='Wishlist' component={Wishlist} />
+            <Stack.Screen name='ScannedPlants' component={ScannedPlants} />
           </Stack.Navigator>
         </NavigationContainer>
       );

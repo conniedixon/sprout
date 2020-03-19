@@ -13,15 +13,24 @@ import UserPage from "./components/UserPage";
 import PlantPage from "./components/PlantPage";
 import Login from "./components/Login";
 import ConfirmEmail from "./components/ConfirmEmail";
+import SignUp from "./components/SignUp";
 
 const Stack = createStackNavigator();
 
 class App extends React.Component {
   state = {
-    authenticated: false
+    user: {
+      authenticated: false,
+      username: ""
+    }
   };
+
+  authenticateUser = username => {
+    this.setState({ user: { authenticated: true, username } });
+  };
+
   render() {
-    if (this.state.authenticated) {
+    if (this.state.user.authenticated) {
       return (
         <NavigationContainer>
           <Stack.Navigator initialRouteName="CameraPage">
@@ -36,8 +45,11 @@ class App extends React.Component {
       return (
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Login">
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="ConfirmEmail" component={ConfirmEmail} />
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              initialParams={{ authenticateUser: this.authenticateUser }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       );

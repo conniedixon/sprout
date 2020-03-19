@@ -39,7 +39,18 @@ class App extends React.Component {
           </Stack.Navigator>
         </NavigationContainer>
       );
-    } else return <Login authenticateUser={this.authenticateUser} />;
+    } else
+      return (
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Login">
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              initialParams={{ authenticateUser: this.authenticateUser }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      );
   }
 }
 

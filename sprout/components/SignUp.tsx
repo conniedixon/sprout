@@ -6,7 +6,10 @@ const SignUp = ({ route: { params }, navigation }) => {
     <View
       style={{ alignItems: "center", height: 300, justifyContent: "center" }}
     >
-      <TextInput placeholder="Type your email here" onChange={updateUsername} />
+      <TextInput
+        placeholder="Type your email here"
+        onChange={params.updateUsername}
+      />
       <TextInput
         onChange={params.updatePassword}
         secureTextEntry={true}
@@ -18,6 +21,13 @@ const SignUp = ({ route: { params }, navigation }) => {
         placeholder="Confirm password"
       />
       <Button title="Sign Up!" onPress={params.signUp} />
+      <Text
+        onPress={() => {
+          navigation.navigate("Sign In");
+        }}
+      >
+        I already have an account
+      </Text>
     </View>
   );
 };

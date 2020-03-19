@@ -1,17 +1,17 @@
 import React from "react";
 import { TextInput, View, Button, Text } from "react-native";
 
-const ConfirmEmail = ({ username, updateCode, sumbitCode }) => {
+const ConfirmEmail = ({ route: { params }, navigation }) => {
   return (
     <View
       style={{ alignItems: "center", height: 300, justifyContent: "center" }}
     >
-      <Text>A confirmation email has been sent to {username}</Text>
+      <Text>A confirmation email has been sent to your email address</Text>
       <TextInput
         placeholder="Input verification code here"
-        onChange={updateCode}
+        onChange={params.updateCode}
       />
-      <Button title="Submit Code" onPress={submitCode} />
+      <Button title="Submit Code" onPress={params.submitCode} />
     </View>
   );
 };

@@ -11,7 +11,7 @@ const PlantPage = ({ route, navigation }) => {
 
   return (
     <View>
-      <ImageCarousel key={plantInfo.images.url} images={images} />
+      <ImageCarousel images={images} />
 
       <Text>
         {plantInfo.commonName}, {plantInfo.scientificName},Duration:{" "}

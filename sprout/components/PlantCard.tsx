@@ -20,7 +20,8 @@ class PlantCard extends Component<Props> {
       ph,
       lightLevel,
       minTemp,
-      wateringSchedule
+      wateringSchedule,
+      images
     } = this.props.plantInfo;
     return (
       <View>

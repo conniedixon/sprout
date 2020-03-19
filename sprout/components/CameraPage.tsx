@@ -50,10 +50,13 @@ class CameraPage extends Component<Props> {
         this.camera
           .takePictureAsync(options)
           .then(photo => {
+            this.camera.pausePreview();
+            console.log("photo taken");
             this.setState({ plantImage: photo.uri });
             return api.getPlantById(photo.base64);
           })
           .then(plantInfo => {
+            this.camera.resumePreview();
             this.setState({ plantInfo });
           })
           .then(() => {

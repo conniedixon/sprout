@@ -19,7 +19,6 @@ class SearchBar extends Component<SearchProps> {
   };
 
   handleSearchChange = searchText => {
-    console.log(searchText);
     this.setState({ searchText });
   };
 

@@ -1,47 +1,48 @@
-const axios = require("axios");
+/** @format */
+const axios = require('axios');
 
-const getUser = async username => {
+export const getUser = async username => {
   const { data } = await axios.get(
     `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/users/${username}`
   );
   return data;
 };
 
-const deleteuser = username => {
+export const deleteuser = username => {
   axios.delete(
     `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/users/${username}`
   );
 };
 
-const addPlantToGarden = async (newPlant, username) => {
+export const addPlantToGarden = async (newPlant, username) => {
   await axios.patch(
     `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/users/${username}/garden`,
     newPlant
   );
 };
 
-const getUserGarden = async username => {
+export const getUserGarden = async username => {
   const { data } = await axios.get(
     `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/users/${username}/garden`
   );
   return data;
 };
 
-const getUserMedals = async username => {
+export const getUserMedals = async username => {
   const { data } = await axios.get(
     `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/users/${username}/medals`
   );
   return data;
 };
 
-const getUserScannedPlants = async username => {
+export const getUserScannedPlants = async username => {
   const { data } = await axios.get(
     `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/users/${username}/scanned-plants`
   );
   return data;
 };
 
-const getUserWishlist = async username => {
+export const getUserWishlist = async username => {
   const { data } = await axios.get(
     `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/users/${username}/wishlist`
   );

@@ -16,7 +16,7 @@ interface Props {
 
 class CameraPage extends Component<Props> {
   state = {
-    hasPermission: null,
+    hasPermission: true,
     cameraType: Camera.Constants.Type.back,
     plantInfo: {},
     plantImage: ''

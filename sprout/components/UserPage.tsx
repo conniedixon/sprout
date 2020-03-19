@@ -20,11 +20,12 @@ class UserPage extends Component<Props> {
 
   componentDidMount() {
     getUser('conniedixon106@gmail.com').then(userData => {
+      console.log(userData);
       this.setState(() => {
         return {
           username: userData.username,
           userMedals: userData.medals,
-          scannedPlants: userData['scanned plants'],
+          scannedPlants: userData.userScannedPlants,
           wishlist: userData.wishlist
         };
       });

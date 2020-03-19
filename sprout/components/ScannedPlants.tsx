@@ -14,7 +14,8 @@ const ScannedPlants = ({ navigation, route }) => {
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('PlantPage', {
-                plantInfo: plant
+                plantInfo: plant,
+                isInGarden: false
               });
             }}>
             <Image

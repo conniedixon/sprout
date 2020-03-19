@@ -16,7 +16,7 @@ interface Props {
 
 class CameraPage extends Component<Props> {
   state = {
-    hasPermission: true,
+    hasPermission: null,
     cameraType: Camera.Constants.Type.back,
     plantInfo: {},
     plantImage: ''
@@ -111,8 +111,6 @@ class CameraPage extends Component<Props> {
   };
 
   render() {
-    console.log(this.state.plantInfo, this.state.plantImage);
-
     const { hasPermission } = this.state;
 
     if (hasPermission === null || hasPermission === false) {

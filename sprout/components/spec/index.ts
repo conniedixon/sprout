@@ -48,3 +48,10 @@ export const getUserWishlist = async username => {
   );
   return data;
 };
+
+export const addPlantToScanned = async (newPlant, username) => {
+  await axios.patch(
+    `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/users/${username}/scanned-plants`,
+    newPlant
+  );
+};

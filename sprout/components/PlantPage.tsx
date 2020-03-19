@@ -9,20 +9,23 @@ const PlantPage = ({ route, navigation }) => {
   const images = {
     images: [{ url: plantImage }, plantInfo.images]
   };
+  // const AsyncAlert = async () =>
+  //   new Promise((resolve, reject) => {
+  //     Alert.alert(
+  //       'Added to plant garden',
+  //       ' ',
+  //       [
+  //         { text: 'Go to my Garden', onPress: navigation.navigate('MyGarden') },
+  //         { text: 'Scan Again', onPress: navigation.navigate('CameraPage') }
+  //       ],
+  //       { cancelable: false }
+  //     );
+  //   });
 
-  const addToGarden = () => {
-    addPlantToGarden(plantInfo, 'tsting for map stuff').then(this.alerted);
-  };
-
-  const alerted = Alert.alert(
-    'QRCode detected',
-    'Do you like to run the QRCode?',
-    [
-      { text: 'No', onPress: navigation.navigate('CameraPage') },
-      { text: 'Yes', onPress: navigation.navigate('CameraPage') }
-    ],
-    { cancelable: false }
-  );
+  // const addToGarden = () => {
+  //   addPlantToGarden(plantInfo, 'tsting for map stuff');
+  //   // AsyncAlert();
+  // };
 
   return (
     <View>
@@ -35,7 +38,10 @@ const PlantPage = ({ route, navigation }) => {
         {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{' '}
         {plantInfo.wateringSchedule}
       </Text>
-      <Button title='Add to My Garden' onPress={() => this.addToGarden()} />
+      <Button
+        title='Add to My Garden'
+        onPress={() => addPlantToGarden(plantInfo, 'conniedixon106@gmail.com')}
+      />
       <Button
         title='Scan Again'
         onPress={() => navigation.navigate('CameraPage')}

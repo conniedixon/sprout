@@ -1,6 +1,6 @@
 /** @format */
 import * as utils from "./utils/utils";
-const axios = require("axios");
+import axios from "axios";
 
 export const getPlantById = (base64: any) => {
   console.log("in the api");
@@ -8,13 +8,15 @@ export const getPlantById = (base64: any) => {
   let axiosConfig = {
     headers: {
       "Content-Type": "application/json",
-      "Api-Key": "oEk029eOZyIto6lZoAWI4WKqVxPiV4Tt6Dl3JMIGDOXQ3V3Uu9"
+      "Api-Key": "GRMGq6d2ttQjK7pM6JuMYb3pmLLMHySpZqX4fzvLFGc5bcS60r"
     }
   };
   return axios
     .post("https://api.plant.id/v2/identify", plantImg, axiosConfig)
     .then(({ data: { suggestions } }) => {
+      console.log("Hellooo");
       const scientificName = suggestions[0].plant_details.scientific_name;
+      console.log(scientificName);
 
       return getPlantByName(scientificName);
     })
@@ -65,6 +67,7 @@ const getCareInstructions = (plantFamilyId, plantData) => {
     )
     .then(({ data }) => {
       const plantImages = data.images;
+      console.log(plantImages);
       const careInstructions = {
         family: data.family_common_name,
         duration: data.duration,

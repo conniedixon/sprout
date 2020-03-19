@@ -8,8 +8,8 @@ import {
   ImageStore
 } from "react-native";
 
-// const width = 400;
-// const height = 400;
+const { width }: any = Dimensions.get("window");
+const height: number = width * 0.8;
 
 interface ImagesProps {
   images: any;
@@ -17,23 +17,23 @@ interface ImagesProps {
 
 class ImageCarousel extends Component<ImagesProps> {
   render() {
-    // console.log(this.props.images.images.flat(), "<---images");
     const images = this.props.images.images.flat();
-    if (this.props.images && this.props.images.length) {
+    if (images && images.length) {
       return (
         <View>
           <ScrollView
+            style={{ width: "100%" }}
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={false}
           >
-            {images.map(image =>
-              console.log(image)
-              //   <Image
-              //     // style={{ width: 350, height: 300 }}
-              //     source={{ uri: image.url }}
-              //   />
-            )}
+            {images.map(image => (
+              <Image
+                key={image.url}
+                style={styles.image}
+                source={{ uri: image.url }}
+              />
+            ))}
           </ScrollView>
         </View>
       );
@@ -44,12 +44,17 @@ class ImageCarousel extends Component<ImagesProps> {
 
 export default ImageCarousel;
 
-// const styles = StyleSheet.create({
-//   scrollContainer: {
-//     height
-//   },
-//   image: {
-//     width,
-//     height
-//   }
-// });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "flex-start",
+    justifyContent: "flex-start"
+  },
+  scrollContainer: {
+    height
+  },
+  image: {
+    width,
+    height
+  }
+});

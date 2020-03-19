@@ -5,18 +5,13 @@ import ImageCarousel from "./ImageCarousel";
 
 const PlantPage = ({ route, navigation }) => {
   const { plantInfo, plantImage } = route.params;
-  console.log(plantInfo, "<--- in the plant page");
-  // console.log(plantImage, "<---PLANTIMAGE");
-  const images = { images: [{ url: plantImage }, plantInfo.images] };
+  const images = {
+    images: [{ url: plantImage }, plantInfo.images]
+  };
+
   return (
     <View>
-      {/* <Image
-        style={{ width: 350, height: 300 }}
-        // source={{ uri: `data:image/gif;base64,${plantImage}` }}
-        source={{ uri: plantImage }}
-      /> */}
-
-      <ImageCarousel key={plantInfo.images.url} images={images} />
+      <ImageCarousel images={images} />
 
       <Text>
         {plantInfo.commonName}, {plantInfo.scientificName},Duration:{" "}

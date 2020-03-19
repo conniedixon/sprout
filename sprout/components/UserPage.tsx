@@ -73,6 +73,9 @@ class UserPage extends Component<Props> {
               scannedPlants: this.state.scannedPlants
             })
           }></Button>
+        <Button
+          title='Go To My Wishlist'
+          onPress={() => this.props.navigation.navigate('Wishlist')}></Button>
         <MedalsPage medals={this.state.medals} />
       </View>
     );

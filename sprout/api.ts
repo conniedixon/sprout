@@ -25,8 +25,10 @@ export const getPlantById = (base64: any, username) => {
     });
 };
 
+
 function getPlantByName(scientificName, username) {
   console.log('in the second function');
+
   return axios
     .get(
       `https://trefle.io/api/plants?token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09&&scientific_name=${scientificName}`
@@ -38,10 +40,12 @@ function getPlantByName(scientificName, username) {
     .catch(err => {
       console.log(err);
     });
-}
+};
+
 
 function getSingularPlant(plantId, username) {
   console.log('in the third function');
+
   return axios
     .get(
       `https://trefle.io/api/plants/${plantId}?token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09`
@@ -57,10 +61,12 @@ function getSingularPlant(plantId, username) {
     .catch(err => {
       console.log(err);
     });
-}
+};
+
 
 const getCareInstructions = (plantFamilyId, plantData, username) => {
   console.log('in the fourth function');
+
   return axios
     .get(
       `https://trefle.io/api/species/${plantFamilyId}?token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09`
@@ -99,6 +105,31 @@ export const getScientificName = (searchText, username) => {
     .then(({ data }) => {
       const scientificName = data[0].scientific_name;
       return getPlantByName(scientificName, username);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+export const getGardenCentres = (latitude, longitude) => {
+  let axiosConfig = {
+    headers: {
+      Authorization:
+        "Bearer qwLbB1PRQbFpaojg15pFJuAe37sWQn7p0v68E76MkEEdvhPY9pUhCovUnYpfWVKbGgtJaDhmLDMUuAx_HQtB7JWWmNHPrGBx7n0AB0osN5uyvrIlRqrYxBhTPvxzXnYx"
+    }
+  };
+  return axios
+    .get(
+      `https://api.yelp.com/v3/businesses/search?term=GardenCentre&latitude=${latitude}&longitude=${longitude}`,
+      axiosConfig
+    )
+    .then(({ data }) => {
+      data.businesses.map(business => {
+        return {
+          name: business.name,
+          coords: business.coordinates
+        };
+      });
     })
     .catch(err => {
       console.log(err);

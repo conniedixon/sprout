@@ -22,6 +22,7 @@ class ImageCarousel extends Component<ImagesProps> {
       return (
         <View>
           <ScrollView
+            key={images}
             style={{ width: "100%" }}
             horizontal
             pagingEnabled

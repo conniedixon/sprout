@@ -1,8 +1,9 @@
 /** @format */
 
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import PlantCard from '../components/PlantCard';
+import React, { Component } from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
+import PlantCard from "../components/PlantCard";
+import PlantMap from "./PlantMap";
 
 interface Props {
   navigation: any;
@@ -16,6 +17,7 @@ class Wishlist extends Component<Props> {
       return (
         <View>
           <Text>Add Plants to your Wishlist to see them here!</Text>
+          <PlantMap />
         </View>
       );
     } else {
@@ -23,6 +25,7 @@ class Wishlist extends Component<Props> {
         <View>
           <Text>My Wishlist</Text>
           <Text>Tap on a plant to see details and add to your Garden</Text>
+          <PlantMap />
 
           {this.props.wishlist.map(plant => {
             return (

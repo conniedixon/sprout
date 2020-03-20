@@ -1,79 +1,80 @@
 import React from "react";
-import { View, StyleSheet, Text, ScrollView } from "react-native";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
-import MapView from "react-native-maps";
-
-const gardenCentres = [
-  { id: 1, title: "Shop1" },
-  { id: 2, title: "Shop2" },
-  { id: 3, title: "Shop3" },
-  { id: 4, title: "Shop4" }
-];
+import * as api from "../api";
 
 export default class PlantMap extends React.Component {
   state = {
     region: {
-      latitude: 1,
-      longitude: 1,
-      latitudeDelta: 0.0043, // hardcode zoom levels just for example
-      longitudeDelta: 0.0034
+      latitude: 53.79490447820361,
+      longitude: -1.54636837019936,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421
+      //   latitude: 37.321996988,
+      //   longitude: -122.0325472123455,
     },
+    gardenCentres: [],
     errorMessage: ""
   };
 
-  renderHeader() {
-    return (
-      <View style={styles.header}>
-        <Text>Header</Text>
-      </View>
-    );
+  async componentDidMount() {
+    this._getLocation();
   }
 
-  renderParking() {
-    return (
-      <View style={styles.parking}>
-        <Text>parkings</Text>
-      </View>
-    );
-  }
-  renderParkings() {
-    return (
-      <ScrollView horizontal contentContainerStyle={styles.parkings}>
-        {this.renderParking()}
-      </ScrollView>
-    );
-  }
+  _getLocation = async () => {
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== "granted") {
+      console.log("Permission not granted!");
+      this.setState({ errorMessage: "Permission not granted!" });
+    }
+    const userLocation = await Location.getCurrentPositionAsync({});
+    const region = {
+      latitude: userLocation.coords.latitude,
+      longitude: userLocation.coords.longitude,
+      ...this.state.region
+    };
+    await this.setState({ region });
+    this.fetchGardenCentres();
+  };
 
-  //   componentDidMount() {
-  //     this._getLocation();
-  //   }
-  //   _getLocation = async () => {
-  //     const { status } = await Permissions.askAsync(Permissions.LOCATION);
-  //     if (status !== "granted") {
-  //       console.log("Permission not granted!");
-  //       this.setState({ errorMessage: "Permission not granted!" });
-  //     }
-  //     const userLocation = await Location.getCurrentPositionAsync();
-  //     const latitude: any = userLocation.coords.latitude;
-  //     const longitude: any = userLocation.coords.longitude;
-  //     this.setState({ ...this.state.region, latitude, longitude });
-  //   };
+  fetchGardenCentres = () => {
+    return new Promise((resolve, reject) => {
+      resolve(
+        api.getGardenCentres(
+          this.state.region.latitude,
+          this.state.region.longitude
+        )
+      );
+    }).then(info => {
+      this.setState({ gardenCentres: info });
+    });
+  };
+
+  createMarkers() {
+    return this.state.gardenCentres.map(centre => {
+      return <Marker coordinate={centre.coords} title={centre.name} />;
+    });
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        {this.renderHeader()}
         <MapView
-          style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          style={styles.mapStyle}
+          showsUserLocation
+          showsMyLocationButton
           initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421
+            latitude: this.state.region.latitude,
+            longitude: this.state.region.longitude,
+            latitudeDelta: this.state.region.latitudeDelta,
+            longitudeDelta: this.state.region.longitudeDelta
           }}
-        ></MapView>
-        {this.renderParkings()}
+        >
+          {this.createMarkers()}
+        </MapView>
       </View>
     );
   }
@@ -86,26 +87,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  map: {
-    flex: 3,
-    height: 200,
-    width: 200
-  },
-  header: {
-    flex: 0.5,
-    justifyContent: "center"
-  },
-  parkings: {
-    flex: 1,
-    position: "absolute",
-    right: 0,
-    left: 0,
-    bottom: 0
-  },
-  parking: {
-    backgroundColor: "white",
-    borderRadius: 6,
-    padding: 12,
-    marginHorizontal: 24
+  mapStyle: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height
   }
 });

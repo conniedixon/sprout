@@ -6,7 +6,7 @@ import { View, Text, Button } from 'react-native';
 interface Props {
   plantInfo: any;
   navigation: any;
-  isInGarden: Boolean;
+  isInGarden: any;
 }
 
 class PlantCard extends Component<Props> {

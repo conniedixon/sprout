@@ -3,9 +3,10 @@
 import { View, Text, Image, Alert } from 'react-native';
 import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import * as index from '../components/spec/index';
 
 interface Props {
-  medals: any;
+  userMedals: any;
 }
 
 class MedalsPage extends Component<Props> {
@@ -34,7 +35,7 @@ class MedalsPage extends Component<Props> {
       <View>
         <Text>My Medals</Text>
         {this.state.availableMedals.map(medal => {
-          if (this.props.medals.includes(medal)) {
+          if (this.props.userMedals.includes(medal)) {
             return (
               <TouchableOpacity
                 onPress={() => {

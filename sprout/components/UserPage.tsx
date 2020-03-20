@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
 import MedalsPage from './MedalsPage';
+import { getUser } from '../components/spec/index';
 
 interface Props {
   navigation: any;
@@ -11,42 +12,24 @@ interface Props {
 class UserPage extends Component<Props> {
   state = {
     isLoading: false,
-    username: 'Connie',
-    medals: ['scannedOnePlant', 'addedOnePlant'],
-    scannedPlants: [
-      {
-        commonName: 'bottle-palm',
-        difficulty: 'green',
-        duration: 'n/a',
-        family: 'Lily family',
-        lightLevel: 'Medium',
-        minTemp: 15,
-        ph: 6.5,
-        precipitation: 70,
-        scientificName: 'Beaucarnea recurvata',
-        wateringSchedule: 'medium: once a week',
-        plantImage:
-          'https://ih1.redbubble.net/image.756430694.0911/flat,750x,075,f-pad,750x1000,f8f8f8.u4.jpg'
-      },
-      {
-        commonName: 'bottle-palm',
-        difficulty: 'green',
-        duration: 'n/a',
-        family: 'Lily family',
-        lightLevel: 'Medium',
-        minTemp: 15,
-        ph: 6.5,
-        precipitation: 70,
-        scientificName: 'Beaucarnea recurvata',
-        wateringSchedule: 'medium: once a week',
-        plantImage:
-          'https://ih1.redbubble.net/image.756430694.0911/flat,750x,075,f-pad,750x1000,f8f8f8.u4.jpg'
-      }
-    ]
+    username: '',
+    userMedals: [],
+    scannedPlants: [],
+    wishlist: []
   };
 
   componentDidMount() {
-    //make a call to AWS to get account details...
+    getUser('conniedixon106@gmail.com').then(userData => {
+      console.log(userData);
+      this.setState(() => {
+        return {
+          username: userData.username,
+          userMedals: userData.medals,
+          scannedPlants: userData.userScannedPlants,
+          wishlist: userData.wishlist
+        };
+      });
+    });
   }
 
   speciesCount = () => {
@@ -73,7 +56,14 @@ class UserPage extends Component<Props> {
               scannedPlants: this.state.scannedPlants
             })
           }></Button>
-        <MedalsPage medals={this.state.medals} />
+        <Button
+          title='Go To My Wishlist'
+          onPress={() =>
+            this.props.navigation.navigate('Wishlist', {
+              wishlist: this.state.wishlist
+            })
+          }></Button>
+        <MedalsPage userMedals={this.state.userMedals} />
       </View>
     );
   }

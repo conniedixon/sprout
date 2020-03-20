@@ -6,36 +6,36 @@ import PlantCard from '../components/PlantCard';
 
 interface Props {
   navigation: any;
+  wishlist: any;
 }
 
 class Wishlist extends Component<Props> {
-  state = {
-    wishedPlants: [
-      {
-        commonName: 'bottle-palm',
-        difficulty: 'green',
-        duration: 'n/a',
-        family: 'Lily family',
-        lightLevel: 'Medium',
-        minTemp: 15,
-        ph: 6.5,
-        precipitation: 70,
-        scientificName: 'Beaucarnea recurvata',
-        wateringSchedule: 'medium: once a week'
-      }
-    ]
-  };
+  state = {};
   render() {
-    return (
-      <View>
-        <Text>MyGarden</Text>
-        {this.state.wishedPlants.map(plant => {
-          return (
-            <PlantCard plantInfo={plant} navigation={this.props.navigation} />
-          );
-        })}
-      </View>
-    );
+    if (!this.props.wishlist) {
+      return (
+        <View>
+          <Text>Add Plants to your Wishlist to see them here!</Text>
+        </View>
+      );
+    } else {
+      return (
+        <View>
+          <Text>My Wishlist</Text>
+          <Text>Tap on a plant to see details and add to your Garden</Text>
+
+          {this.props.wishlist.map(plant => {
+            return (
+              <PlantCard
+                plantInfo={plant}
+                navigation={this.props.navigation}
+                isInGarden={false}
+              />
+            );
+          })}
+        </View>
+      );
+    }
   }
 }
 

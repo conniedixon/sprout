@@ -1,9 +1,11 @@
 /** @format */
 
+
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import PlantCard from '../components/PlantCard';
 import { getUserWishlist } from '../components/spec/index';
+import PlantMap from "./PlantMap";
 
 interface Props {
   navigation: any;
@@ -20,17 +22,13 @@ class Wishlist extends Component<Props> {
     });
   }
   render() {
-    // if (this.state.wishlist.length === 0) {
-    //   return (
-    //     <View>
-    //       <Text>Add Plants to your Wishlist to see them here!</Text>
-    //     </View>
-    //   );
-    // } else {
+
     return (
       <View>
         <Text>My Wishlist</Text>
-        <Text>Tap on a plant to see details and add to your Garden</Text>
+        <Text>Tap on a plant to see details and add to your Garden</Text> 
+        <PlantMap />
+
 
         {this.state.wishlist.map(plant => {
           return (

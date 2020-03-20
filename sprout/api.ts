@@ -3,7 +3,8 @@ import * as utils from './utils/utils';
 import axios from 'axios';
 import * as index from './components/spec/index';
 
-export const getPlantById = (base64: any) => {
+export const getPlantById = (base64: any, username) => {
+  console.log(username, '<-- username!');
   console.log('in the api');
   const plantImg = { images: [base64] };
   let axiosConfig = {
@@ -17,14 +18,14 @@ export const getPlantById = (base64: any) => {
     .then(({ data: { suggestions } }) => {
       const scientificName = suggestions[0].plant_details.scientific_name;
 
-      return getPlantByName(scientificName);
+      return getPlantByName(scientificName, username);
     })
     .catch(err => {
       console.log(err);
     });
 };
 
-function getPlantByName(scientificName) {
+function getPlantByName(scientificName, username) {
   console.log('in the second function');
   return axios
     .get(
@@ -32,14 +33,14 @@ function getPlantByName(scientificName) {
     )
     .then(({ data }) => {
       const trefleId = data[0].id;
-      return getSingularPlant(trefleId);
+      return getSingularPlant(trefleId, username);
     })
     .catch(err => {
       console.log(err);
     });
 }
 
-function getSingularPlant(plantId) {
+function getSingularPlant(plantId, username) {
   console.log('in the third function');
   return axios
     .get(
@@ -51,14 +52,14 @@ function getSingularPlant(plantId) {
         commonName: data.main_species.common_name,
         scientificName: data.scientific_name
       };
-      return getCareInstructions(plantFamilyId, plantData);
+      return getCareInstructions(plantFamilyId, plantData, username);
     })
     .catch(err => {
       console.log(err);
     });
 }
 
-const getCareInstructions = (plantFamilyId, plantData) => {
+const getCareInstructions = (plantFamilyId, plantData, username) => {
   console.log('in the fourth function');
   return axios
     .get(
@@ -83,13 +84,13 @@ const getCareInstructions = (plantFamilyId, plantData) => {
         ...careInstructions,
         images: plantImages
       };
-      index.addPlantToScanned(plantInfo, 'conniedixon106@gmail.com');
+      index.addPlantToScanned(plantInfo, username);
       return utils.getStats(plantInfo);
     })
     .catch(err => console.log(err));
 };
 
-export const getScientificName = searchText => {
+export const getScientificName = (searchText, username) => {
   console.log('getting the scientific_name by querying the common name');
   return axios
     .get(
@@ -97,7 +98,7 @@ export const getScientificName = searchText => {
     )
     .then(({ data }) => {
       const scientificName = data[0].scientific_name;
-      return getPlantByName(scientificName);
+      return getPlantByName(scientificName, username);
     })
     .catch(err => {
       console.log(err);

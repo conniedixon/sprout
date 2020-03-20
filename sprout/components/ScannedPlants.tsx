@@ -8,6 +8,7 @@ const ScannedPlants = ({ navigation, route }) => {
   const { scannedPlants } = route.params;
   return (
     <View>
+      {console.log(scannedPlants)}
       <Text>My Scanned Plants:</Text>
       {scannedPlants.map(plant => {
         return (
@@ -20,7 +21,7 @@ const ScannedPlants = ({ navigation, route }) => {
             }}>
             <Image
               style={{ width: 100, height: 100 }}
-              source={{ uri: plant.plantImage }}
+              source={{ uri: scannedPlants.images[0] }}
             />
           </TouchableOpacity>
         );

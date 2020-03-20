@@ -20,7 +20,7 @@ const Stack = createStackNavigator();
 class App extends React.Component {
   state = {
     user: {
-      authenticated: true,
+      authenticated: false,
       username: ''
     }
   };
@@ -34,12 +34,36 @@ class App extends React.Component {
       return (
         <NavigationContainer>
           <Stack.Navigator initialRouteName='CameraPage'>
-            <Stack.Screen name='CameraPage' component={CameraPage} />
-            <Stack.Screen name='MyGarden' component={MyGarden} />
-            <Stack.Screen name='UserPage' component={UserPage} />
-            <Stack.Screen name='PlantPage' component={PlantPage} />
-            <Stack.Screen name='Wishlist' component={Wishlist} />
-            <Stack.Screen name='ScannedPlants' component={ScannedPlants} />
+            <Stack.Screen
+              name='CameraPage'
+              component={CameraPage}
+              initialParams={{ username: this.state.user.username }}
+            />
+            <Stack.Screen
+              name='MyGarden'
+              component={MyGarden}
+              initialParams={{ username: this.state.user.username }}
+            />
+            <Stack.Screen
+              name='UserPage'
+              component={UserPage}
+              initialParams={{ username: this.state.user.username }}
+            />
+            <Stack.Screen
+              name='PlantPage'
+              component={PlantPage}
+              initialParams={{ username: this.state.user.username }}
+            />
+            <Stack.Screen
+              name='Wishlist'
+              component={Wishlist}
+              initialParams={{ username: this.state.user.username }}
+            />
+            <Stack.Screen
+              name='ScannedPlants'
+              component={ScannedPlants}
+              initialParams={{ username: this.state.user.username }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       );

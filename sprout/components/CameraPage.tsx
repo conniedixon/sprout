@@ -12,6 +12,7 @@ import SearchBar from './SearchBar';
 
 interface Props {
   navigation: any;
+  route: any;
 }
 
 class CameraPage extends Component<Props> {
@@ -53,7 +54,10 @@ class CameraPage extends Component<Props> {
             this.camera.pausePreview();
             console.log('photo taken');
             this.setState({ plantImage: photo.uri });
-            return api.getPlantById(photo.base64);
+            return api.getPlantById(
+              photo.base64,
+              this.props.route.params.username
+            );
           })
           .then(plantInfo => {
             this.camera.resumePreview();
@@ -82,7 +86,10 @@ class CameraPage extends Component<Props> {
         .then(result => {
           if (result.cancelled === false) {
             this.setState({ plantImage: result.uri });
-            return api.getPlantById(result.base64);
+            return api.getPlantById(
+              result.base64,
+              this.props.route.params.username
+            );
           }
         })
         .then(plantInfo => {
@@ -100,7 +107,12 @@ class CameraPage extends Component<Props> {
 
   onSearch = searchText => {
     return new Promise((resolve, reject) => {
-      resolve(api.getScientificName(searchText.toLowerCase()));
+      resolve(
+        api.getScientificName(
+          searchText.toLowerCase(),
+          this.props.route.params.username
+        )
+      );
     })
       .then(plantInfo => {
         this.setState({ plantInfo });

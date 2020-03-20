@@ -15,8 +15,7 @@ class UserPage extends Component<Props> {
     isLoading: false,
     username: '',
     userMedals: [],
-    scannedPlants: [],
-    wishlist: []
+    scannedPlants: []
   };
 
   componentDidMount() {
@@ -59,7 +58,7 @@ class UserPage extends Component<Props> {
           title='Go To My Wishlist'
           onPress={() =>
             this.props.navigation.navigate('Wishlist', {
-              wishlist: this.state.wishlist
+              username: this.state.username
             })
           }></Button>
         <MedalsPage userMedals={this.state.userMedals} />

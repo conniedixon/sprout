@@ -25,7 +25,7 @@ export const getPlantById = (base64: any) => {
     });
 };
 
-function getPlantByName(scientificName) {
+export const getPlantByName = scientificName => {
   console.log("in the second function");
   return axios
     .get(
@@ -38,9 +38,9 @@ function getPlantByName(scientificName) {
     .catch(err => {
       console.log(err);
     });
-}
+};
 
-function getSingularPlant(plantId) {
+export const getSingularPlant = plantId => {
   console.log("in the third function");
   return axios
     .get(
@@ -57,9 +57,9 @@ function getSingularPlant(plantId) {
     .catch(err => {
       console.log(err);
     });
-}
+};
 
-const getCareInstructions = (plantFamilyId, plantData) => {
+export const getCareInstructions = (plantFamilyId, plantData) => {
   console.log("in the fourth function");
   return axios
     .get(
@@ -99,6 +99,31 @@ export const getScientificName = searchText => {
     .then(({ data }) => {
       const scientificName = data[0].scientific_name;
       return getPlantByName(scientificName);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+export const getGardenCentres = (latitude, longitude) => {
+  let axiosConfig = {
+    headers: {
+      Authorization:
+        "Bearer qwLbB1PRQbFpaojg15pFJuAe37sWQn7p0v68E76MkEEdvhPY9pUhCovUnYpfWVKbGgtJaDhmLDMUuAx_HQtB7JWWmNHPrGBx7n0AB0osN5uyvrIlRqrYxBhTPvxzXnYx"
+    }
+  };
+  return axios
+    .get(
+      `https://api.yelp.com/v3/businesses/search?term=GardenCentre&latitude=${latitude}&longitude=${longitude}`,
+      axiosConfig
+    )
+    .then(({ data }) => {
+      data.businesses.map(business => {
+        return {
+          name: business.name,
+          coords: business.coordinates
+        };
+      });
     })
     .catch(err => {
       console.log(err);

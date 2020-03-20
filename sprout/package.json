@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest"
+    "test": "jest *.test.ts --watch"
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.6",
@@ -25,21 +25,26 @@
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native-app-intro-slider": "^3.0.0",
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "~1.5.0",
     "react-native-reanimated": "~1.4.0",
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",
     "react-native-search-box": "0.0.19",
+    "react-native-svg": "9.13.3",
     "react-native-vector-icons": "^6.6.0",
     "react-native-web": "~0.11.7",
-    "react-navigation": "^4.2.2"
+    "react-navigation": "^4.2.2",
+    "react-native-maps": "0.26.1",
+    "expo-location": "~8.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0",
     "@types/react": "~16.9.0",
     "@types/react-native": "~0.60.23",
-    "@babel/core": "^7.0.0",
     "babel-preset-expo": "~8.0.0",
+    "superagent": "^5.2.2",
     "typescript": "~3.6.3"
   },
   "private": true

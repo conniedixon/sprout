@@ -1,10 +1,15 @@
 /** @format */
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { View, Text } from "react-native";
 
 class Login extends Component {
   render() {
-    return <div></div>;
+    return (
+      <View>
+        <Text>Login</Text>
+      </View>
+    );
   }
 }
 

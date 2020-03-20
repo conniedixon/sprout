@@ -1,7 +1,9 @@
-import "react-native-gesture-handler";
-import * as React from "react";
-import Amplify, { Auth } from "aws-amplify";
-import awsConfiguration from "./aws-config";
+
+
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import Amplify, { Auth } from 'aws-amplify';
+import awsConfiguration from './aws-config';
 Amplify.configure(awsConfiguration);
 import { StyleSheet, Text, View, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";

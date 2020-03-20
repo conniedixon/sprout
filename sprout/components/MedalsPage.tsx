@@ -3,7 +3,6 @@
 import { View, Text, Image, Alert } from 'react-native';
 import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import * as index from '../components/spec/index';
 
 interface Props {
   userMedals: any;

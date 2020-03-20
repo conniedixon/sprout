@@ -55,3 +55,17 @@ export const addPlantToScanned = async (newPlant, username) => {
     newPlant
   );
 };
+
+export const addToWishlist = async (newPlant, username) => {
+  await axios.patch(
+    `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/users/${username}/wishlist`,
+    newPlant
+  );
+};
+
+export const addMedal = async (newMedal, username) => {
+  await axios.patch(
+    `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/users/${username}/medals`,
+    newMedal
+  );
+};

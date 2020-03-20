@@ -1,6 +1,7 @@
+/** @format */
 
 import React, { Component } from 'react';
-import { View, Text } from "react-native";
+import { View, Text } from 'react-native';
 import { Authenticator } from 'aws-amplify-react-native';
 import { Auth } from 'aws-amplify';
 import { NavigationContainer } from '@react-navigation/native';
@@ -101,9 +102,7 @@ class Login extends Component<Props> {
     submitCode: this.submitCode
   };
 
-
   render() {
-
     const { errorExists, message } = this.state.validationError;
     return (
       <>
@@ -128,7 +127,6 @@ class Login extends Component<Props> {
           <ValidationErrorMessage>{message}</ValidationErrorMessage>
         )}
       </>
-
     );
   }
 }

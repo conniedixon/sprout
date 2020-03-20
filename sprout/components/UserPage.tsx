@@ -7,6 +7,7 @@ import { getUser } from '../components/spec/index';
 
 interface Props {
   navigation: any;
+  route: any;
 }
 
 class UserPage extends Component<Props> {
@@ -14,21 +15,17 @@ class UserPage extends Component<Props> {
     isLoading: false,
     username: '',
     userMedals: [],
-    scannedPlants: [],
-    wishlist: []
+    scannedPlants: []
   };
 
   componentDidMount() {
-    getUser('conniedixon106@gmail.com').then(userData => {
-      console.log(userData);
-      this.setState(() => {
-        return {
-          username: userData.username,
-          userMedals: userData.medals,
-          scannedPlants: userData.userScannedPlants,
-          wishlist: userData.wishlist
-        };
-      });
+    getUser(this.props.route.params.username).then(userData => {
+      this.setState(() => ({
+        username: userData.email,
+        userMedals: userData.medals,
+        scannedPlants: userData.userScannedPlants,
+        wishlist: userData.wishlist
+      }));
     });
   }
 
@@ -53,14 +50,15 @@ class UserPage extends Component<Props> {
           title='See Scanned Plants'
           onPress={() =>
             this.props.navigation.navigate('ScannedPlants', {
-              scannedPlants: this.state.scannedPlants
+              scannedPlants: this.state.scannedPlants,
+              username: this.state.username
             })
           }></Button>
         <Button
           title='Go To My Wishlist'
           onPress={() =>
             this.props.navigation.navigate('Wishlist', {
-              wishlist: this.state.wishlist
+              username: this.state.username
             })
           }></Button>
         <MedalsPage userMedals={this.state.userMedals} />

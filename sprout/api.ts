@@ -4,8 +4,9 @@ import axios from "axios";
 import * as index from "./components/spec/index";
 
 export const getPlantById = (base64: any, username) => {
-  console.log(username, "<-- username!");
-  console.log("in the api");
+
+  console.log('in the api');
+
   const plantImg = { images: [base64] };
   let axiosConfig = {
     headers: {

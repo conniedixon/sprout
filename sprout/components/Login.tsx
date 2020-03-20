@@ -1,14 +1,15 @@
 /** @format */
 
-import React, { Component } from "react";
-import { Authenticator } from "aws-amplify-react-native";
-import { Auth } from "aws-amplify";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import ValidationErrorMessage from "./ValidationErrorMessage";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
-import ConfirmEmail from "./ConfirmEmail";
+import React, { Component } from 'react';
+import { View, Text } from 'react-native';
+import { Authenticator } from 'aws-amplify-react-native';
+import { Auth } from 'aws-amplify';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import ValidationErrorMessage from './ValidationErrorMessage';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
+import ConfirmEmail from './ConfirmEmail';
 
 const Stack = createStackNavigator();
 
@@ -19,13 +20,13 @@ interface Props {
 
 class Login extends Component<Props> {
   state = {
-    username: "",
-    password: "",
-    confirmedPassword: "",
-    code: "",
+    username: '',
+    password: '',
+    confirmedPassword: '',
+    code: '',
     validationError: {
       errorExists: false,
-      message: ""
+      message: ''
     }
   };
 
@@ -60,13 +61,13 @@ class Login extends Component<Props> {
         }
       })
         .then(({ user }) => {
-          this.props.navigation.navigate("Login", { screen: "Confirm Email" });
+          this.props.navigation.navigate('Login', { screen: 'Confirm Email' });
         })
         .catch(({ message }) => {
           this.handleValidationError(message);
         });
     } else {
-      this.handleValidationError("Passwords do not match");
+      this.handleValidationError('Passwords do not match');
     }
   };
 
@@ -87,7 +88,6 @@ class Login extends Component<Props> {
   submitCode = () => {
     const { username, code } = this.state;
     Auth.confirmSignUp(username, code).then(data => {
-      console.log(data);
       this.props.route.params.authenticateUser(username);
     });
   };
@@ -108,17 +108,17 @@ class Login extends Component<Props> {
       <>
         <Stack.Navigator>
           <Stack.Screen
-            name="Sign In"
+            name='Sign In'
             component={SignIn}
             initialParams={this.params}
           />
           <Stack.Screen
-            name="Sign Up"
+            name='Sign Up'
             component={SignUp}
             initialParams={this.params}
           />
           <Stack.Screen
-            name="Confirm Email"
+            name='Confirm Email'
             component={ConfirmEmail}
             initialParams={this.params}
           />

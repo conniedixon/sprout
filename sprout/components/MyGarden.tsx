@@ -1,45 +1,61 @@
 /** @format */
 
-import React, { Component } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
-import PlantCard from "../components/PlantCard";
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import PlantCard from '../components/PlantCard';
+import { getUserGarden } from '../components/spec/index';
 
 interface Props {
   navigation: any;
+  route: any;
 }
 
 class MyGarden extends Component<Props> {
   state = {
-    myPlants: [
-      {
-        commonName: "bottle-palm",
-        difficulty: "green",
-        duration: "n/a",
-        family: "Lily family",
-        lightLevel: "Medium",
-        minTemp: 15,
-        ph: 6.5,
-        precipitation: 70,
-        scientificName: "Beaucarnea recurvata",
-        wateringSchedule: "medium: once a week",
-        images: [
-          "https://library.kissclipart.com/20180901/yaw/kissclipart-medal-png-grey-clipart-gold-medal-silver-medal-a2ba2dbfeb239b76.jpg"
-        ]
-      }
-    ],
-    myScannedPlants: []
+    isInGarden: true,
+    myPlants: [],
+    isLoading: true,
+    isEmpty: true
   };
+
+  componentDidMount() {
+    getUserGarden(this.props.route.params.username).then(garden => {
+      if (garden.length === 0) this.setState({ isLoading: false });
+      else
+        this.setState({ myPlants: garden, isLoading: false, isEmpty: false });
+    });
+  }
+
   render() {
-    return (
-      <View>
-        <Text>MyGarden</Text>
-        {this.state.myPlants.map(plant => {
-          return (
-            <PlantCard plantInfo={plant} navigation={this.props.navigation} />
-          );
-        })}
-      </View>
-    );
+    if (this.state.isLoading)
+      return (
+        <View>
+          <Text>'Loading...'</Text>
+        </View>
+      );
+    if (this.state.isEmpty)
+      return (
+        <View>
+          <Text>
+            "Start scanning and adding plants to your garden to see them here!"
+          </Text>
+        </View>
+      );
+    else
+      return (
+        <View>
+          <Text>MyGarden</Text>
+          {this.state.myPlants.map(plant => {
+            return (
+              <PlantCard
+                plantInfo={plant}
+                navigation={this.props.navigation}
+                isInGarden={true}
+              />
+            );
+          })}
+        </View>
+      );
   }
 }
 

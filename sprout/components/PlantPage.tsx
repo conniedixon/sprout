@@ -6,7 +6,7 @@ import ImageCarousel from './ImageCarousel';
 import { addPlantToGarden } from './spec/index';
 
 const PlantPage = ({ route, navigation }) => {
-  const { plantInfo, plantImage, isInGarden } = route.params;
+  const { plantInfo, plantImage, isInGarden, username } = route.params;
   const images = {
     images: [{ url: plantImage }, plantInfo.images]
   };
@@ -44,7 +44,7 @@ const PlantPage = ({ route, navigation }) => {
         <Button
           title='Add to My Garden'
           onPress={() =>
-            addPlantToGarden(plantInfo, 'conniedixon106@gmail.com').then(() => {
+            addPlantToGarden(plantInfo, username).then(() => {
               AsyncAlert();
             })
           }

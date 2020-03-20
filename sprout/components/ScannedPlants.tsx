@@ -5,10 +5,9 @@ import { View, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ScannedPlants = ({ navigation, route }) => {
-  const { scannedPlants } = route.params;
+  const { scannedPlants, username } = route.params;
   return (
     <View>
-      {console.log(scannedPlants)}
       <Text>My Scanned Plants:</Text>
       {scannedPlants.map(plant => {
         return (
@@ -16,12 +15,13 @@ const ScannedPlants = ({ navigation, route }) => {
             onPress={() => {
               navigation.navigate('PlantPage', {
                 plantInfo: plant,
-                isInGarden: false
+                isInGarden: false,
+                username: username
               });
             }}>
             <Image
               style={{ width: 100, height: 100 }}
-              source={{ uri: scannedPlants.images[0] }}
+              source={{ uri: plant.images[0].url }}
             />
           </TouchableOpacity>
         );

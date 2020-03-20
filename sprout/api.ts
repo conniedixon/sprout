@@ -4,7 +4,6 @@ import axios from 'axios';
 import * as index from './components/spec/index';
 
 export const getPlantById = (base64: any, username) => {
-  console.log(username, '<-- username!');
   console.log('in the api');
   const plantImg = { images: [base64] };
   let axiosConfig = {
@@ -25,7 +24,6 @@ export const getPlantById = (base64: any, username) => {
     });
 };
 
-
 function getPlantByName(scientificName, username) {
   console.log('in the second function');
 
@@ -40,8 +38,7 @@ function getPlantByName(scientificName, username) {
     .catch(err => {
       console.log(err);
     });
-};
-
+}
 
 function getSingularPlant(plantId, username) {
   console.log('in the third function');
@@ -61,8 +58,7 @@ function getSingularPlant(plantId, username) {
     .catch(err => {
       console.log(err);
     });
-};
-
+}
 
 const getCareInstructions = (plantFamilyId, plantData, username) => {
   console.log('in the fourth function');
@@ -115,7 +111,7 @@ export const getGardenCentres = (latitude, longitude) => {
   let axiosConfig = {
     headers: {
       Authorization:
-        "Bearer qwLbB1PRQbFpaojg15pFJuAe37sWQn7p0v68E76MkEEdvhPY9pUhCovUnYpfWVKbGgtJaDhmLDMUuAx_HQtB7JWWmNHPrGBx7n0AB0osN5uyvrIlRqrYxBhTPvxzXnYx"
+        'Bearer qwLbB1PRQbFpaojg15pFJuAe37sWQn7p0v68E76MkEEdvhPY9pUhCovUnYpfWVKbGgtJaDhmLDMUuAx_HQtB7JWWmNHPrGBx7n0AB0osN5uyvrIlRqrYxBhTPvxzXnYx'
     }
   };
   return axios

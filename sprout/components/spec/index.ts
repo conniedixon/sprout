@@ -67,3 +67,13 @@ export const postImageToS3 = async (image, username, timestamp) => {
       axios.put(data, image);
     });
 };
+
+export const getImageFromS3 = async (username, timestamp) => {
+  console.log(timestamp, username);
+  const { data } = await axios.get(
+    `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/s3/${username}/${timestamp}`
+  );
+  return axios.get(data).then(({ data }) => {
+    return data["Body"];
+  });
+};

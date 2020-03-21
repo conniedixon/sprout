@@ -1,31 +1,36 @@
 /** @format */
-import * as utils from './utils/utils';
-import axios from 'axios';
-import * as index from './components/spec/index';
+import * as utils from "../utils/utils";
+import axios from "axios";
+import * as index from "../components/spec/index";
+const { Buffer } = require("buffer");
 
 export const getPlantById = (base64: any, username) => {
-  console.log('in the api');
+  console.log("in the api");
   const plantImg = { images: [base64] };
+
   let axiosConfig = {
     headers: {
-      'Content-Type': 'application/json',
-      'Api-Key': 'GRMGq6d2ttQjK7pM6JuMYb3pmLLMHySpZqX4fzvLFGc5bcS60r'
+      "Content-Type": "application/json",
+      "Api-Key": "GRMGq6d2ttQjK7pM6JuMYb3pmLLMHySpZqX4fzvLFGc5bcS60r"
     }
   };
+  console.log(base64.length);
+  const timestamp = Date.now();
+  index.postImageToS3(base64, username, timestamp);
   return axios
-    .post('https://api.plant.id/v2/identify', plantImg, axiosConfig)
+    .post("https://api.plant.id/v2/identify", plantImg, axiosConfig)
     .then(({ data: { suggestions } }) => {
       const scientificName = suggestions[0].plant_details.scientific_name;
 
-      return getPlantByName(scientificName, username);
+      return getPlantByName(scientificName, username, timestamp);
     })
     .catch(err => {
       console.log(err);
     });
 };
 
-function getPlantByName(scientificName, username) {
-  console.log('in the second function');
+function getPlantByName(scientificName, username, timestamp) {
+  console.log("in the second function");
 
   return axios
     .get(
@@ -33,15 +38,15 @@ function getPlantByName(scientificName, username) {
     )
     .then(({ data }) => {
       const trefleId = data[0].id;
-      return getSingularPlant(trefleId, username);
+      return getSingularPlant(trefleId, username, timestamp);
     })
     .catch(err => {
       console.log(err);
     });
 }
 
-function getSingularPlant(plantId, username) {
-  console.log('in the third function');
+function getSingularPlant(plantId, username, timestamp) {
+  console.log("in the third function");
 
   return axios
     .get(
@@ -51,7 +56,9 @@ function getSingularPlant(plantId, username) {
       const plantFamilyId = data.main_species.sources[0].species_id;
       const plantData = {
         commonName: data.main_species.common_name,
-        scientificName: data.scientific_name
+        scientificName: data.scientific_name,
+        datePlanted: timestamp,
+        imagePath: `${username}/${timestamp}.jpeg`
       };
       return getCareInstructions(plantFamilyId, plantData, username);
     })
@@ -61,7 +68,7 @@ function getSingularPlant(plantId, username) {
 }
 
 const getCareInstructions = (plantFamilyId, plantData, username) => {
-  console.log('in the fourth function');
+  console.log("in the fourth function");
 
   return axios
     .get(
@@ -93,7 +100,7 @@ const getCareInstructions = (plantFamilyId, plantData, username) => {
 };
 
 export const getScientificName = (searchText, username) => {
-  console.log('getting the scientific_name by querying the common name');
+  console.log("getting the scientific_name by querying the common name");
   return axios
     .get(
       `https://trefle.io/api/plants?common_name=${searchText}&&token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09`
@@ -111,7 +118,7 @@ export const getGardenCentres = (latitude, longitude) => {
   let axiosConfig = {
     headers: {
       Authorization:
-        'Bearer qwLbB1PRQbFpaojg15pFJuAe37sWQn7p0v68E76MkEEdvhPY9pUhCovUnYpfWVKbGgtJaDhmLDMUuAx_HQtB7JWWmNHPrGBx7n0AB0osN5uyvrIlRqrYxBhTPvxzXnYx'
+        "Bearer qwLbB1PRQbFpaojg15pFJuAe37sWQn7p0v68E76MkEEdvhPY9pUhCovUnYpfWVKbGgtJaDhmLDMUuAx_HQtB7JWWmNHPrGBx7n0AB0osN5uyvrIlRqrYxBhTPvxzXnYx"
     }
   };
   return axios

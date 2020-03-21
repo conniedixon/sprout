@@ -199,3 +199,41 @@ describe("/users", () => {
     });
   });
 });
+
+describe("/s3", (username, times) => {
+  describe("/username", () => {
+    describe("GET", () => {
+      it("Success - status 200 & returns presigned s3 URL", () => {
+        return axios
+          .get(
+            `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/s3/${username}`
+          )
+          .then(({ data }) => {
+            expect(data).to.be.a("string");
+          });
+      });
+    });
+    describe("/timestamp", () => {
+      it("Success - status 200 & returns presigned s3 URL", () => {
+        return axios
+          .get(
+            `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/s3/${username}/${timestamp}`
+          )
+          .then(({ data }) => {
+            expect(data).to.be.a("string");
+          });
+      });
+      it("Success - get request to returned URL returns an image in base64", () => {
+        return axios
+          .get(
+            `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/s3/${username}/${timestamp}`
+          )
+          .then(({ data }) => {
+            return axios.get(data).then(({ data }) => {
+              expect(data["Body"]).to.be.a("string");
+            });
+          });
+      });
+    });
+  });
+});

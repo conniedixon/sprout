@@ -7,7 +7,7 @@ import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import * as api from "../api";
+import * as api from "../api/api";
 import SearchBar from "./SearchBar";
 
 interface Props {
@@ -48,25 +48,27 @@ class CameraPage extends Component<Props> {
       console.log("Picture Taken!");
       if (this.camera) {
         const options = { base64: true };
-        this.camera.takePictureAsync(options).then(photo => {
-          // this.camera.pausePreview();
-          // this.setState({ plantImage: photo.uri });
-          return api.getPlantById(
-            photo.base64,
-            this.props.route.params.username
-          );
-        });
-        // .then(plantInfo => {
-        //   this.camera.resumePreview();
-        //   this.setState({ plantInfo });
-        // })
-        // .then(() => {
-        //   this.props.navigation.navigate("PlantPage", {
-        //     isInGarden: false,
-        //     plantInfo: this.state.plantInfo,
-        //     plantImage: this.state.plantImage
-        //   });
-        // });
+        this.camera
+          .takePictureAsync(options)
+          .then(photo => {
+            this.camera.pausePreview();
+            this.setState({ plantImage: photo.uri });
+            return api.getPlantById(
+              photo.base64,
+              this.props.route.params.username
+            );
+          })
+          .then(plantInfo => {
+            this.camera.resumePreview();
+            this.setState({ plantInfo });
+          })
+          .then(() => {
+            this.props.navigation.navigate("PlantPage", {
+              isInGarden: false,
+              plantInfo: this.state.plantInfo,
+              plantImage: this.state.plantImage
+            });
+          });
       }
     });
   }

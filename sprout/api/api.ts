@@ -29,7 +29,7 @@ export const getPlantById = (base64: any, username) => {
     });
 };
 
-function getPlantByName(scientificName, username, timestamp) {
+function getPlantByName(scientificName, username, timestamp = null) {
   console.log("in the second function");
 
   return axios

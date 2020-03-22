@@ -7,7 +7,7 @@ const SignIn = ({ route: { params }, navigation }) => {
       style={{ alignItems: "center", height: 300, justifyContent: "center" }}
     >
       <TextInput
-        placeholder="Type your email here"
+        placeholder="Type your username here"
         onChange={params.updateUsername}
       />
       <TextInput

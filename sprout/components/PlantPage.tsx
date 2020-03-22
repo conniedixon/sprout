@@ -5,6 +5,7 @@ import { Text, View, Button, Image, Alert } from "react-native";
 import ImageCarousel from "./ImageCarousel";
 import { addPlantToGarden, addToWishlist } from "./spec/index";
 import { getUserScannedPlants } from "../components/spec/index";
+import { addNotifications } from "./spec/notifications";
 
 const PlantPage = ({ route, navigation }) => {
   const { plantInfo, plantImage, isInGarden, username } = route.params;
@@ -137,6 +138,12 @@ const PlantPage = ({ route, navigation }) => {
           {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{" "}
           {plantInfo.wateringSchedule}
         </Text>
+        <Button
+          title="Set Reminder"
+          onPress={() => {
+            addNotifications(plantInfo);
+          }}
+        />
       </View>
     );
   }

@@ -13,7 +13,7 @@ export const getStats = ({
   phMin,
   waterMax,
   waterMin,
-  images
+  images,
 }) => {
   // console.log(images[0], "<--fro utils page");
   let difficultyRating = 0;
@@ -41,16 +41,23 @@ export const getStats = ({
       : Number(precAverage.toFixed(1));
   }
 
-  let wateringSchedule;
-  if (precipitation < 25) wateringSchedule = "low: once a month";
-  else if (precipitation > 25 && precipitation < 60)
-    wateringSchedule = "medium-low: twice a month";
-  else if (precipitation > 60 && precipitation < 95)
-    wateringSchedule = "medium: once a week";
-  else if (precipitation > 95 && precipitation < 130)
+  let wateringSchedule, wateringInterval;
+  if (precipitation < 25) {
+    wateringSchedule = "Once a month";
+    wateringInterval = 1;
+  } else if (precipitation > 25 && precipitation < 60) {
+    wateringSchedule = "Twice a month";
+    wateringInterval = 2;
+  } else if (precipitation > 60 && precipitation < 95) {
+    wateringSchedule = "Once a week";
+    wateringInterval = 4;
+  } else if (precipitation > 95 && precipitation < 130) {
     wateringSchedule = "medium-high: once every five days";
-  else if (precipitation > 130)
-    wateringSchedule = "high: once every one to three days";
+    wateringInterval = 6;
+  } else if (precipitation > 130) {
+    wateringSchedule = "Once every one to three days";
+    wateringInterval = 10;
+  }
 
   if (phMax) {
     const phAverage = (phMax + phMin) / 2;
@@ -80,6 +87,7 @@ export const getStats = ({
     lightLevel: lightLevel,
     minTemp: tempMin,
     difficulty: trafficLight,
-    wateringSchedule: wateringSchedule
+    wateringSchedule: wateringSchedule,
+    wateringInterval: wateringInterval,
   };
 };

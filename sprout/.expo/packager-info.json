@@ -1,11 +1,9 @@
 {
   "devToolsPort": 19002,
-
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 95958,
-  "expoServerNgrokUrl": "https://bc-xtv.anisapatel.sprout.exp.direct",
-  "packagerNgrokUrl": "https://packager.bc-xtv.anisapatel.sprout.exp.direct",
-  "ngrokPid": 95976
-
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

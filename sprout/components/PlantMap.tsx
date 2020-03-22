@@ -11,12 +11,12 @@ export default class PlantMap extends React.Component {
       latitude: 53.79490447820361,
       longitude: -1.54636837019936,
       latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421
+      longitudeDelta: 0.0421,
       //   latitude: 37.321996988,
       //   longitude: -122.0325472123455,
     },
     gardenCentres: [],
-    errorMessage: ""
+    errorMessage: "",
   };
 
   async componentDidMount() {
@@ -33,7 +33,7 @@ export default class PlantMap extends React.Component {
     const region = {
       latitude: userLocation.coords.latitude,
       longitude: userLocation.coords.longitude,
-      ...this.state.region
+      ...this.state.region,
     };
     await this.setState({ region });
     this.fetchGardenCentres();
@@ -70,7 +70,7 @@ export default class PlantMap extends React.Component {
             latitude: this.state.region.latitude,
             longitude: this.state.region.longitude,
             latitudeDelta: this.state.region.latitudeDelta,
-            longitudeDelta: this.state.region.longitudeDelta
+            longitudeDelta: this.state.region.longitudeDelta,
           }}
         >
           {this.createMarkers()}
@@ -85,10 +85,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   mapStyle: {
     width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height
-  }
+    height: Dimensions.get("window").height,
+  },
 });

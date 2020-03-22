@@ -51,5 +51,10 @@
     "superagent": "^5.2.2",
     "typescript": "~3.6.3"
   },
-  "private": true
+  "private": true,
+  "prettier": {
+    "trailingComma": "es5",
+    "semi": true,
+    "singleQuote": false
+  }
 }

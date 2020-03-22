@@ -1,9 +1,9 @@
 /** @format */
 
-import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
-import MedalsPage from './MedalsPage';
-import { getUser } from '../components/spec/index';
+import React, { Component } from "react";
+import { View, Text, Button } from "react-native";
+import MedalsPage from "./MedalsPage";
+import { getUser } from "../components/spec/index";
 
 interface Props {
   navigation: any;
@@ -13,9 +13,9 @@ interface Props {
 class UserPage extends Component<Props> {
   state = {
     isLoading: false,
-    username: '',
+    username: "",
     userMedals: [],
-    scannedPlants: []
+    scannedPlants: [],
   };
 
   componentDidMount() {
@@ -24,7 +24,7 @@ class UserPage extends Component<Props> {
         username: userData.email,
         userMedals: userData.medals,
         scannedPlants: userData.userScannedPlants,
-        wishlist: userData.wishlist
+        wishlist: userData.wishlist,
       }));
     });
   }
@@ -40,27 +40,29 @@ class UserPage extends Component<Props> {
   };
 
   render() {
-    if (this.state.isLoading) return 'Loading...';
+    if (this.state.isLoading) return "Loading...";
     return (
       <View>
         <Text>Welcome {this.state.username} </Text>
         <Text>Total Plants Scanned: {this.state.scannedPlants.length}</Text>
         <Text>Total Species Scanned: {this.speciesCount()}</Text>
         <Button
-          title='See Scanned Plants'
+          title="See Scanned Plants"
           onPress={() =>
-            this.props.navigation.navigate('ScannedPlants', {
+            this.props.navigation.navigate("ScannedPlants", {
               scannedPlants: this.state.scannedPlants,
-              username: this.state.username
+              username: this.state.username,
             })
-          }></Button>
+          }
+        ></Button>
         <Button
-          title='Go To My Wishlist'
+          title="Go To My Wishlist"
           onPress={() =>
-            this.props.navigation.navigate('Wishlist', {
-              username: this.state.username
+            this.props.navigation.navigate("Wishlist", {
+              username: this.state.username,
             })
-          }></Button>
+          }
+        ></Button>
         <MedalsPage userMedals={this.state.userMedals} />
       </View>
     );

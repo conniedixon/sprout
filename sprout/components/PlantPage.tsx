@@ -1,39 +1,39 @@
 /** @format */
 
-import React, { Component } from 'react';
-import { Text, View, Button, Image, Alert } from 'react-native';
-import ImageCarousel from './ImageCarousel';
-import { addPlantToGarden, addToWishlist } from './spec/index';
-import { getUserScannedPlants } from '../components/spec/index';
+import React, { Component } from "react";
+import { Text, View, Button, Image, Alert } from "react-native";
+import ImageCarousel from "./ImageCarousel";
+import { addPlantToGarden, addToWishlist } from "./spec/index";
+import { getUserScannedPlants } from "../components/spec/index";
 
 const PlantPage = ({ route, navigation }) => {
   const { plantInfo, plantImage, isInGarden, username } = route.params;
   const images = {
-    images: [{ url: plantImage }, plantInfo.images]
+    images: [{ url: plantImage }, plantInfo.images],
   };
 
   const MedalsAlert = () => {
-    const award = 'award';
-    const description = 'description';
-    console.log('hello');
+    const award = "award";
+    const description = "description";
+    console.log("hello");
     getUserScannedPlants(this.props.route.params.username).then(plants => {
-      console.log(plants, '<-- plants!');
+      console.log(plants, "<-- plants!");
       this.setState({ scannedPlantCount: plants.length });
     });
     new Promise((resolve, reject) => {
       Alert.alert(
-        'Medal achieved!',
+        "Medal achieved!",
         `You've just been awarded the ${award} medal for ${description}`,
         [
           {
-            text: 'Go to Medals Page',
-            onPress: () => navigation.navigate('MedalsPage')
+            text: "Go to Medals Page",
+            onPress: () => navigation.navigate("MedalsPage"),
           },
           {
-            text: 'Continue',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel'
-          }
+            text: "Continue",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+          },
         ]
       );
     });
@@ -53,38 +53,39 @@ const PlantPage = ({ route, navigation }) => {
     new Promise((resolve, reject) => {
       Alert.alert(
         `Added to ${slug}`,
-        ' ',
+        " ",
         [
           {
             text: `Go to ${location}`,
-            onPress: () => navigation.navigate(location, { username: username })
+            onPress: () =>
+              navigation.navigate(location, { username: username }),
           },
           {
-            text: 'Scan Another Plant',
-            onPress: () => navigation.navigate('CameraPage')
-          }
+            text: "Scan Another Plant",
+            onPress: () => navigation.navigate("CameraPage"),
+          },
         ],
         { cancelable: false }
       );
     });
 
-  if (isInGarden === 'isInWishlist') {
+  if (isInGarden === "isInWishlist") {
     return (
       <View>
         {MedalsAlert()}
         <ImageCarousel images={images} />
         <Text>
-          {plantInfo.commonName}, {plantInfo.scientificName},Duration:{' '}
-          {plantInfo.duration}, Family: {plantInfo.family}, Difficulty:{' '}
-          {plantInfo.difficulty}, Care Instructions: Light level:{' '}
-          {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{' '}
+          {plantInfo.commonName}, {plantInfo.scientificName},Duration:{" "}
+          {plantInfo.duration}, Family: {plantInfo.family}, Difficulty:{" "}
+          {plantInfo.difficulty}, Care Instructions: Light level:{" "}
+          {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{" "}
           {plantInfo.wateringSchedule}
         </Text>
         <Button
-          title='Add to My Garden'
+          title="Add to My Garden"
           onPress={() =>
             addPlantToGarden(plantInfo, username).then(() => {
-              AsyncAlert('your Garden', 'MyGarden');
+              AsyncAlert("your Garden", "MyGarden");
             })
           }
         />
@@ -96,31 +97,31 @@ const PlantPage = ({ route, navigation }) => {
         <ImageCarousel images={images} />
 
         <Text>
-          {plantInfo.commonName}, {plantInfo.scientificName},Duration:{' '}
-          {plantInfo.duration}, Family: {plantInfo.family}, Difficulty:{' '}
-          {plantInfo.difficulty}, Care Instructions: Light level:{' '}
-          {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{' '}
+          {plantInfo.commonName}, {plantInfo.scientificName},Duration:{" "}
+          {plantInfo.duration}, Family: {plantInfo.family}, Difficulty:{" "}
+          {plantInfo.difficulty}, Care Instructions: Light level:{" "}
+          {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{" "}
           {plantInfo.wateringSchedule}
         </Text>
         <Button
-          title='Add to My Garden'
+          title="Add to My Garden"
           onPress={() =>
             addPlantToGarden(plantInfo, username).then(() => {
-              AsyncAlert('your Garden', 'MyGarden');
+              AsyncAlert("your Garden", "MyGarden");
             })
           }
         />
         <Button
-          title='Add to My Wishlist'
+          title="Add to My Wishlist"
           onPress={() =>
             addToWishlist(plantInfo, username).then(() => {
-              AsyncAlert('your Wishlist', 'Wishlist');
+              AsyncAlert("your Wishlist", "Wishlist");
             })
           }
         />
         <Button
-          title='Scan Another Plant'
-          onPress={() => navigation.navigate('CameraPage')}
+          title="Scan Another Plant"
+          onPress={() => navigation.navigate("CameraPage")}
         />
       </View>
     );
@@ -130,10 +131,10 @@ const PlantPage = ({ route, navigation }) => {
         <ImageCarousel images={images} />
 
         <Text>
-          {plantInfo.commonName}, {plantInfo.scientificName},Duration:{' '}
-          {plantInfo.duration}, Family: {plantInfo.family}, Difficulty:{' '}
-          {plantInfo.difficulty}, Care Instructions: Light level:{' '}
-          {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{' '}
+          {plantInfo.commonName}, {plantInfo.scientificName},Duration:{" "}
+          {plantInfo.duration}, Family: {plantInfo.family}, Difficulty:{" "}
+          {plantInfo.difficulty}, Care Instructions: Light level:{" "}
+          {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{" "}
           {plantInfo.wateringSchedule}
         </Text>
       </View>

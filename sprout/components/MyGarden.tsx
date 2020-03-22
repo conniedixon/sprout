@@ -1,9 +1,9 @@
 /** @format */
 
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import PlantCard from '../components/PlantCard';
-import { getUserGarden } from '../components/spec/index';
+import React, { Component } from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
+import PlantCard from "../components/PlantCard";
+import { getUserGarden } from "../components/spec/index";
 
 interface Props {
   navigation: any;
@@ -15,7 +15,7 @@ class MyGarden extends Component<Props> {
     isInGarden: true,
     myPlants: [],
     isLoading: true,
-    isEmpty: true
+    isEmpty: true,
   };
 
   componentDidMount() {

@@ -1,7 +1,7 @@
 /** @format */
 
-import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import React, { Component } from "react";
+import { View, Text, Button } from "react-native";
 
 interface Props {
   plantInfo: any;
@@ -11,18 +11,18 @@ interface Props {
 
 class PlantCard extends Component<Props> {
   state = {
-    isLoading: false
+    isLoading: false,
   };
 
   render() {
-    if (this.state.isLoading) return 'Loading...';
+    if (this.state.isLoading) return "Loading...";
     const {
       commonName,
       ph,
       lightLevel,
       minTemp,
       wateringSchedule,
-      images
+      images,
     } = this.props.plantInfo;
     return (
       <View>
@@ -33,11 +33,11 @@ class PlantCard extends Component<Props> {
         <Text>watering schedule: {wateringSchedule}</Text>
         <Text>Planted: (date here!)</Text>
         <Button
-          title='View full details'
+          title="View full details"
           onPress={() =>
-            this.props.navigation.navigate('PlantPage', {
+            this.props.navigation.navigate("PlantPage", {
               plantInfo: this.props.plantInfo,
-              isInGarden: this.props.isInGarden
+              isInGarden: this.props.isInGarden,
             })
           }
         />

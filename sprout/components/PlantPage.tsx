@@ -32,53 +32,63 @@ class PlantPage extends Component<Props> {
     isInGarden: "",
     username: "",
     scannedPlantCount: 0,
+    alert: true,
   };
 
   componentDidMount() {
+    let scannedPlantCount: 0;
+    getUserScannedPlants(this.props.route.params.username).then(plants => {
+      plants.map(plant => {
+        scannedPlantCount++;
+      });
+    });
     const {
       plantInfo,
       plantImage,
       isInGarden,
       username,
     } = this.props.route.params;
-    this.setState({ plantInfo, plantImage, isInGarden, username });
+    this.setState({
+      plantInfo,
+      plantImage,
+      isInGarden,
+      username,
+      scannedPlantCount,
+    });
+  }
+
+  componentDidUpdate(prevState) {
+    if (prevState.scannedPlantCount !== this.state.scannedPlantCount) {
+      this.setState({ alert: true });
+    }
   }
 
   images = {
     images: [{ url: this.state.plantImage }, this.state.plantInfo.images],
   };
 
-  // console.log(images);
-
-  // var filtered = array.filter(function (el) {
-  //   return el != null;
-  // });
-
   MedalsAlert = () => {
     const award = "award";
     const description = "description";
-    getUserScannedPlants(this.state.username).then(plants => {
-      console.log(plants, "<-- plants!");
-      this.setState({ scannedPlantCount: plants.length });
-    });
-
-    new Promise((resolve, reject) => {
-      Alert.alert(
-        "Medal achieved!",
-        `You've just been awarded the ${award} medal for ${description}`,
-        [
-          {
-            text: "Go to Medals Page",
-            onPress: () => this.props.navigation.navigate("MedalsPage"),
-          },
-          {
-            text: "Continue",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel",
-          },
-        ]
-      );
-    });
+    if (this.state.alert) {
+      new Promise((resolve, reject) => {
+        Alert.alert(
+          "Medal achieved!",
+          `You've just been awarded the ${award} medal for ${description}`,
+          [
+            {
+              text: "Go to Medals Page",
+              onPress: () => this.props.navigation.navigate("MedalsPage"),
+            },
+            {
+              text: "Continue",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel",
+            },
+          ]
+        );
+      });
+    }
   };
 
   AsyncAlert = async (slug, location) =>

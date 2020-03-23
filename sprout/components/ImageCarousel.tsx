@@ -5,7 +5,7 @@ import {
   Image,
   StyleSheet,
   Dimensions,
-  ImageStore
+  ImageStore,
 } from "react-native";
 
 const { width }: any = Dimensions.get("window");
@@ -52,13 +52,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "flex-start",
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
   },
   scrollContainer: {
-    height
+    height,
   },
   image: {
     width,
-    height
-  }
+    height,
+  },
 });

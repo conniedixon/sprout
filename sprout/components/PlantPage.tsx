@@ -6,11 +6,13 @@ import ImageCarousel from "./ImageCarousel";
 import { addPlantToGarden, addToWishlist } from "./spec/index";
 import { getUserScannedPlants } from "../components/spec/index";
 
+import { addNotifications } from "./spec/notifications";
+
 const PlantPage = ({ route, navigation }) => {
   const { plantInfo, plantImage, isInGarden, username } = route.params;
 
   const images = {
-    images: [{ url: plantImage }, plantInfo.images]
+    images: [{ url: plantImage }, plantInfo.images],
   };
 
   console.log(images);
@@ -33,13 +35,15 @@ const PlantPage = ({ route, navigation }) => {
         [
           {
             text: "Go to Medals Page",
-            onPress: () => navigation.navigate("MedalsPage")
+            onPress: () => navigation.navigate("MedalsPage"),
+
           },
           {
             text: "Continue",
             onPress: () => console.log("Cancel Pressed"),
-            style: "cancel"
-          }
+            style: "cancel",
+          },
+
         ]
       );
     });
@@ -63,12 +67,13 @@ const PlantPage = ({ route, navigation }) => {
         [
           {
             text: `Go to ${location}`,
-            onPress: () => navigation.navigate(location, { username: username })
+            onPress: () =>
+              navigation.navigate(location, { username: username }),
           },
           {
             text: "Scan Another Plant",
-            onPress: () => navigation.navigate("CameraPage")
-          }
+            onPress: () => navigation.navigate("CameraPage"),
+          },
         ],
         { cancelable: false }
       );
@@ -142,6 +147,12 @@ const PlantPage = ({ route, navigation }) => {
           {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{" "}
           {plantInfo.wateringSchedule}
         </Text>
+        <Button
+          title="Set Reminder"
+          onPress={() => {
+            addNotifications(plantInfo);
+          }}
+        />
       </View>
     );
   }

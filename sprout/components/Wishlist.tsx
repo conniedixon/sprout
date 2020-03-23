@@ -1,7 +1,9 @@
 /** @format */
 
 import React, { Component } from "react";
+
 import { StyleSheet, Text, View, Button, Linking } from "react-native";
+
 import PlantCard from "../components/PlantCard";
 import { getUserWishlist } from "../components/spec/index";
 import PlantMap from "./PlantMap";
@@ -13,7 +15,7 @@ interface Props {
 
 class Wishlist extends Component<Props> {
   state = {
-    wishlist: []
+    wishlist: [],
   };
   componentDidMount() {
     getUserWishlist(this.props.route.params.username).then(wishlist => {

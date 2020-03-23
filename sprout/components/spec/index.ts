@@ -1,5 +1,5 @@
 /** @format */
-const axios = require('axios');
+const axios = require("axios");
 
 export const getUser = async username => {
   const { data } = await axios.get(
@@ -68,4 +68,25 @@ export const addMedal = async (newMedal, username) => {
     `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/users/${username}/medals`,
     newMedal
   );
+};
+
+export const postImageToS3 = async (image, username, timestamp) => {
+  const requestBody = { timestamp };
+  await axios
+    .put(
+      `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/s3/${username}`,
+      requestBody
+    )
+    .then(({ data }) => {
+      axios.put(data, image);
+    });
+};
+
+export const getImageFromS3 = async (username, timestamp) => {
+  const { data } = await axios.get(
+    `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/s3/${username}/${timestamp}`
+  );
+  return axios.get(data).then(({ data }) => {
+    return data;
+  });
 };

@@ -52,7 +52,7 @@ export const getStats = ({
     wateringSchedule = "Once a week";
     wateringInterval = 4;
   } else if (precipitation > 95 && precipitation < 130) {
-    wateringSchedule = "medium-high: once every five days";
+    wateringSchedule = "Once every five days";
     wateringInterval = 6;
   } else if (precipitation > 130) {
     wateringSchedule = "Once every one to three days";

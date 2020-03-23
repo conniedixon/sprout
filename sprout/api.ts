@@ -4,29 +4,32 @@ import axios from "axios";
 import * as index from "./components/spec/index";
 
 export const getPlantById = (base64: any, username) => {
-
-  console.log('in the api');
+  console.log("in the api");
 
   const plantImg = { images: [base64] };
   let axiosConfig = {
     headers: {
       "Content-Type": "application/json",
-      "Api-Key": "GRMGq6d2ttQjK7pM6JuMYb3pmLLMHySpZqX4fzvLFGc5bcS60r"
-    }
+      "Api-Key": "GRMGq6d2ttQjK7pM6JuMYb3pmLLMHySpZqX4fzvLFGc5bcS60r",
+    },
   };
+  const timestamp = Date.now();
+
+  index.postImageToS3(base64, username, timestamp);
+
   return axios
     .post("https://api.plant.id/v2/identify", plantImg, axiosConfig)
     .then(({ data: { suggestions } }) => {
       const scientificName = suggestions[0].plant_details.scientific_name;
 
-      return getPlantByName(scientificName, username);
+      return getPlantByName(scientificName, username, timestamp);
     })
     .catch(err => {
       console.log(err);
     });
 };
 
-function getPlantByName(scientificName, username) {
+function getPlantByName(scientificName, username, timestamp) {
   console.log("in the second function");
 
   return axios
@@ -35,14 +38,14 @@ function getPlantByName(scientificName, username) {
     )
     .then(({ data }) => {
       const trefleId = data[0].id;
-      return getSingularPlant(trefleId, username);
+      return getSingularPlant(trefleId, username, timestamp);
     })
     .catch(err => {
       console.log(err);
     });
 }
 
-function getSingularPlant(plantId, username) {
+function getSingularPlant(plantId, username, timestamp) {
   console.log("in the third function");
 
   return axios
@@ -53,7 +56,8 @@ function getSingularPlant(plantId, username) {
       const plantFamilyId = data.main_species.sources[0].species_id;
       const plantData = {
         commonName: data.main_species.common_name,
-        scientificName: data.scientific_name
+        scientificName: data.scientific_name,
+        timestamp: timestamp,
       };
       return getCareInstructions(plantFamilyId, plantData, username);
     })
@@ -81,12 +85,12 @@ const getCareInstructions = (plantFamilyId, plantData, username) => {
         phMax: data.growth.ph_maximum,
         phMin: data.growth.ph_minimum,
         waterMax: data.growth.precipitation_maximum.cm,
-        waterMin: data.growth.precipitation_minimum.cm
+        waterMin: data.growth.precipitation_minimum.cm,
       };
       const plantInfo = {
         ...plantData,
         ...careInstructions,
-        images: plantImages
+        images: plantImages,
       };
       index.addPlantToScanned(plantInfo, username);
       return utils.getStats(plantInfo);
@@ -120,8 +124,8 @@ export const getGardenCentres = (latitude, longitude) => {
           name: centre.name,
           coords: {
             latitude: centre.geometry.location.lat,
-            longitude: centre.geometry.location.lng
-          }
+            longitude: centre.geometry.location.lng,
+          },
         };
       });
       return result;

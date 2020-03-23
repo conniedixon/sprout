@@ -12,6 +12,7 @@ const PlantPage = ({ route, navigation }) => {
   const images = {
     images: [{ url: plantImage }, plantInfo.images]
   };
+
   console.log(images);
 
   // var filtered = array.filter(function (el) {

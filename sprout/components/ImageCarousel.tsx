@@ -19,7 +19,7 @@ class ImageCarousel extends Component<ImagesProps> {
   render() {
     const images = this.props.images.images.flat();
     const filteredImages = images.filter(image => {
-      return image.url != "";
+      return image.url !== "";
     });
     if (filteredImages && filteredImages.length) {
       return (

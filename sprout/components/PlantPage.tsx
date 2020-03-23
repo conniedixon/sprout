@@ -5,18 +5,25 @@ import { Text, View, Button, Image, Alert } from "react-native";
 import ImageCarousel from "./ImageCarousel";
 import { addPlantToGarden, addToWishlist } from "./spec/index";
 import { getUserScannedPlants } from "../components/spec/index";
+
 import { addNotifications } from "./spec/notifications";
 
 const PlantPage = ({ route, navigation }) => {
   const { plantInfo, plantImage, isInGarden, username } = route.params;
+
   const images = {
     images: [{ url: plantImage }, plantInfo.images],
   };
 
+  console.log(images);
+
+  // var filtered = array.filter(function (el) {
+  //   return el != null;
+  // });
+
   const MedalsAlert = () => {
     const award = "award";
     const description = "description";
-    console.log("hello");
     getUserScannedPlants(this.props.route.params.username).then(plants => {
       console.log(plants, "<-- plants!");
       this.setState({ scannedPlantCount: plants.length });
@@ -29,12 +36,14 @@ const PlantPage = ({ route, navigation }) => {
           {
             text: "Go to Medals Page",
             onPress: () => navigation.navigate("MedalsPage"),
+
           },
           {
             text: "Continue",
             onPress: () => console.log("Cancel Pressed"),
             style: "cancel",
           },
+
         ]
       );
     });

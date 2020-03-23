@@ -1,2 +1,4 @@
 /node_modules
-aws-config.js
+config.ts
+aws-config.ts
+

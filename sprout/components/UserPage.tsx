@@ -21,7 +21,7 @@ class UserPage extends Component<Props> {
   componentDidMount() {
     getUser(this.props.route.params.username).then(userData => {
       this.setState(() => ({
-        username: userData.email,
+        username: userData.username,
         userMedals: userData.medals,
         scannedPlants: userData.userScannedPlants,
         wishlist: userData.wishlist,

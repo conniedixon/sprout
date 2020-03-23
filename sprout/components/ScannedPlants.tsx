@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 import { View, Text, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { getImageForPlant } from "../utils/utils";
+import { getImagesForPlants } from "../utils/utils";
 
 interface Props {
   navigation: any;
@@ -19,13 +19,11 @@ class ScannedPlants extends Component<Props> {
 
   componentDidMount() {
     const { scannedPlants, username } = this.props.route.params;
-    return Promise.all(
-      scannedPlants.map(plant => {
-        return getImageForPlant(username, plant);
+    return getImagesForPlants(username, scannedPlants)
+      .then(plants => {
+        this.setState({ scannedPlants: plants, isLoading: false });
       })
-    ).then(plants => {
-      this.setState({ scannedPlants: plants });
-    });
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -43,7 +41,7 @@ class ScannedPlants extends Component<Props> {
                     plantInfo: plant,
                     isInGarden: false,
                     username: username,
-                    plantImage: plant.images[0].url, //needs to be changed
+                    plantImage: plant.uri, //needs to be changed
                   });
                 }}
                 key={plant.timestamp}

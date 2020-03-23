@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import PlantCard from "../components/PlantCard";
 import { getUserGarden } from "../components/spec/index";
+import { getImagesForPlants } from "../utils/utils";
 
 interface Props {
   navigation: any;
@@ -19,10 +20,13 @@ class MyGarden extends Component<Props> {
   };
 
   componentDidMount() {
-    getUserGarden(this.props.route.params.username).then(garden => {
-      if (garden.length === 0) this.setState({ isLoading: false });
-      else
-        this.setState({ myPlants: garden, isLoading: false, isEmpty: false });
+    const { username } = this.props.route.params;
+    getUserGarden(username).then(garden => {
+      getImagesForPlants(username, garden).then(plants => {
+        if (garden.length === 0) this.setState({ isLoading: false });
+        else
+          this.setState({ myPlants: plants, isLoading: false, isEmpty: false });
+      });
     });
   }
 

@@ -2,8 +2,6 @@ import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import { Alert } from "react-native";
 
-// const PUSH_ENDPOINT = "https://your-server.com/users/push-token";
-
 export const addNotifications = async plantInfo => {
   const { wateringSchedule, wateringInterval, commonName } = plantInfo;
   const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);

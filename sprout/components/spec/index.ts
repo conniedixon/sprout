@@ -87,6 +87,6 @@ export const getImageFromS3 = async (username, timestamp) => {
     `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/s3/${username}/${timestamp}`
   );
   return axios.get(data).then(({ data }) => {
-    return data["Body"];
+    return data;
   });
 };

@@ -1,5 +1,7 @@
 /** @format */
 
+import { getImageFromS3 } from "../components/spec/index";
+
 export const getStats = ({
   commonName,
   scientificName,
@@ -90,4 +92,14 @@ export const getStats = ({
     wateringSchedule: wateringSchedule,
     wateringInterval: wateringInterval,
   };
+};
+
+export const getImageForPlant = (username, plant) => {
+  return getImageFromS3(username, plant.timestamp).then(base64 => {
+    const uri = `data:image/jpg;base64,${base64}`;
+    return {
+      ...plant,
+      uri,
+    };
+  });
 };

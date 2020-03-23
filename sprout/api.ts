@@ -4,6 +4,7 @@ import axios from "axios";
 import * as index from "./components/spec/index";
 import { config } from "./config";
 
+
 export const getPlantById = (base64: any, username) => {
   console.log("in the api");
 
@@ -11,6 +12,7 @@ export const getPlantById = (base64: any, username) => {
   let axiosConfig = {
     headers: {
       "Content-Type": "application/json",
+
       "Api-Key": config.PLANT_ID_API_KEY,
     },
   };
@@ -35,7 +37,9 @@ function getPlantByName(scientificName, username, timestamp = null) {
 
   return axios
     .get(
+
       `https://trefle.io/api/plants?token=${config.TREFLE_API_KEY}&&scientific_name=${scientificName}`
+
     )
     .then(({ data }) => {
       const trefleId = data[0].id;
@@ -103,6 +107,7 @@ export const getScientificName = (searchText, username) => {
   console.log("getting the scientific_name by querying the common name");
   return axios
     .get(
+
       `https://trefle.io/api/plants?common_name=${searchText}&&token=${config.TREFLE_API_KEY}`
     )
     .then(({ data }) => {
@@ -117,12 +122,15 @@ export const getScientificName = (searchText, username) => {
 export const getGardenCentres = (latitude, longitude) => {
   return axios
     .get(
-      `https://maps.googleapis.com/maps/api/place/textsearch/json?location=${latitude},${longitude}&radius=1500&query=garden+centre&key=AIzaSyA9K8YxZLSP--zFTlrapPKadpF8bdNW5kc`
+      `https://maps.googleapis.com/maps/api/place/textsearch/json?location=${latitude},${longitude}&radius=1500&query=garden+centre&key=${config.GOOGLE_API_KEY}`
     )
     .then(({ data }) => {
       const result = data.results.map(centre => {
         return {
           name: centre.name,
+          address: centre.formatted_address,
+          opening_hours: centre.open_now,
+          user_ratings: centre.user_ratings_total,
           coords: {
             latitude: centre.geometry.location.lat,
             longitude: centre.geometry.location.lng,

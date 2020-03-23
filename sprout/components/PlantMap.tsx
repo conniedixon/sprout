@@ -1,9 +1,18 @@
 import React from "react";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Linking,
+  Button,
+  TouchableHighlight
+} from "react-native";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
 import * as api from "../api";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default class PlantMap extends React.Component {
   state = {
@@ -54,9 +63,35 @@ export default class PlantMap extends React.Component {
 
   createMarkers() {
     return this.state.gardenCentres.map(centre => {
-      return <Marker coordinate={centre.coords} title={centre.name} />;
+      return (
+        <Marker coordinate={centre.coords} title={centre.name}>
+          <Callout>
+            <View>
+              <Text>{centre.name}</Text>
+              <Text
+                onPress={() =>
+                  Linking.openURL(
+                    `http://maps.google.com/maps?daddr=${centre.coords.latitude},${centre.coords.longitude}`
+                  )
+                }
+              >
+                <Text>{centre.address}</Text>
+              </Text>
+              <Text>
+                Open now • {centre.opening_hours === true ? "Open" : "Closed"}
+              </Text>
+              <Text>Ratings • {centre.user_ratings}</Text>
+            </View>
+          </Callout>
+        </Marker>
+      );
     });
   }
+
+  getDirections = (coords): any => {
+    console.log("helllooo");
+    console.log(coords);
+  };
 
   render() {
     return (
@@ -92,3 +127,12 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height,
   },
 });
+
+{
+  /* <MapView.Callout>
+<View>
+    <Text>Lat:{marker.latitude}, Lon:{marker.longitude}</Text>
+    <Text>Magnitude:{marker.magnitude}, Depth:{marker.depthkm}</Text>
+</View>
+</MapView.Callout> */
+}

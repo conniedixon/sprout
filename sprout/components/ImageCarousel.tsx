@@ -18,7 +18,10 @@ interface ImagesProps {
 class ImageCarousel extends Component<ImagesProps> {
   render() {
     const images = this.props.images.images.flat();
-    if (images && images.length) {
+    const filteredImages = images.filter(image => {
+      return image.url !== "";
+    });
+    if (filteredImages && filteredImages.length) {
       return (
         <View>
           <ScrollView
@@ -28,7 +31,7 @@ class ImageCarousel extends Component<ImagesProps> {
             pagingEnabled
             showsHorizontalScrollIndicator={false}
           >
-            {images.map(image => (
+            {filteredImages.map(image => (
               <Image
                 key={image.url}
                 style={styles.image}

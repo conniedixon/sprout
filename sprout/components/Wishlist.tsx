@@ -1,7 +1,9 @@
 /** @format */
 
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+
+import { StyleSheet, Text, View, Button, Linking } from "react-native";
+
 import PlantCard from "../components/PlantCard";
 import { getUserWishlist } from "../components/spec/index";
 import PlantMap from "./PlantMap";
@@ -36,9 +38,17 @@ class Wishlist extends Component<Props> {
             />
           );
         })}
+        <Text
+          onPress={() =>
+            Linking.openURL(
+              `http://maps.google.com/maps?daddr=53.79490447820361,-1.54636837019936`
+            )
+          }
+        >
+          Click Me
+        </Text>
       </View>
     );
-    //   }
   }
 }
 

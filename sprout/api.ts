@@ -118,6 +118,9 @@ export const getGardenCentres = (latitude, longitude) => {
       const result = data.results.map(centre => {
         return {
           name: centre.name,
+          address: centre.formatted_address,
+          opening_hours: centre.open_now,
+          user_ratings: centre.user_ratings_total,
           coords: {
             latitude: centre.geometry.location.lat,
             longitude: centre.geometry.location.lng

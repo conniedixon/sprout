@@ -23,6 +23,7 @@ class Login extends Component<Props> {
     username: "",
     password: "",
     confirmedPassword: "",
+    email: "",
     code: "",
     validationError: {
       errorExists: false,
@@ -32,6 +33,9 @@ class Login extends Component<Props> {
 
   updateUsername = ({ nativeEvent: { text } }) => {
     this.setState({ username: text });
+  };
+  updateEmail = ({ nativeEvent: { text } }) => {
+    this.setState({ email: text });
   };
 
   updatePassword = ({ nativeEvent: { text } }) => {
@@ -51,13 +55,13 @@ class Login extends Component<Props> {
   };
 
   signUp = () => {
-    const { username, password, confirmedPassword } = this.state;
+    const { username, password, confirmedPassword, email } = this.state;
     if (password === confirmedPassword) {
       Auth.signUp({
         username,
         password,
         attributes: {
-          email: username,
+          email: email,
         },
       })
         .then(({ user }) => {
@@ -96,6 +100,7 @@ class Login extends Component<Props> {
     signIn: this.signIn,
     updatePassword: this.updatePassword,
     updateUsername: this.updateUsername,
+    updateEmail: this.updateEmail,
     updateConfirmedPassword: this.updateConfirmedPassword,
     signUp: this.signUp,
     updateCode: this.updateCode,

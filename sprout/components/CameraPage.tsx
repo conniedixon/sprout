@@ -94,6 +94,8 @@ class CameraPage extends Component<Props> {
               result.base64,
               this.props.route.params.username
             );
+          } else {
+            return Promise.reject("cancelled");
           }
         })
         .then(plantInfo => {
@@ -105,6 +107,9 @@ class CameraPage extends Component<Props> {
             plantInfo: this.state.plantInfo,
             plantImage: this.state.plantImage,
           });
+        })
+        .catch(err => {
+          console.log(err);
         });
     });
   }

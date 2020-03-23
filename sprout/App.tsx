@@ -35,34 +35,34 @@ class App extends React.Component {
     if (this.state.user.authenticated) {
       return (
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Camera Page">
+          <Stack.Navigator initialRouteName='Camera Page'>
             <Stack.Screen
-              name="CameraPage"
+              name='CameraPage'
               component={CameraPage}
               initialParams={{ username: this.state.user.username }}
             />
             <Stack.Screen
-              name="MyGarden"
+              name='MyGarden'
               component={MyGarden}
               initialParams={{ username: this.state.user.username }}
             />
             <Stack.Screen
-              name="UserPage"
+              name='UserPage'
               component={UserPage}
               initialParams={{ username: this.state.user.username }}
             />
             <Stack.Screen
-              name="PlantPage"
+              name='PlantPage'
               component={PlantPage}
               initialParams={{ username: this.state.user.username }}
             />
             <Stack.Screen
-              name="Wishlist"
+              name='Wishlist'
               component={Wishlist}
               initialParams={{ username: this.state.user.username }}
             />
             <Stack.Screen
-              name="ScannedPlants"
+              name='ScannedPlants'
               component={ScannedPlants}
               initialParams={{ username: this.state.user.username }}
             />
@@ -72,9 +72,9 @@ class App extends React.Component {
     } else
       return (
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
+          <Stack.Navigator initialRouteName='Login'>
             <Stack.Screen
-              name="Login"
+              name='Login'
               component={Login}
               initialParams={{ authenticateUser: this.authenticateUser }}
             />

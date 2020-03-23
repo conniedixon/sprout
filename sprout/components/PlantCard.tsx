@@ -29,6 +29,7 @@ class PlantCard extends Component<Props> {
       wateringSchedule,
       images,
       trafficlight,
+      uri,
     } = this.props.plantInfo;
     return (
       <View>
@@ -50,6 +51,7 @@ class PlantCard extends Component<Props> {
               this.props.navigation.navigate("PlantPage", {
                 plantInfo: this.props.plantInfo,
                 isInGarden: this.props.isInGarden,
+                plantImage: uri,
               })
             }
           />

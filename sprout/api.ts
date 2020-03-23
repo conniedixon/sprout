@@ -2,7 +2,7 @@
 import * as utils from "./utils/utils";
 import axios from "axios";
 import * as index from "./components/spec/index";
-import { config } from "config.ts";
+import { config } from "./config";
 
 
 export const getPlantById = (base64: any, username) => {

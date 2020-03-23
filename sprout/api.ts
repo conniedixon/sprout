@@ -2,6 +2,7 @@
 import * as utils from "./utils/utils";
 import axios from "axios";
 import * as index from "./components/spec/index";
+import { config } from "api-config.ts";
 
 export const getPlantById = (base64: any, username) => {
   console.log("in the api");
@@ -10,7 +11,7 @@ export const getPlantById = (base64: any, username) => {
   let axiosConfig = {
     headers: {
       "Content-Type": "application/json",
-      "Api-Key": "Ag4cMtES3mMwRTvGMFqygw06kfVsODLbZTos6qouLmBi5OO3JN",
+      "Api-Key": config.PLANT_ID_API_KEY,
     },
   };
   const timestamp = Date.now();
@@ -34,7 +35,7 @@ function getPlantByName(scientificName, username, timestamp = null) {
 
   return axios
     .get(
-      `https://trefle.io/api/plants?token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09&&scientific_name=${scientificName}`
+      `https://trefle.io/api/plants?token=${config.TREFLE_API_KEY}&&scientific_name=${scientificName}`
     )
     .then(({ data }) => {
       const trefleId = data[0].id;
@@ -50,7 +51,7 @@ function getSingularPlant(plantId, username, timestamp) {
 
   return axios
     .get(
-      `https://trefle.io/api/plants/${plantId}?token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09`
+      `https://trefle.io/api/plants/${plantId}?token=${config.TREFLE_API_KEY}`
     )
     .then(({ data }) => {
       const plantFamilyId = data.main_species.sources[0].species_id;
@@ -71,7 +72,7 @@ const getCareInstructions = (plantFamilyId, plantData, username) => {
 
   return axios
     .get(
-      `https://trefle.io/api/species/${plantFamilyId}?token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09`
+      `https://trefle.io/api/species/${plantFamilyId}?token=${config.TREFLE_API_KEY}`
     )
     .then(({ data }) => {
       const plantImages = data.images;
@@ -102,7 +103,7 @@ export const getScientificName = (searchText, username) => {
   console.log("getting the scientific_name by querying the common name");
   return axios
     .get(
-      `https://trefle.io/api/plants?common_name=${searchText}&&token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09`
+      `https://trefle.io/api/plants?common_name=${searchText}&&token=${config.TREFLE_API_KEY}`
     )
     .then(({ data }) => {
       const scientificName = data[0].scientific_name;

@@ -8,26 +8,60 @@ import { getUserScannedPlants } from "../components/spec/index";
 
 import { addNotifications } from "./spec/notifications";
 
-const PlantPage = ({ route, navigation }) => {
-  const { plantInfo, plantImage, isInGarden, username } = route.params;
+interface Props {
+  route: any;
+  navigation: any;
+}
 
-  const images = {
-    images: [{ url: plantImage }, plantInfo.images],
+class PlantPage extends Component<Props> {
+  state = {
+    plantInfo: {
+      images: [],
+      commonName: "",
+      duration: "duration",
+      family: "family",
+      scientificName: "scientificName",
+      ph: "0",
+      lightLevel: "lightLevel",
+      minTemp: "tempMin",
+      difficulty: "trafficLight",
+      wateringSchedule: "wateringSchedule",
+      wateringInterval: "wateringInterval",
+    },
+    plantImage: "",
+    isInGarden: "",
+    username: "",
+    scannedPlantCount: 0,
   };
 
-  console.log(images);
+  componentDidMount() {
+    const {
+      plantInfo,
+      plantImage,
+      isInGarden,
+      username,
+    } = this.props.route.params;
+    this.setState({ plantInfo, plantImage, isInGarden, username });
+  }
+
+  images = {
+    images: [{ url: this.state.plantImage }, this.state.plantInfo.images],
+  };
+
+  // console.log(images);
 
   // var filtered = array.filter(function (el) {
   //   return el != null;
   // });
 
-  const MedalsAlert = () => {
+  MedalsAlert = () => {
     const award = "award";
     const description = "description";
-    getUserScannedPlants(this.props.route.params.username).then(plants => {
+    getUserScannedPlants(this.state.username).then(plants => {
       console.log(plants, "<-- plants!");
       this.setState({ scannedPlantCount: plants.length });
     });
+
     new Promise((resolve, reject) => {
       Alert.alert(
         "Medal achieved!",
@@ -35,31 +69,19 @@ const PlantPage = ({ route, navigation }) => {
         [
           {
             text: "Go to Medals Page",
-            onPress: () => navigation.navigate("MedalsPage"),
-
+            onPress: () => this.props.navigation.navigate("MedalsPage"),
           },
           {
             text: "Continue",
             onPress: () => console.log("Cancel Pressed"),
             style: "cancel",
           },
-
         ]
       );
     });
   };
-  // console.log(plantCount, '<-- plant count');
-  // if (plantCount === 1) {
-  //   MedalsAlert('Discoverer', 'scanning your first plant!');
-  // }
-  // if (plantCount === 10) {
-  //   MedalsAlert('Explorer', 'scanning ten plants!');
-  // }
-  // if (plantCount === 50) {
-  //   MedalsAlert('Adventurer', 'scanning fifty plants!');
-  // }
 
-  const AsyncAlert = async (slug, location) =>
+  AsyncAlert = async (slug, location) =>
     new Promise((resolve, reject) => {
       Alert.alert(
         `Added to ${slug}`,
@@ -68,94 +90,99 @@ const PlantPage = ({ route, navigation }) => {
           {
             text: `Go to ${location}`,
             onPress: () =>
-              navigation.navigate(location, { username: username }),
+              this.props.navigation.navigate(location, {
+                username: this.state.username,
+              }),
           },
           {
             text: "Scan Another Plant",
-            onPress: () => navigation.navigate("CameraPage"),
+            onPress: () => this.props.navigation.navigate("CameraPage"),
           },
         ],
         { cancelable: false }
       );
     });
 
-  if (isInGarden === "isInWishlist") {
-    return (
-      <View>
-        {MedalsAlert()}
-        <ImageCarousel images={images} />
-        <Text>
-          {plantInfo.commonName}, {plantInfo.scientificName},Duration:{" "}
-          {plantInfo.duration}, Family: {plantInfo.family}, Difficulty:{" "}
-          {plantInfo.difficulty}, Care Instructions: Light level:{" "}
-          {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{" "}
-          {plantInfo.wateringSchedule}
-        </Text>
-        <Button
-          title="Add to My Garden"
-          onPress={() =>
-            addPlantToGarden(plantInfo, username).then(() => {
-              AsyncAlert("your Garden", "MyGarden");
-            })
-          }
-        />
-      </View>
-    );
-  } else if (!isInGarden) {
-    return (
-      <View>
-        <ImageCarousel images={images} />
+  render() {
+    const { plantInfo, username, isInGarden } = this.state;
+    if (this.state.isInGarden === "isInWishlist") {
+      return (
+        <View>
+          {this.MedalsAlert()}
+          <ImageCarousel images={this.images} />
+          <Text>
+            {plantInfo.commonName}, {plantInfo.scientificName},Duration:{" "}
+            {plantInfo.duration}, Family: {plantInfo.family}, Difficulty:{" "}
+            {plantInfo.difficulty}, Care Instructions: Light level:{" "}
+            {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{" "}
+            {plantInfo.wateringSchedule}
+          </Text>
+          <Button
+            title="Add to My Garden"
+            onPress={() =>
+              addPlantToGarden(plantInfo, username).then(() => {
+                this.AsyncAlert("your Garden", "MyGarden");
+              })
+            }
+          />
+        </View>
+      );
+    } else if (!isInGarden) {
+      return (
+        <View>
+          <ImageCarousel images={this.images} />
 
-        <Text>
-          {plantInfo.commonName}, {plantInfo.scientificName},Duration:{" "}
-          {plantInfo.duration}, Family: {plantInfo.family}, Difficulty:{" "}
-          {plantInfo.difficulty}, Care Instructions: Light level:{" "}
-          {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{" "}
-          {plantInfo.wateringSchedule}
-        </Text>
-        <Button
-          title="Add to My Garden"
-          onPress={() =>
-            addPlantToGarden(plantInfo, username).then(() => {
-              AsyncAlert("your Garden", "MyGarden");
-            })
-          }
-        />
-        <Button
-          title="Add to My Wishlist"
-          onPress={() =>
-            addToWishlist(plantInfo, username).then(() => {
-              AsyncAlert("your Wishlist", "Wishlist");
-            })
-          }
-        />
-        <Button
-          title="Scan Another Plant"
-          onPress={() => navigation.navigate("CameraPage")}
-        />
-      </View>
-    );
-  } else {
-    return (
-      <View>
-        <ImageCarousel images={images} />
+          <Text>
+            {plantInfo.commonName}, {plantInfo.scientificName},Duration:{" "}
+            {plantInfo.duration}, Family: {plantInfo.family}, Difficulty:{" "}
+            {plantInfo.difficulty}, Care Instructions: Light level:{" "}
+            {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{" "}
+            {plantInfo.wateringSchedule}
+          </Text>
+          <Button
+            title="Add to My Garden"
+            onPress={() =>
+              addPlantToGarden(plantInfo, username).then(() => {
+                this.AsyncAlert("your Garden", "MyGarden");
+              })
+            }
+          />
+          <Button
+            title="Add to My Wishlist"
+            onPress={() =>
+              addToWishlist(plantInfo, username).then(() => {
+                this.AsyncAlert("your Wishlist", "Wishlist");
+              })
+            }
+          />
+          <Button
+            title="Scan Another Plant"
+            onPress={() => this.props.navigation.navigate("CameraPage")}
+          />
+        </View>
+      );
+    } else {
+      return (
+        <View>
+          <ImageCarousel images={this.images} />
 
-        <Text>
-          {plantInfo.commonName}, {plantInfo.scientificName},Duration:{" "}
-          {plantInfo.duration}, Family: {plantInfo.family}, Difficulty:{" "}
-          {plantInfo.difficulty}, Care Instructions: Light level:{" "}
-          {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{" "}
-          {plantInfo.wateringSchedule}
-        </Text>
-        <Button
-          title="Set Reminder"
-          onPress={() => {
-            addNotifications(plantInfo);
-          }}
-        />
-      </View>
-    );
+          <Text>
+            {plantInfo.commonName}, {plantInfo.scientificName},Duration:{" "}
+            {plantInfo.duration}, Family: {plantInfo.family}, Difficulty:{" "}
+            {plantInfo.difficulty}, Care Instructions: Light level:{" "}
+            {plantInfo.lightLevel}, Soil pH: {plantInfo.ph}, Watering Needs:{" "}
+            {plantInfo.wateringSchedule}
+          </Text>
+          <Button
+            title="Set Reminder"
+            onPress={() => {
+              addNotifications(plantInfo);
+            }}
+          />
+        </View>
+      );
+    }
   }
-};
+}
 
 export default PlantPage;

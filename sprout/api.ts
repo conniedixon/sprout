@@ -2,16 +2,16 @@
 import * as utils from "./utils/utils";
 import axios from "axios";
 import * as index from "./components/spec/index";
+import * as config from "./config";
 
 export const getPlantById = (base64: any, username) => {
-
-  console.log('in the api');
+  console.log("in the api");
 
   const plantImg = { images: [base64] };
   let axiosConfig = {
     headers: {
       "Content-Type": "application/json",
-      "Api-Key": "GRMGq6d2ttQjK7pM6JuMYb3pmLLMHySpZqX4fzvLFGc5bcS60r"
+      "Api-Key": config.config.PLANT_ID_API_KEY
     }
   };
   return axios
@@ -31,7 +31,7 @@ function getPlantByName(scientificName, username) {
 
   return axios
     .get(
-      `https://trefle.io/api/plants?token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09&&scientific_name=${scientificName}`
+      `https://trefle.io/api/plants?token=${config.config.TREFLE_API_KEY}&&scientific_name=${scientificName}`
     )
     .then(({ data }) => {
       const trefleId = data[0].id;
@@ -47,7 +47,7 @@ function getSingularPlant(plantId, username) {
 
   return axios
     .get(
-      `https://trefle.io/api/plants/${plantId}?token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09`
+      `https://trefle.io/api/plants/${plantId}?token=${config.config.TREFLE_API_KEY}`
     )
     .then(({ data }) => {
       const plantFamilyId = data.main_species.sources[0].species_id;
@@ -67,7 +67,7 @@ const getCareInstructions = (plantFamilyId, plantData, username) => {
 
   return axios
     .get(
-      `https://trefle.io/api/species/${plantFamilyId}?token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09`
+      `https://trefle.io/api/species/${plantFamilyId}?token=${config.config.TREFLE_API_KEY}`
     )
     .then(({ data }) => {
       const plantImages = data.images;
@@ -98,7 +98,7 @@ export const getScientificName = (searchText, username) => {
   console.log("getting the scientific_name by querying the common name");
   return axios
     .get(
-      `https://trefle.io/api/plants?common_name=${searchText}&&token=aXVMMTJIOTBXaHI2STlibXFOTGZndz09`
+      `https://trefle.io/api/plants?common_name=${searchText}&&token=${config.config.TREFLE_API_KEY}`
     )
     .then(({ data }) => {
       const scientificName = data[0].scientific_name;
@@ -112,7 +112,7 @@ export const getScientificName = (searchText, username) => {
 export const getGardenCentres = (latitude, longitude) => {
   return axios
     .get(
-      `https://maps.googleapis.com/maps/api/place/textsearch/json?location=${latitude},${longitude}&radius=1500&query=garden+centre&key=AIzaSyA9K8YxZLSP--zFTlrapPKadpF8bdNW5kc`
+      `https://maps.googleapis.com/maps/api/place/textsearch/json?location=${latitude},${longitude}&radius=1500&query=garden+centre&key=${config.config.GOOGLE_API_KEY}`
     )
     .then(({ data }) => {
       const result = data.results.map(centre => {

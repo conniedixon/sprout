@@ -10,7 +10,7 @@ export const getPlantById = (base64: any, username) => {
   let axiosConfig = {
     headers: {
       "Content-Type": "application/json",
-      "Api-Key": "GRMGq6d2ttQjK7pM6JuMYb3pmLLMHySpZqX4fzvLFGc5bcS60r",
+      "Api-Key": "Ag4cMtES3mMwRTvGMFqygw06kfVsODLbZTos6qouLmBi5OO3JN",
     },
   };
   const timestamp = Date.now();
@@ -29,7 +29,7 @@ export const getPlantById = (base64: any, username) => {
     });
 };
 
-function getPlantByName(scientificName, username, timestamp) {
+function getPlantByName(scientificName, username, timestamp = null) {
   console.log("in the second function");
 
   return axios

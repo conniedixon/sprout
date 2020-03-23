@@ -9,6 +9,8 @@ import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as api from "../api";
 import SearchBar from "./SearchBar";
+import GestureRecognizer from "react-native-swipe-gestures";
+
 import { getUserScannedPlants, getUser } from "../components/spec/index";
 
 interface Props {
@@ -135,9 +137,22 @@ class CameraPage extends Component<Props> {
       });
   };
 
+  onSwipeLeft(gestureState) {
+    console.log("Swiped left!");
+    this.props.navigation.navigate("UserPage");
+  }
+
+  onSwipeRight(gestureState) {
+    console.log("Swiped right!");
+    this.props.navigation.navigate("MyGarden");
+  }
+
   render() {
     const { hasPermission } = this.state;
-
+    const config = {
+      velocityThreshold: 0.1,
+      directionalOffsetThreshold: 50,
+    };
     if (hasPermission === null || hasPermission === false) {
       return (
         <View>
@@ -155,51 +170,60 @@ class CameraPage extends Component<Props> {
       );
     } else {
       return (
-        <View style={{ flex: 1 }}>
-          <SearchBar onSearch={this.onSearch} />
-          <Camera
-            style={{ flex: 1 }}
-            type={this.state.cameraType}
-            ref={ref => {
-              this.camera = ref;
-            }}
-          >
-            <TouchableOpacity
-              style={{
-                alignSelf: "flex-end",
-                alignItems: "center",
-                backgroundColor: "transparent",
+        <GestureRecognizer
+          onSwipeLeft={state => this.onSwipeLeft(state)}
+          onSwipeRight={state => this.onSwipeRight(state)}
+          style={{ flex: 1, zIndex: 1000 }}
+          config={config}
+        >
+          <View style={{ flex: 1 }}>
+            <SearchBar onSearch={this.onSearch} />
+
+            <Camera
+              style={{ flex: 1, zIndex: -1000 }}
+              type={this.state.cameraType}
+              ref={ref => {
+                this.camera = ref;
               }}
-              onPress={() => this.takePicture()}
             >
-              <FontAwesome
-                name="camera"
-                style={{ color: "#fff", fontSize: 40 }}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                alignSelf: "flex-end",
-                alignItems: "center",
-                backgroundColor: "transparent",
-              }}
-              onPress={() => this.pickImage()}
-            >
-              <Ionicons
-                name="ios-photos"
-                style={{ color: "#fff", fontSize: 40 }}
-              />
-            </TouchableOpacity>
-          </Camera>
-          <Button
-            title="Go to My Garden"
-            onPress={() => this.props.navigation.navigate("MyGarden")}
-          />
-          <Button
-            title="Go to My Account"
-            onPress={() => this.props.navigation.navigate("UserPage")}
-          />
-        </View>
+              <TouchableOpacity
+                style={{
+                  alignSelf: "flex-end",
+                  alignItems: "center",
+                  backgroundColor: "transparent",
+                }}
+                onPress={() => this.takePicture()}
+              >
+                <FontAwesome
+                  name="camera"
+                  style={{ color: "#fff", fontSize: 40 }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  alignSelf: "flex-end",
+                  alignItems: "center",
+                  backgroundColor: "transparent",
+                }}
+                onPress={() => this.pickImage()}
+              >
+                <Ionicons
+                  name="ios-photos"
+                  style={{ color: "#fff", fontSize: 40 }}
+                />
+              </TouchableOpacity>
+            </Camera>
+
+            <Button
+              title="Go to My Garden"
+              onPress={() => this.props.navigation.navigate("MyGarden")}
+            />
+            <Button
+              title="Go to My Account"
+              onPress={() => this.props.navigation.navigate("UserPage")}
+            />
+          </View>
+        </GestureRecognizer>
       );
     }
   }

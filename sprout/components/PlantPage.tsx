@@ -15,12 +15,6 @@ const PlantPage = ({ route, navigation }) => {
     images: [{ url: plantImage }, plantInfo.images],
   };
 
-  console.log(images);
-
-  // var filtered = array.filter(function (el) {
-  //   return el != null;
-  // });
-
   const MedalsAlert = () => {
     const award = "award";
     const description = "description";
@@ -36,14 +30,12 @@ const PlantPage = ({ route, navigation }) => {
           {
             text: "Go to Medals Page",
             onPress: () => navigation.navigate("MedalsPage"),
-
           },
           {
             text: "Continue",
             onPress: () => console.log("Cancel Pressed"),
             style: "cancel",
           },
-
         ]
       );
     });

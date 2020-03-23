@@ -2,8 +2,7 @@
 import * as utils from "./utils/utils";
 import axios from "axios";
 import * as index from "./components/spec/index";
-import { config } from "config.ts";
-
+import { config } from "./config";
 
 export const getPlantById = (base64: any, username) => {
   console.log("in the api");
@@ -37,9 +36,7 @@ function getPlantByName(scientificName, username, timestamp = null) {
 
   return axios
     .get(
-
       `https://trefle.io/api/plants?token=${config.TREFLE_API_KEY}&&scientific_name=${scientificName}`
-
     )
     .then(({ data }) => {
       const trefleId = data[0].id;
@@ -107,7 +104,6 @@ export const getScientificName = (searchText, username) => {
   console.log("getting the scientific_name by querying the common name");
   return axios
     .get(
-
       `https://trefle.io/api/plants?common_name=${searchText}&&token=${config.TREFLE_API_KEY}`
     )
     .then(({ data }) => {

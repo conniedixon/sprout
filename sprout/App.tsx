@@ -20,7 +20,7 @@ const Stack = createStackNavigator();
 class App extends React.Component {
   state = {
     user: {
-      authenticated: false,
+      authenticated: true,
       username: "",
     },
   };

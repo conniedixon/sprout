@@ -43,10 +43,7 @@ class MedalsPage extends Component<Props> {
               >
                 <Image
                   style={{ width: 50, height: 50 }}
-                  source={{
-                    uri:
-                      "https://library.kissclipart.com/20180901/yaw/kissclipart-medal-png-grey-clipart-gold-medal-silver-medal-a2ba2dbfeb239b76.jpg",
-                  }}
+                  source={require("./graphics/Achieved_.jpg")}
                 />
               </TouchableOpacity>
             );
@@ -62,10 +59,7 @@ class MedalsPage extends Component<Props> {
               >
                 <Image
                   style={{ width: 50, height: 50 }}
-                  source={{
-                    uri:
-                      "https://webstockreview.net/images/medal-clipart-platinum-13.png",
-                  }}
+                  source={require("./graphics/Notachieved_.jpg")}
                 />
               </TouchableOpacity>
             );

@@ -18,7 +18,6 @@ export const getStats = ({
   images,
   timestamp,
 }) => {
-  // console.log(images[0], "<--fro utils page");
   let difficultyRating = 0;
   let precipitation = 70;
   let ph = 6.5;

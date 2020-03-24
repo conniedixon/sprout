@@ -1,7 +1,14 @@
 /** @format */
 
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import PlantCard from "../components/PlantCard";
 import { getUserGarden } from "../components/spec/index";
 import { getImagesForPlants } from "../utils/utils";
@@ -37,6 +44,7 @@ class MyGarden extends Component<Props> {
   }
 
   render() {
+    let { height, width } = Dimensions.get("window");
     if (this.state.isLoading)
       return (
         <View>
@@ -63,18 +71,23 @@ class MyGarden extends Component<Props> {
           onSwipeRight={state => this.onSwipeRight(state)}
           style={{ flex: 1 }}
         >
-          <View>
-            <Text>MyGarden</Text>
-            {this.state.myPlants.map(plant => {
-              return (
-                <PlantCard
-                  plantInfo={plant}
-                  navigation={this.props.navigation}
-                  isInGarden={true}
-                />
-              );
-            })}
-          </View>
+             <ScrollView
+          style={{
+            height: height,
+            backgroundColor: "#aebb8f",
+          }}
+        >
+          <Text>MyGarden</Text>
+          {this.state.myPlants.map(plant => {
+            return (
+              <PlantCard
+                plantInfo={plant}
+                navigation={this.props.navigation}
+                isInGarden={true}
+              />
+            );
+          })}
+        </ScrollView>
         </GestureRecognizer>
       );
   }

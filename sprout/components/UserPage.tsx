@@ -5,18 +5,13 @@ import { View, Text, Button, StyleSheet, ImageBackground } from "react-native";
 import MedalsPage from "./MedalsPage";
 import { getUser } from "../components/spec/index";
 import GestureRecognizer from "react-native-swipe-gestures";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { buttonStyle } from "./ButtonCSS";
 
 interface Props {
   navigation: any;
   route: any;
 }
-
-const styles = StyleSheet.create({
-  backgroundImage: {
-    width: "100%",
-    height: "100%",
-  },
-});
 
 class UserPage extends Component<Props> {
   state = {
@@ -64,26 +59,35 @@ class UserPage extends Component<Props> {
             source={require("./graphics/Background.jpg")}
             style={styles.backgroundImage}
           >
-            <Text>Welcome {this.state.username} </Text>
-            <Text>Total Plants Scanned: {this.state.scannedPlants.length}</Text>
-            <Text>Total Species Scanned: {this.speciesCount()}</Text>
-            <Button
-              title="See Scanned Plants"
+            <Text style={styles.header}>Welcome {this.state.username}! </Text>
+            <Text style={styles.text}>
+              Total Plants Scanned: {this.state.scannedPlants.length}
+            </Text>
+            <Text style={styles.text}>
+              Total Species Scanned: {this.speciesCount()}
+            </Text>
+            <TouchableOpacity
+              style={styles.button}
               onPress={() =>
                 this.props.navigation.navigate("ScannedPlants", {
                   scannedPlants: this.state.scannedPlants,
                   username: this.state.username,
                 })
               }
-            ></Button>
-            <Button
-              title="Go To My Wishlist"
+            >
+              <Text style={styles.button}>See Scanned Plants</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
               onPress={() =>
                 this.props.navigation.navigate("Wishlist", {
                   username: this.state.username,
                 })
               }
-            ></Button>
+            >
+              <Text style={styles.button}>Go To My Wishlist</Text>
+            </TouchableOpacity>
+
             <MedalsPage userMedals={this.state.userMedals} />
           </ImageBackground>
         </View>
@@ -93,3 +97,29 @@ class UserPage extends Component<Props> {
 }
 
 export default UserPage;
+
+const styles = StyleSheet.create({
+  backgroundImage: {
+    width: "100%",
+    height: "100%",
+  },
+  button: {
+    backgroundColor: "#aebb8f",
+    color: "white",
+    fontSize: 15,
+    textAlign: "center",
+    alignSelf: "center",
+    width: "50%",
+    justifyContent: "space-around",
+    margin: 3,
+  },
+  header: {
+    fontSize: 30,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  text: {
+    textAlign: "center",
+    fontSize: 20,
+  },
+});

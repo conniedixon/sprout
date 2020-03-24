@@ -32,11 +32,10 @@ class PlantPage extends Component<Props> {
     isInGarden: "",
     username: "",
     scannedPlantCount: 0,
-    alert: true,
   };
 
   componentDidMount() {
-    let scannedPlantCount: 0;
+    let scannedPlantCount = 0;
     getUserScannedPlants(this.props.route.params.username).then(plants => {
       plants.map(plant => {
         scannedPlantCount++;
@@ -57,20 +56,12 @@ class PlantPage extends Component<Props> {
     });
   }
 
-  componentDidUpdate(prevState) {
-    if (prevState.scannedPlantCount !== this.state.scannedPlantCount) {
-      this.setState({ alert: true });
-    }
-  }
-
-  images = {
-    images: [{ url: this.state.plantImage }, this.state.plantInfo.images],
-  };
-
-  MedalsAlert = () => {
-    const award = "award";
-    const description = "description";
-    if (this.state.alert) {
+  alertMedals = () => {
+    let count = 0;
+    console.log(count, "<-- count");
+    if (count < 1) {
+      const award = "award";
+      const description = "description";
       new Promise((resolve, reject) => {
         Alert.alert(
           "Medal achieved!",
@@ -87,8 +78,15 @@ class PlantPage extends Component<Props> {
             },
           ]
         );
+        count++;
+        console.log(count, "<-- count2");
       });
+      // };
     }
+  };
+
+  images = {
+    images: [{ url: this.state.plantImage }, this.state.plantInfo.images],
   };
 
   AsyncAlert = async (slug, location) =>
@@ -112,13 +110,14 @@ class PlantPage extends Component<Props> {
         { cancelable: false }
       );
     });
+  // this.setState({ alert: false });
 
   render() {
+    this.alertMedals();
     const { plantInfo, username, isInGarden } = this.state;
     if (this.state.isInGarden === "isInWishlist") {
       return (
         <View>
-          {this.MedalsAlert()}
           <ImageCarousel images={this.images} />
           <Text>
             {plantInfo.commonName}, {plantInfo.scientificName},Duration:{" "}

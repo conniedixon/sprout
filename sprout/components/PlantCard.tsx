@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { Component } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Image, ScrollView, Dimensions } from "react-native";
 import Ph from "./Ph";
 import LightLevel from "./LightLevel";
 import Temp from "./Temp";
@@ -21,6 +21,7 @@ class PlantCard extends Component<Props> {
   };
 
   render() {
+    let { height, width } = Dimensions.get("window");
     if (this.state.isLoading) return "Loading...";
     const {
       commonName,
@@ -51,7 +52,7 @@ class PlantCard extends Component<Props> {
         >
           <View
             style={{
-              height: 110,
+              height: 370,
               width: 350,
               margin: 10,
               backgroundColor: "white",
@@ -60,13 +61,18 @@ class PlantCard extends Component<Props> {
               alignItems: "center",
             }}
           >
-            <Text>{commonName}</Text>
+            <Text style={{ margin: 5 }}>{commonName}</Text>
+            <Image
+              style={{ width: 250, height: 250, borderRadius: 10, margin: 5 }}
+              source={{ uri: uri }}
+            />
             <View
               style={{
                 flex: 1,
                 flexDirection: "row",
                 height: 75,
                 justifyContent: "space-evenly",
+                margin: 5,
               }}
             >
               <Ph ph={ph}></Ph>

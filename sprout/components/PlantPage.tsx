@@ -19,7 +19,6 @@ const PlantPage = ({ route, navigation }) => {
     const award = "award";
     const description = "description";
     getUserScannedPlants(this.props.route.params.username).then(plants => {
-      console.log(plants, "<-- plants!");
       this.setState({ scannedPlantCount: plants.length });
     });
     new Promise((resolve, reject) => {

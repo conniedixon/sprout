@@ -5,8 +5,8 @@ import { Text, View, Button, Image, Alert } from "react-native";
 import ImageCarousel from "./ImageCarousel";
 import { addPlantToGarden, addToWishlist } from "./spec/index";
 import { getUserScannedPlants } from "../components/spec/index";
-
-import { addNotifications } from "./spec/notifications";
+import { awardMedal } from "../utils/medals";
+import { addNotifications } from "../utils/notifications";
 
 interface Props {
   route: any;
@@ -35,55 +35,32 @@ class PlantPage extends Component<Props> {
   };
 
   componentDidMount() {
-    let scannedPlantCount = 0;
-    getUserScannedPlants(this.props.route.params.username).then(plants => {
-      plants.map(plant => {
-        scannedPlantCount++;
-      });
-    });
     const {
       plantInfo,
       plantImage,
       isInGarden,
       username,
+      justScanned,
     } = this.props.route.params;
-    this.setState({
-      plantInfo,
-      plantImage,
-      isInGarden,
-      username,
-      scannedPlantCount,
+    getUserScannedPlants(username).then(plants => {
+      this.setState(
+        {
+          plantInfo,
+          plantImage,
+          isInGarden,
+          username,
+          scannedPlantCount: plants.length,
+        },
+        () => {
+          if (justScanned) {
+            awardMedal(this.state.scannedPlantCount, () =>
+              this.props.navigation.navigate("MedalsPage")
+            );
+          }
+        }
+      );
     });
   }
-
-  alertMedals = () => {
-    let count = 0;
-    console.log(count, "<-- count");
-    if (count < 1) {
-      const award = "award";
-      const description = "description";
-      new Promise((resolve, reject) => {
-        Alert.alert(
-          "Medal achieved!",
-          `You've just been awarded the ${award} medal for ${description}`,
-          [
-            {
-              text: "Go to Medals Page",
-              onPress: () => this.props.navigation.navigate("MedalsPage"),
-            },
-            {
-              text: "Continue",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel",
-            },
-          ]
-        );
-        count++;
-        console.log(count, "<-- count2");
-      });
-      // };
-    }
-  };
 
   images = {
     images: [{ url: this.state.plantImage }, this.state.plantInfo.images],
@@ -111,9 +88,7 @@ class PlantPage extends Component<Props> {
       );
     });
   // this.setState({ alert: false });
-
   render() {
-    this.alertMedals();
     const { plantInfo, username, isInGarden } = this.state;
     if (this.state.isInGarden === "isInWishlist") {
       return (

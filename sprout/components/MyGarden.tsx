@@ -8,6 +8,7 @@ import {
   Button,
   Dimensions,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import PlantCard from "../components/PlantCard";
 import { getUserGarden } from "../components/spec/index";
@@ -67,28 +68,36 @@ class MyGarden extends Component<Props> {
       );
     else
       return (
-        <GestureRecognizer
-          onSwipeRight={state => this.onSwipeRight(state)}
-          style={{ flex: 1 }}
+        <ImageBackground
+          source={require("./graphics/Background.jpg")}
+          style={{ width: "100%", height: "100%" }}
         >
-             <ScrollView
-          style={{
-            height: height,
-            backgroundColor: "#aebb8f",
-          }}
-        >
-          <Text>MyGarden</Text>
-          {this.state.myPlants.map(plant => {
-            return (
-              <PlantCard
-                plantInfo={plant}
-                navigation={this.props.navigation}
-                isInGarden={true}
-              />
-            );
-          })}
-        </ScrollView>
-        </GestureRecognizer>
+          <GestureRecognizer
+            onSwipeRight={state => this.onSwipeRight(state)}
+            style={{ flex: 1 }}
+          >
+            <ScrollView
+              style={{
+                height: height,
+              }}
+              contentContainerStyle={{
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontSize: 20, margin: 10 }}>MyGarden</Text>
+              {this.state.myPlants.map(plant => {
+                return (
+                  <PlantCard
+                    plantInfo={plant}
+                    navigation={this.props.navigation}
+                    isInGarden={true}
+                  />
+                );
+              })}
+            </ScrollView>
+          </GestureRecognizer>
+        </ImageBackground>
       );
   }
 }

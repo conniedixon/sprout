@@ -87,7 +87,6 @@ class UserPage extends Component<Props> {
             >
               <Text style={styles.button}>Go To My Wishlist</Text>
             </TouchableOpacity>
-
             <MedalsPage userMedals={this.state.userMedals} />
           </ImageBackground>
         </View>

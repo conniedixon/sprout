@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { Component } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, StyleSheet, ImageBackground } from "react-native";
 import MedalsPage from "./MedalsPage";
 import { getUser } from "../components/spec/index";
 import GestureRecognizer from "react-native-swipe-gestures";
@@ -10,6 +10,13 @@ interface Props {
   navigation: any;
   route: any;
 }
+
+const styles = StyleSheet.create({
+  backgroundImage: {
+    width: "100%",
+    height: "100%",
+  },
+});
 
 class UserPage extends Component<Props> {
   state = {
@@ -53,34 +60,36 @@ class UserPage extends Component<Props> {
         style={{ flex: 1 }}
       >
         <View>
-          <Text>Welcome {this.state.username} </Text>
-          <Text>Total Plants Scanned: {this.state.scannedPlants.length}</Text>
-          <Text>Total Species Scanned: {this.speciesCount()}</Text>
-          <Button
-            title="See Scanned Plants"
-            onPress={() =>
-              this.props.navigation.navigate("ScannedPlants", {
-                scannedPlants: this.state.scannedPlants,
-                username: this.state.username,
-              })
-            }
-          ></Button>
-          <Button
-            title="Go To My Wishlist"
-            onPress={() =>
-              this.props.navigation.navigate("Wishlist", {
-                username: this.state.username,
-              })
-            }
-          ></Button>
-          <MedalsPage userMedals={this.state.userMedals} />
+          <ImageBackground
+            source={require("./graphics/Background.jpg")}
+            style={styles.backgroundImage}
+          >
+            <Text>Welcome {this.state.username} </Text>
+            <Text>Total Plants Scanned: {this.state.scannedPlants.length}</Text>
+            <Text>Total Species Scanned: {this.speciesCount()}</Text>
+            <Button
+              title="See Scanned Plants"
+              onPress={() =>
+                this.props.navigation.navigate("ScannedPlants", {
+                  scannedPlants: this.state.scannedPlants,
+                  username: this.state.username,
+                })
+              }
+            ></Button>
+            <Button
+              title="Go To My Wishlist"
+              onPress={() =>
+                this.props.navigation.navigate("Wishlist", {
+                  username: this.state.username,
+                })
+              }
+            ></Button>
+            <MedalsPage userMedals={this.state.userMedals} />
+          </ImageBackground>
         </View>
       </GestureRecognizer>
     );
   }
-  //change my name and password
-  //see my wishlist
-  //
 }
 
 export default UserPage;

@@ -53,8 +53,8 @@ class PlantPage extends Component<Props> {
         },
         () => {
           if (justScanned) {
-            awardMedal(this.state.scannedPlantCount, () =>
-              this.props.navigation.navigate("MedalsPage")
+            awardMedal(this.state.scannedPlantCount, username, () =>
+              this.props.navigation.navigate("UserPage", { username })
             );
           }
         }
@@ -87,7 +87,7 @@ class PlantPage extends Component<Props> {
         { cancelable: false }
       );
     });
-  // this.setState({ alert: false });
+
   render() {
     const { plantInfo, username, isInGarden } = this.state;
     if (this.state.isInGarden === "isInWishlist") {

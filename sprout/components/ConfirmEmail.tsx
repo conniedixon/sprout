@@ -10,7 +10,7 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const ConfirmEmail = ({ route: { params }, navigation }) => {
-  const { styles, email } = params;
+  const { styles, email, submitCode } = params;
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -28,7 +28,7 @@ const ConfirmEmail = ({ route: { params }, navigation }) => {
           style={styles.inputText}
         />
       </View>
-      <TouchableOpacity style={styles.loginBtn}>
+      <TouchableOpacity style={styles.loginBtn} onPress={submitCode}>
         <Text>Submit Code</Text>
       </TouchableOpacity>
       <Text

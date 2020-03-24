@@ -133,7 +133,7 @@ class Login extends Component<Props> {
       password,
     })
       .then(({ username }) => {
-        this.props.route.params.authenticateUser(username);
+        this.props.route.params.authenticateUser(username, false);
       })
       .catch(({ message }) => {
         this.setState({ validationError: { errorExists: true, message } });
@@ -142,8 +142,8 @@ class Login extends Component<Props> {
 
   submitCode = () => {
     const { username, code } = this.state;
-    Auth.confirmSignUp(username, code).then(data => {
-      this.props.route.params.authenticateUser(username);
+    Auth.confirmSignUp(username, code).then(() => {
+      this.props.route.params.authenticateUser(username, true);
     });
   };
 

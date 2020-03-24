@@ -1,18 +1,46 @@
 import React from "react";
-import { TextInput, View, Button, Text } from "react-native";
+import {
+  TextInput,
+  View,
+  Button,
+  Text,
+  Image,
+  KeyboardAvoidingView,
+} from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const ConfirmEmail = ({ route: { params }, navigation }) => {
+  const { styles, email, submitCode } = params;
+
   return (
-    <View
-      style={{ alignItems: "center", height: 300, justifyContent: "center" }}
-    >
-      <Text>A confirmation email has been sent to your email address</Text>
-      <TextInput
-        placeholder="Input verification code here"
-        onChange={params.updateCode}
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <Image
+        source={require("./graphics/login_logo.png")}
+        style={styles.logo}
       />
-      <Button title="Submit Code" onPress={params.submitCode} />
-    </View>
+      <Text style={styles.text}>
+        {`We've sent a confirmation code to ${email}`}{" "}
+      </Text>
+      <View style={styles.inputView}>
+        <TextInput
+          placeholder="Input verification code here"
+          onChange={params.updateCode}
+          style={styles.inputText}
+        />
+      </View>
+      <TouchableOpacity style={styles.loginBtn} onPress={submitCode}>
+        <Text>Submit Code</Text>
+      </TouchableOpacity>
+      <Text
+        style={styles.link}
+        onPress={() => {
+          navigation.navigate("Sign In");
+        }}
+      >
+        I already have an account
+      </Text>
+      <View style={{ height: 60 }} />
+    </KeyboardAvoidingView>
   );
 };
 

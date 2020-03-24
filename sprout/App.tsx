@@ -14,6 +14,7 @@ import Login from "./components/Login";
 import Wishlist from "./components/Wishlist";
 import ScannedPlants from "./components/ScannedPlants";
 import PlantMap from "./components/PlantMap";
+import LandingCarousel from "./components/LandingCarousel";
 
 const Stack = createStackNavigator();
 
@@ -22,18 +23,22 @@ class App extends React.Component {
     user: {
       authenticated: false,
       username: "",
+      firstLogin: false,
     },
   };
 
-  authenticateUser = username => {
-    this.setState({ user: { authenticated: true, username } });
+  authenticateUser = (username, firstLogin) => {
+    this.setState({ user: { authenticated: true, username, firstLogin } });
   };
 
   render() {
+    const initialScreen = this.state.user.firstLogin
+      ? "Intro Carousel"
+      : "CameraPage";
     if (this.state.user.authenticated) {
       return (
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="CameraPage">
+          <Stack.Navigator initialRouteName={initialScreen}>
             <Stack.Screen
               name="CameraPage"
               component={CameraPage}
@@ -65,13 +70,19 @@ class App extends React.Component {
               initialParams={{ username: this.state.user.username }}
             />
             <Stack.Screen name="PlantMap" component={PlantMap} />
+            <Stack.Screen name="Intro Carousel" component={LandingCarousel} />
           </Stack.Navigator>
         </NavigationContainer>
       );
     } else
       return (
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="CameraPage">
+          <Stack.Navigator
+            initialRouteName="Login"
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
             <Stack.Screen
               name="Login"
               component={Login}

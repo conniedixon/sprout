@@ -5,6 +5,7 @@ import { Image, StyleSheet, View } from "react-native";
 
 interface Props {
   navigation: any;
+  route: any;
 }
 
 const styles = StyleSheet.create({

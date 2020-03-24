@@ -36,7 +36,6 @@ class PlantCard extends Component<Props> {
     return (
       <View
         style={{
-          backgroundColor: "#aebb8f",
           justifyContent: "center",
           alignItems: "center",
         }}

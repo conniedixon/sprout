@@ -71,7 +71,12 @@ class App extends React.Component {
     } else
       return (
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="CameraPage">
+          <Stack.Navigator
+            initialRouteName="Login"
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
             <Stack.Screen
               name="Login"
               component={Login}

@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { Authenticator } from "aws-amplify-react-native";
 import { Auth } from "aws-amplify";
 import { NavigationContainer } from "@react-navigation/native";
@@ -106,12 +106,16 @@ class Login extends Component<Props> {
     updateCode: this.updateCode,
     submitCode: this.submitCode,
   };
-
+  static navigationOptions = { header: null };
   render() {
     const { errorExists, message } = this.state.validationError;
     return (
       <>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
           <Stack.Screen
             name="Sign In"
             component={SignIn}

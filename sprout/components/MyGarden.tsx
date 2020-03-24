@@ -12,6 +12,7 @@ import {
 import PlantCard from "../components/PlantCard";
 import { getUserGarden } from "../components/spec/index";
 import { getImagesForPlants } from "../utils/utils";
+import GestureRecognizer from "react-native-swipe-gestures";
 
 interface Props {
   navigation: any;
@@ -37,6 +38,11 @@ class MyGarden extends Component<Props> {
     });
   }
 
+  onSwipeRight(gestureState) {
+    console.log("Swiped right!");
+    this.props.navigation.navigate("CameraPage");
+  }
+
   render() {
     let { height, width } = Dimensions.get("window");
     if (this.state.isLoading)
@@ -47,15 +53,25 @@ class MyGarden extends Component<Props> {
       );
     if (this.state.isEmpty)
       return (
-        <View>
-          <Text>
-            "Start scanning and adding plants to your garden to see them here!"
-          </Text>
-        </View>
+        <GestureRecognizer
+          onSwipeRight={state => this.onSwipeRight(state)}
+          style={{ flex: 1 }}
+        >
+          <View>
+            <Text>
+              "Start scanning and adding plants to your garden to see them
+              here!"
+            </Text>
+          </View>
+        </GestureRecognizer>
       );
     else
       return (
-        <ScrollView
+        <GestureRecognizer
+          onSwipeRight={state => this.onSwipeRight(state)}
+          style={{ flex: 1 }}
+        >
+             <ScrollView
           style={{
             height: height,
             backgroundColor: "#aebb8f",
@@ -72,6 +88,7 @@ class MyGarden extends Component<Props> {
             );
           })}
         </ScrollView>
+        </GestureRecognizer>
       );
   }
 }

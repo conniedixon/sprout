@@ -9,6 +9,7 @@ import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as api from "../api";
 import SearchBar from "./SearchBar";
+
 import { getUserScannedPlants, getUser } from "../components/spec/index";
 
 interface Props {
@@ -137,7 +138,10 @@ class CameraPage extends Component<Props> {
 
   render() {
     const { hasPermission } = this.state;
-
+    const config = {
+      velocityThreshold: 0.1,
+      directionalOffsetThreshold: 50,
+    };
     if (hasPermission === null || hasPermission === false) {
       return (
         <View>
@@ -158,7 +162,7 @@ class CameraPage extends Component<Props> {
         <View style={{ flex: 1 }}>
           <SearchBar onSearch={this.onSearch} />
           <Camera
-            style={{ flex: 1 }}
+            style={{ flex: 1, zIndex: -1000 }}
             type={this.state.cameraType}
             ref={ref => {
               this.camera = ref;

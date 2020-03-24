@@ -15,10 +15,6 @@ const PlantPage = ({ route, navigation }) => {
     images: [{ url: plantImage }, plantInfo.images],
   };
 
-  // var filtered = array.filter(function (el) {
-  //   return el != null;
-  // });
-
   const MedalsAlert = () => {
     const award = "award";
     const description = "description";

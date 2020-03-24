@@ -18,6 +18,57 @@ interface Props {
   route: any;
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inputView: {
+    width: "80%",
+    backgroundColor: "#719382",
+    borderRadius: 25,
+    height: 50,
+    marginBottom: 20,
+    justifyContent: "center",
+    padding: 20,
+  },
+  inputText: {
+    height: 50,
+    color: "#ffffff",
+    fontSize: 15,
+  },
+  logo: {
+    flexBasis: "30%",
+    paddingBottom: 15,
+    resizeMode: "center",
+    width: 300,
+    zIndex: -1000,
+    alignSelf: "center",
+    margin: 0,
+  },
+  loginBtn: {
+    width: 170,
+    backgroundColor: "#aebb8f",
+    borderRadius: 5,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 30,
+    marginBottom: 10,
+  },
+  text: {
+    fontSize: 15,
+    textAlign: "center",
+    padding: 10,
+  },
+  link: {
+    fontSize: 15,
+    textDecorationLine: "underline",
+  },
+});
+
 class Login extends Component<Props> {
   state = {
     username: "",
@@ -105,6 +156,8 @@ class Login extends Component<Props> {
     signUp: this.signUp,
     updateCode: this.updateCode,
     submitCode: this.submitCode,
+    styles: styles,
+    validationError: this.state.validationError,
   };
   static navigationOptions = { header: null };
   render() {
@@ -115,6 +168,7 @@ class Login extends Component<Props> {
           screenOptions={{
             headerShown: false,
           }}
+          initialRouteName="Sign In"
         >
           <Stack.Screen
             name="Sign In"
@@ -129,7 +183,7 @@ class Login extends Component<Props> {
           <Stack.Screen
             name="Confirm Email"
             component={ConfirmEmail}
-            initialParams={this.params}
+            initialParams={{ ...this.params, email: this.state.email }}
           />
         </Stack.Navigator>
         {errorExists && (

@@ -37,10 +37,6 @@ class MyGarden extends Component<Props> {
   }
 
   render() {
-    const config = {
-      velocityThreshold: 0.01,
-      directionalOffsetThreshold: 50,
-    };
     if (this.state.isLoading)
       return (
         <View>
@@ -65,8 +61,7 @@ class MyGarden extends Component<Props> {
       return (
         <GestureRecognizer
           onSwipeRight={state => this.onSwipeRight(state)}
-          style={{ flex: 1, zIndex: 1000 }}
-          config={config}
+          style={{ flex: 1 }}
         >
           <View>
             <Text>MyGarden</Text>

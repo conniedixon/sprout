@@ -62,10 +62,12 @@ class CameraPage extends Component<Props> {
           })
           .then(plantInfo => {
             this.camera.resumePreview();
+            console.log(plantInfo);
             this.setState({ plantInfo });
           })
           .then(() => {
             this.props.navigation.navigate("PlantPage", {
+              justScanned: true,
               isInGarden: false,
               plantInfo: this.state.plantInfo,
               plantImage: this.state.plantImage,

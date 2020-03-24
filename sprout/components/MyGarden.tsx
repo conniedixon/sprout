@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, Button } from "react-native";
 import PlantCard from "../components/PlantCard";
 import { getUserGarden } from "../components/spec/index";
 import { getImagesForPlants } from "../utils/utils";
+import GestureRecognizer from "react-native-swipe-gestures";
 
 interface Props {
   navigation: any;
@@ -30,6 +31,11 @@ class MyGarden extends Component<Props> {
     });
   }
 
+  onSwipeRight(gestureState) {
+    console.log("Swiped right!");
+    this.props.navigation.navigate("CameraPage");
+  }
+
   render() {
     if (this.state.isLoading)
       return (
@@ -39,26 +45,37 @@ class MyGarden extends Component<Props> {
       );
     if (this.state.isEmpty)
       return (
-        <View>
-          <Text>
-            "Start scanning and adding plants to your garden to see them here!"
-          </Text>
-        </View>
+        <GestureRecognizer
+          onSwipeRight={state => this.onSwipeRight(state)}
+          style={{ flex: 1 }}
+        >
+          <View>
+            <Text>
+              "Start scanning and adding plants to your garden to see them
+              here!"
+            </Text>
+          </View>
+        </GestureRecognizer>
       );
     else
       return (
-        <View>
-          <Text>MyGarden</Text>
-          {this.state.myPlants.map(plant => {
-            return (
-              <PlantCard
-                plantInfo={plant}
-                navigation={this.props.navigation}
-                isInGarden={true}
-              />
-            );
-          })}
-        </View>
+        <GestureRecognizer
+          onSwipeRight={state => this.onSwipeRight(state)}
+          style={{ flex: 1 }}
+        >
+          <View>
+            <Text>MyGarden</Text>
+            {this.state.myPlants.map(plant => {
+              return (
+                <PlantCard
+                  plantInfo={plant}
+                  navigation={this.props.navigation}
+                  isInGarden={true}
+                />
+              );
+            })}
+          </View>
+        </GestureRecognizer>
       );
   }
 }

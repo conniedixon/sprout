@@ -66,6 +66,7 @@ class CameraPage extends Component<Props> {
           })
           .then(plantInfo => {
             this.camera.resumePreview();
+            console.log(plantInfo);
             this.setState({ plantInfo });
           })
           .then(() => {

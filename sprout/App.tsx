@@ -21,8 +21,8 @@ const Stack = createStackNavigator();
 class App extends React.Component {
   state = {
     user: {
-      authenticated: false,
-      username: "",
+      authenticated: true,
+      username: "blogs",
       firstLogin: false,
     },
   };

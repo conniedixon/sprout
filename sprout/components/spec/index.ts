@@ -90,3 +90,10 @@ export const getImageFromS3 = async (username, timestamp) => {
     return data;
   });
 };
+
+export const getPlantInfo = async scientific_name => {
+  const { data } = await axios.get(
+    `https://0ky9ja1k3b.execute-api.eu-west-2.amazonaws.com/Dev/plants/${scientific_name}`
+  );
+  return data;
+};

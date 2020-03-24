@@ -15,8 +15,6 @@ const PlantPage = ({ route, navigation }) => {
     images: [{ url: plantImage }, plantInfo.images],
   };
 
-  console.log(images);
-
   // var filtered = array.filter(function (el) {
   //   return el != null;
   // });
@@ -25,7 +23,6 @@ const PlantPage = ({ route, navigation }) => {
     const award = "award";
     const description = "description";
     getUserScannedPlants(this.props.route.params.username).then(plants => {
-      console.log(plants, "<-- plants!");
       this.setState({ scannedPlantCount: plants.length });
     });
     new Promise((resolve, reject) => {
@@ -36,14 +33,12 @@ const PlantPage = ({ route, navigation }) => {
           {
             text: "Go to Medals Page",
             onPress: () => navigation.navigate("MedalsPage"),
-
           },
           {
             text: "Continue",
             onPress: () => console.log("Cancel Pressed"),
             style: "cancel",
           },
-
         ]
       );
     });

@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Dimensions } from "react-native";
 import PlantCard from "../components/PlantCard";
 import { getUserGarden } from "../components/spec/index";
 import { getImagesForPlants } from "../utils/utils";
@@ -31,6 +31,7 @@ class MyGarden extends Component<Props> {
   }
 
   render() {
+    var { height, width } = Dimensions.get("window");
     if (this.state.isLoading)
       return (
         <View>
@@ -47,7 +48,12 @@ class MyGarden extends Component<Props> {
       );
     else
       return (
-        <View>
+        <View
+          style={{
+            height: height,
+            backgroundColor: "#aebb8f",
+          }}
+        >
           <Text>MyGarden</Text>
           {this.state.myPlants.map(plant => {
             return (

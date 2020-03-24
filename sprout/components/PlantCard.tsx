@@ -7,6 +7,7 @@ import LightLevel from "./LightLevel";
 import Temp from "./Temp";
 import Watering from "./Watering";
 import Difficulty from "./Difficulty";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 interface Props {
   plantInfo: any;
@@ -32,30 +33,51 @@ class PlantCard extends Component<Props> {
       uri,
     } = this.props.plantInfo;
     return (
-      <View>
-        <>
-          <Text>{commonName}</Text>
-          <Ph ph={ph}></Ph>
-          <LightLevel lightlevel={lightLevel}></LightLevel>
-          <Temp temp={minTemp}></Temp>
-          <Text>
-            ph:{ph}, lightLevel:{lightLevel}, minTemp:{minTemp}
-          </Text>
-          <Watering watering={wateringSchedule}></Watering>
-          <Text>watering schedule: {wateringSchedule}</Text>
-          <Difficulty trafficlight={trafficlight}></Difficulty>
-          <Text>Planted: (date here!)</Text>
-          <Button
-            title="View full details"
-            onPress={() =>
-              this.props.navigation.navigate("PlantPage", {
-                plantInfo: this.props.plantInfo,
-                isInGarden: this.props.isInGarden,
-                plantImage: uri,
-              })
-            }
-          />
-        </>
+      <View
+        style={{
+          backgroundColor: "#aebb8f",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity
+          onPress={() =>
+            this.props.navigation.navigate("PlantPage", {
+              plantInfo: this.props.plantInfo,
+              isInGarden: this.props.isInGarden,
+              plantImage: uri,
+            })
+          }
+        >
+          <View
+            style={{
+              height: 110,
+              width: 350,
+              margin: 10,
+              backgroundColor: "white",
+              borderRadius: 10,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text>{commonName}</Text>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                height: 75,
+                justifyContent: "space-evenly",
+              }}
+            >
+              <Ph ph={ph}></Ph>
+              <LightLevel lightlevel={lightLevel}></LightLevel>
+              <Temp temp={minTemp}></Temp>
+              <Watering watering={wateringSchedule}></Watering>
+              <Difficulty trafficlight={trafficlight}></Difficulty>
+            </View>
+            <Text>Planted: (date here!)</Text>
+          </View>
+        </TouchableOpacity>
       </View>
       //set reminder to water
       //delete

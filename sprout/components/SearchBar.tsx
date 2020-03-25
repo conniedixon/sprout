@@ -7,6 +7,7 @@ import {
   TextInput,
   Keyboard,
   StyleSheet,
+  Image,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
@@ -20,6 +21,7 @@ import {
 
 interface SearchProps {
   onSearch: any;
+  toggleSearch: any;
 }
 
 class SearchBar extends Component<SearchProps> {
@@ -40,6 +42,7 @@ class SearchBar extends Component<SearchProps> {
   dismissKeyboard = () => {
     console.log("dismissed keyboard");
     Keyboard.dismiss();
+    this.props.toggleSearch();
   };
 
   render() {

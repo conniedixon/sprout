@@ -167,22 +167,40 @@ class CameraPage extends Component<Props, State> {
     if (hasPermission === null || hasPermission === false) {
       return (
         <View>
-          <SearchBar onSearch={this.onSearch} />
+          <SearchBar
+            onSearch={this.onSearch}
+            toggleSearch={this.toggleSearch}
+          />
           <Text>No access to camera or no permission</Text>
-          <Button
-            title="Go to My Garden"
+          <TouchableOpacity
             onPress={() => this.props.navigation.navigate("MyGarden")}
-          />
-          <Button
-            title="Go to My Account"
+          >
+            <FontAwesome
+              name="leaf"
+              style={{ color: "#719382", fontSize: 40, paddingBottom: 4 }}
+            />
+            <Text>Garden</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => this.props.navigation.navigate("UserPage")}
-          />
+          >
+            <MaterialCommunityIcons
+              name="account"
+              style={{ color: "#719382", fontSize: 45, marginBottom: -5.5 }}
+            ></MaterialCommunityIcons>
+            <Text>Account</Text>
+          </TouchableOpacity>
         </View>
       );
     } else {
       return (
         <View style={{ flex: 1 }}>
-          {this.state.searchVisible && <SearchBar onSearch={this.onSearch} />}
+          {this.state.searchVisible && (
+            <SearchBar
+              onSearch={this.onSearch}
+              toggleSearch={this.toggleSearch}
+            />
+          )}
 
           <Camera
             type={this.state.cameraType}
@@ -199,22 +217,18 @@ class CameraPage extends Component<Props, State> {
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("MyGarden")}
             >
-              {/* <Text> */}
               <FontAwesome
                 name="leaf"
-                style={{ color: "#fff", fontSize: 40 }}
+                style={{ color: "#719382", fontSize: 40, paddingBottom: 4 }}
               />
-              {/* Account
-              </Text> */}
+              <Text>Garden</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.toggleSearch()}>
-              {/* <Text> */}
               <FontAwesome
                 name="search"
-                style={{ color: "#fff", fontSize: 40 }}
+                style={{ color: "#719382", fontSize: 40, paddingBottom: 4 }}
               />
-              {/* Account
-              </Text> */}
+              <Text>Search</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.cameraIcon}
@@ -222,8 +236,9 @@ class CameraPage extends Component<Props, State> {
             >
               <FontAwesome
                 name="camera"
-                style={{ color: "#fff", fontSize: 40 }}
+                style={{ color: "#719382", fontSize: 40, paddingBottom: 4 }}
               />
+              <Text> Snap!</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.library}
@@ -231,20 +246,19 @@ class CameraPage extends Component<Props, State> {
             >
               <Ionicons
                 name="ios-photos"
-                style={{ color: "#fff", fontSize: 40 }}
+                style={{ color: "#719382", fontSize: 40, paddingLeft: 4 }}
               />
+              <Text>Library</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("UserPage")}
             >
-              {/* <Text> */}
               <MaterialCommunityIcons
                 name="account"
-                style={{ color: "#fff", fontSize: 40 }}
-              />
-              {/* Account
-              </Text> */}
+                style={{ color: "#719382", fontSize: 45, marginBottom: -5.5 }}
+              ></MaterialCommunityIcons>
+              <Text>Account</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -267,7 +281,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: "10%",
     justifyContent: "space-around",
-    paddingTop: 15,
+    paddingTop: 10,
   },
   backgroundImage: {
     position: "absolute",

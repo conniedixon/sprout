@@ -2,7 +2,14 @@
 import "react-native-gesture-handler";
 import { Component } from "react";
 import * as React from "react";
-import { Text, View, Button, TouchableOpacity, Platform } from "react-native";
+import {
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+  Platform,
+  StyleSheet,
+} from "react-native";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
@@ -211,3 +218,5 @@ class CameraPage extends Component<Props> {
 }
 
 export default CameraPage;
+
+const styles = StyleSheet.create({});

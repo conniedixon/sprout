@@ -5,53 +5,75 @@ import { Text, View, Alert, StyleSheet, ImageBackground } from "react-native";
 import ImageCarousel from "./ImageCarousel";
 import { addPlantToGarden, addToWishlist } from "./spec/index";
 import { getUserScannedPlants } from "../components/spec/index";
+import { awardMedal } from "../utils/medals";
+import { addNotifications } from "../utils/notifications";
+
+
+interface Props {
+  route: any;
+  navigation: any;
+}
 
 import { addNotifications } from "./spec/notifications";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const PlantPage = ({ route, navigation }) => {
-  const { plantInfo, plantImage, isInGarden, username } = route.params;
 
-  const images = {
-    images: [{ url: plantImage }, plantInfo.images],
+class PlantPage extends Component<Props> {
+  state = {
+    plantInfo: {
+      images: [],
+      commonName: "",
+      duration: "duration",
+      family: "family",
+      scientificName: "scientificName",
+      ph: "0",
+      lightLevel: "lightLevel",
+      minTemp: "tempMin",
+      difficulty: "trafficLight",
+      wateringSchedule: "wateringSchedule",
+      wateringInterval: "wateringInterval",
+    },
+    plantImage: "",
+    isInGarden: "",
+    username: "",
+    scannedPlantCount: 0,
   };
 
-  const MedalsAlert = () => {
-    const award = "award";
-    const description = "description";
-    getUserScannedPlants(this.props.route.params.username).then(plants => {
-      this.setState({ scannedPlantCount: plants.length });
-    });
-    new Promise((resolve, reject) => {
-      Alert.alert(
-        "Medal achieved!",
-        `You've just been awarded the ${award} medal for ${description}`,
-        [
-          {
-            text: "Go to Medals Page",
-            onPress: () => navigation.navigate("MedalsPage"),
-          },
-          {
-            text: "Continue",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel",
-          },
-        ]
+
+  componentDidMount() {
+    const {
+      plantInfo,
+      plantImage,
+      isInGarden,
+      username,
+      justScanned,
+    } = this.props.route.params;
+    getUserScannedPlants(username).then(plants => {
+      this.setState(
+        {
+          plantInfo,
+          plantImage,
+          isInGarden,
+          username,
+          scannedPlantCount: plants.length,
+        },
+        () => {
+          if (justScanned) {
+            awardMedal(this.state.scannedPlantCount, username, () =>
+              this.props.navigation.navigate("UserPage", { username })
+            );
+          }
+        }
+
       );
     });
-  };
-  // console.log(plantCount, '<-- plant count');
-  // if (plantCount === 1) {
-  //   MedalsAlert('Discoverer', 'scanning your first plant!');
-  // }
-  // if (plantCount === 10) {
-  //   MedalsAlert('Explorer', 'scanning ten plants!');
-  // }
-  // if (plantCount === 50) {
-  //   MedalsAlert('Adventurer', 'scanning fifty plants!');
-  // }
+  }
 
-  const AsyncAlert = async (slug, location) =>
+  images = {
+    images: [{ url: this.state.plantImage }, this.state.plantInfo.images],
+  };
+
+  AsyncAlert = async (slug, location) =>
     new Promise((resolve, reject) => {
       Alert.alert(
         `Added to ${slug}`,
@@ -60,18 +82,22 @@ const PlantPage = ({ route, navigation }) => {
           {
             text: `Go to ${location}`,
             onPress: () =>
-              navigation.navigate(location, { username: username }),
+              this.props.navigation.navigate(location, {
+                username: this.state.username,
+              }),
           },
           {
             text: "Scan Another Plant",
-            onPress: () => navigation.navigate("CameraPage"),
+            onPress: () => this.props.navigation.navigate("CameraPage"),
           },
         ],
         { cancelable: false }
       );
     });
 
-  if (isInGarden === "isInWishlist") {
+  render() {
+    const { plantInfo, username, isInGarden } = this.state;
+   if (isInGarden === "isInWishlist") {
     return (
       <View>
         <ImageBackground
@@ -197,7 +223,8 @@ const PlantPage = ({ route, navigation }) => {
       </View>
     );
   }
-};
+}
+}
 
 const styles = StyleSheet.create({
   backgroundImage: {

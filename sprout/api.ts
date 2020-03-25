@@ -34,6 +34,7 @@ export const getPlantById = (base64: any, username) => {
 function getPlantByName(scientificName, username, timestamp = null) {
   console.log("in the second function");
 
+
   return index.getPlantInfo(scientificName).then(data => {
     const plantInfo = {
       ...data,
@@ -56,6 +57,7 @@ function getPlantByName(scientificName, username, timestamp = null) {
   //   .catch(err => {
   //     console.log(err);
   //   });
+
 }
 
 function getSingularPlant(plantId, username, timestamp) {

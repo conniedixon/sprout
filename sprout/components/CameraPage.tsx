@@ -10,8 +10,6 @@ import * as ImagePicker from "expo-image-picker";
 import * as api from "../api";
 import SearchBar from "./SearchBar";
 
-import { getUserScannedPlants, getUser } from "../components/spec/index";
-
 interface Props {
   navigation: any;
   route: any;
@@ -30,8 +28,6 @@ class CameraPage extends Component<Props> {
   componentDidMount() {
     this.getPermissionAsync();
   }
-
-  componentDidUpdate(prevProps, prevState) {}
 
   getPermissionAsync = async () => {
     // Camera roll Permission
@@ -71,6 +67,7 @@ class CameraPage extends Component<Props> {
           })
           .then(() => {
             this.props.navigation.navigate("PlantPage", {
+              justScanned: true,
               isInGarden: false,
               plantInfo: this.state.plantInfo,
               plantImage: this.state.plantImage,
@@ -139,10 +136,12 @@ class CameraPage extends Component<Props> {
 
   render() {
     const { hasPermission } = this.state;
+
     const config = {
       velocityThreshold: 0.1,
       directionalOffsetThreshold: 50,
     };
+
     if (hasPermission === null || hasPermission === false) {
       return (
         <View>

@@ -1,6 +1,6 @@
 /** @format */
 
-import { View, Text, Image, Alert } from "react-native";
+import { View, Text, Image, Alert, StyleSheet } from "react-native";
 import React, { Component } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -31,25 +31,26 @@ class MedalsPage extends Component<Props> {
 
   render() {
     return (
-      <View>
-        <Text>My Medals</Text>
+      <View style={styles.container}>
         {this.state.availableMedals.map(medal => {
           if (this.props.userMedals.includes(medal)) {
             return (
               <TouchableOpacity
+                style={styles.images}
                 onPress={() => {
                   Alert.alert("Medal achieved!", this.state.medalSlugs[medal]);
                 }}
               >
                 <Image
-                  style={{ width: 50, height: 50 }}
-                  source={require("./graphics/Achieved_.jpg")}
+                  style={{ width: 100, height: 100 }}
+                  source={require("./graphics/Achieved_.png")}
                 />
               </TouchableOpacity>
             );
           } else {
             return (
               <TouchableOpacity
+                style={styles.images}
                 onPress={() => {
                   Alert.alert(
                     "Medal not yet achieved",
@@ -58,8 +59,8 @@ class MedalsPage extends Component<Props> {
                 }}
               >
                 <Image
-                  style={{ width: 50, height: 50 }}
-                  source={require("./graphics/Notachieved_.jpg")}
+                  style={{ width: 100, height: 100 }}
+                  source={require("./graphics/Notachieved_.png")}
                 />
               </TouchableOpacity>
             );
@@ -69,5 +70,15 @@ class MedalsPage extends Component<Props> {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    height: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+});
 
 export default MedalsPage;

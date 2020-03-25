@@ -17,6 +17,9 @@ class MedalsPage extends Component<Props> {
       "addedOnePlant",
       "addedTenPlants",
       "addedFiftyPlants",
+      "medal7",
+      "medal8",
+      "medal9",
     ],
     medalSlugs: {
       scannedOnePlant: "Discoverer: Scanned One Plant",
@@ -36,7 +39,6 @@ class MedalsPage extends Component<Props> {
           if (this.props.userMedals.includes(medal)) {
             return (
               <TouchableOpacity
-                style={styles.images}
                 onPress={() => {
                   Alert.alert("Medal achieved!", this.state.medalSlugs[medal]);
                 }}
@@ -50,7 +52,6 @@ class MedalsPage extends Component<Props> {
           } else {
             return (
               <TouchableOpacity
-                style={styles.images}
                 onPress={() => {
                   Alert.alert(
                     "Medal not yet achieved",

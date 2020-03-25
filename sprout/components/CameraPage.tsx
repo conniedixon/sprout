@@ -195,7 +195,7 @@ class CameraPage extends Component<Props, State> {
       );
     } else {
       return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, marginTop: 20 }}>
           {this.state.searchVisible && (
             <SearchBar
               onSearch={this.onSearch}

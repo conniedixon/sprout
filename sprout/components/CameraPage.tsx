@@ -23,19 +23,27 @@ import * as ImagePicker from "expo-image-picker";
 import * as api from "../api";
 import SearchBar from "./SearchBar";
 
-import { getUserScannedPlants, getUser } from "../components/spec/index";
-
 interface Props {
   navigation: any;
   route: any;
 }
 
-class CameraPage extends Component<Props> {
+interface State {
+  searchVisible: boolean;
+  rollGranted: boolean;
+  hasPermission: boolean;
+  plantInfo: any;
+  plantImage: string;
+}
+
+class CameraPage extends Component<Props, State> {
   state = {
     hasPermission: null,
     cameraType: Camera.Constants.Type.back,
     plantInfo: {},
     plantImage: "",
+    searchVisible: false,
+    rollGranted: false,
   };
 
   camera: Camera | null = null;
@@ -43,8 +51,6 @@ class CameraPage extends Component<Props> {
   componentDidMount() {
     this.getPermissionAsync();
   }
-
-  componentDidUpdate(prevProps, prevState) {}
 
   getPermissionAsync = async () => {
     // Camera roll Permission
@@ -150,12 +156,14 @@ class CameraPage extends Component<Props> {
       });
   };
 
+  toggleSearch = () => {
+    this.setState(currentState => {
+      return { searchVisible: !currentState.searchVisible };
+    });
+  };
+
   render() {
     const { hasPermission } = this.state;
-    const config = {
-      velocityThreshold: 0.1,
-      directionalOffsetThreshold: 50,
-    };
     if (hasPermission === null || hasPermission === false) {
       return (
         <View>
@@ -174,7 +182,7 @@ class CameraPage extends Component<Props> {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          <SearchBar onSearch={this.onSearch} />
+          {this.state.searchVisible && <SearchBar onSearch={this.onSearch} />}
 
           <Camera
             type={this.state.cameraType}
@@ -185,7 +193,7 @@ class CameraPage extends Component<Props> {
           ></Camera>
           <View style={styles.iconContainer}>
             <Image
-              source={require("./graphics/1585050155337_Untitled_Artwork.jpg")}
+              source={require("./graphics/Background.jpg")}
               style={styles.backgroundImage}
             ></Image>
             <TouchableOpacity
@@ -194,6 +202,15 @@ class CameraPage extends Component<Props> {
               {/* <Text> */}
               <FontAwesome
                 name="leaf"
+                style={{ color: "#fff", fontSize: 40 }}
+              />
+              {/* Account
+              </Text> */}
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.toggleSearch()}>
+              {/* <Text> */}
+              <FontAwesome
+                name="search"
                 style={{ color: "#fff", fontSize: 40 }}
               />
               {/* Account

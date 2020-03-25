@@ -48,7 +48,7 @@ class Wishlist extends Component<Props> {
     return (
       <View style={styles.container}>
         <Image
-          source={require("./graphics/1585050155337_Untitled_Artwork.jpg")}
+          source={require("./graphics/Background.jpg")}
           style={styles.backgroundImage}
         ></Image>
         <Text style={styles.text}>My Wishlist</Text>

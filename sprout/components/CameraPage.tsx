@@ -2,10 +2,23 @@
 import "react-native-gesture-handler";
 import { Component } from "react";
 import * as React from "react";
-import { Text, View, Button, TouchableOpacity, Platform } from "react-native";
+import {
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+  Platform,
+  StyleSheet,
+  Image,
+} from "react-native";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import {
+  FontAwesome,
+  Ionicons,
+  MaterialIcons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as api from "../api";
 import SearchBar from "./SearchBar";
@@ -15,12 +28,22 @@ interface Props {
   route: any;
 }
 
-class CameraPage extends Component<Props> {
+interface State {
+  searchVisible: boolean;
+  rollGranted: boolean;
+  hasPermission: boolean;
+  plantInfo: any;
+  plantImage: string;
+}
+
+class CameraPage extends Component<Props, State> {
   state = {
     hasPermission: null,
     cameraType: Camera.Constants.Type.back,
     plantInfo: {},
     plantImage: "",
+    searchVisible: false,
+    rollGranted: false,
   };
 
   camera: Camera | null = null;
@@ -134,75 +157,111 @@ class CameraPage extends Component<Props> {
       });
   };
 
+  toggleSearch = () => {
+    this.setState(currentState => {
+      return { searchVisible: !currentState.searchVisible };
+    });
+  };
+
   render() {
     const { hasPermission } = this.state;
-
-    const config = {
-      velocityThreshold: 0.1,
-      directionalOffsetThreshold: 50,
-    };
-
     if (hasPermission === null || hasPermission === false) {
       return (
         <View>
-          <SearchBar onSearch={this.onSearch} />
+          <SearchBar
+            onSearch={this.onSearch}
+            toggleSearch={this.toggleSearch}
+          />
           <Text>No access to camera or no permission</Text>
-          <Button
-            title="Go to My Garden"
+          <TouchableOpacity
             onPress={() => this.props.navigation.navigate("MyGarden")}
-          />
-          <Button
-            title="Go to My Account"
+          >
+            <FontAwesome
+              name="leaf"
+              style={{ color: "#719382", fontSize: 40, paddingBottom: 4 }}
+            />
+            <Text>Garden</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => this.props.navigation.navigate("UserPage")}
-          />
+          >
+            <MaterialCommunityIcons
+              name="account"
+              style={{ color: "#719382", fontSize: 45, marginBottom: -5.5 }}
+            ></MaterialCommunityIcons>
+            <Text>Account</Text>
+          </TouchableOpacity>
         </View>
       );
     } else {
       return (
         <View style={{ flex: 1 }}>
-          <SearchBar onSearch={this.onSearch} />
+          {this.state.searchVisible && (
+            <SearchBar
+              onSearch={this.onSearch}
+              toggleSearch={this.toggleSearch}
+            />
+          )}
+
           <Camera
-            style={{ flex: 1, zIndex: -1000 }}
             type={this.state.cameraType}
             ref={ref => {
               this.camera = ref;
             }}
-          >
+            style={styles.camera}
+          ></Camera>
+          <View style={styles.iconContainer}>
+            <Image
+              source={require("./graphics/Background.jpg")}
+              style={styles.backgroundImage}
+            ></Image>
             <TouchableOpacity
-              style={{
-                alignSelf: "flex-end",
-                alignItems: "center",
-                backgroundColor: "transparent",
-              }}
+              onPress={() => this.props.navigation.navigate("MyGarden")}
+            >
+              <FontAwesome
+                name="leaf"
+                style={{ color: "#719382", fontSize: 40, paddingBottom: 4 }}
+              />
+              <Text>Garden</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.toggleSearch()}>
+              <FontAwesome
+                name="search"
+                style={{ color: "#719382", fontSize: 40, paddingBottom: 4 }}
+              />
+              <Text>Search</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.cameraIcon}
               onPress={() => this.takePicture()}
             >
               <FontAwesome
                 name="camera"
-                style={{ color: "#fff", fontSize: 40 }}
+                style={{ color: "#719382", fontSize: 40, paddingBottom: 4 }}
               />
+              <Text> Snap!</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{
-                alignSelf: "flex-end",
-                alignItems: "center",
-                backgroundColor: "transparent",
-              }}
+              style={styles.library}
               onPress={() => this.pickImage()}
             >
               <Ionicons
                 name="ios-photos"
-                style={{ color: "#fff", fontSize: 40 }}
+                style={{ color: "#719382", fontSize: 40, paddingLeft: 4 }}
               />
+              <Text>Library</Text>
             </TouchableOpacity>
-          </Camera>
-          <Button
-            title="Go to My Garden"
-            onPress={() => this.props.navigation.navigate("MyGarden")}
-          />
-          <Button
-            title="Go to My Account"
-            onPress={() => this.props.navigation.navigate("UserPage")}
-          />
+
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("UserPage")}
+            >
+              <MaterialCommunityIcons
+                name="account"
+                style={{ color: "#719382", fontSize: 45, marginBottom: -5.5 }}
+              ></MaterialCommunityIcons>
+              <Text>Account</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       );
     }
@@ -210,3 +269,31 @@ class CameraPage extends Component<Props> {
 }
 
 export default CameraPage;
+
+const styles = StyleSheet.create({
+  library: {
+    backgroundColor: "transparent",
+  },
+  cameraIcon: {
+    backgroundColor: "transparent",
+  },
+  iconContainer: {
+    flex: 1,
+    flexDirection: "row",
+    height: "10%",
+    justifyContent: "space-around",
+    paddingTop: 10,
+  },
+  backgroundImage: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    opacity: 0.3,
+  },
+  camera: {
+    flex: 8,
+    zIndex: -1000,
+  },
+});

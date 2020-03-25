@@ -8,6 +8,7 @@ import { getImagesForPlants } from "../utils/utils";
 import styles from "./StyleCSS";
 
 import * as Animatable from "react-native-animatable";
+import LoadingScreen from "./LoadingScreen";
 
 interface Props {
   navigation: any;
@@ -32,7 +33,7 @@ class ScannedPlants extends Component<Props> {
 
   render() {
     const { scannedPlants, username, isLoading } = this.state;
-    if (isLoading) return <Text>Loading...</Text>;
+    if (isLoading) return <LoadingScreen />;
     else {
       return (
         <Animatable.View animation="fadeInUpBig" style={styles.topMargin}>

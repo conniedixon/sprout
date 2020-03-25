@@ -22,6 +22,7 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import * as api from "../api";
 import SearchBar from "./SearchBar";
+import LoadingScreen from "./LoadingScreen";
 
 interface Props {
   navigation: any;
@@ -34,6 +35,7 @@ interface State {
   hasPermission: boolean;
   plantInfo: any;
   plantImage: string;
+  isLoading: boolean;
 }
 
 class CameraPage extends Component<Props, State> {
@@ -44,6 +46,7 @@ class CameraPage extends Component<Props, State> {
     plantImage: "",
     searchVisible: false,
     rollGranted: false,
+    isLoading: false,
   };
 
   camera: Camera | null = null;
@@ -76,6 +79,7 @@ class CameraPage extends Component<Props, State> {
           .takePictureAsync(options)
           .then(photo => {
             this.camera.pausePreview();
+            this.setState({ isLoading: true });
             console.log("photo taken");
             this.setState({ plantImage: photo.uri });
             return api.getPlantById(
@@ -84,7 +88,6 @@ class CameraPage extends Component<Props, State> {
             );
           })
           .then(plantInfo => {
-            this.camera.resumePreview();
             console.log(plantInfo);
             this.setState({ plantInfo });
           })
@@ -164,7 +167,8 @@ class CameraPage extends Component<Props, State> {
   };
 
   render() {
-    const { hasPermission } = this.state;
+    const { hasPermission, isLoading } = this.state;
+
     if (hasPermission === null || hasPermission === false) {
       return (
         <View style={{ marginTop: 25 }}>
@@ -193,7 +197,8 @@ class CameraPage extends Component<Props, State> {
           </TouchableOpacity>
         </View>
       );
-    } else {
+    } else if (isLoading) return <LoadingScreen />;
+    else {
       return (
         <View style={{ flex: 1, marginTop: 20 }}>
           {this.state.searchVisible && (

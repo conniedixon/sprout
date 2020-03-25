@@ -17,6 +17,7 @@ import GestureRecognizer from "react-native-swipe-gestures";
 
 import styles from "./StyleCSS";
 import * as Animatable from "react-native-animatable";
+import LoadingScreen from "./LoadingScreen";
 
 interface Props {
   navigation: any;
@@ -49,12 +50,7 @@ class MyGarden extends Component<Props> {
 
   render() {
     let { height, width } = Dimensions.get("window");
-    if (this.state.isLoading)
-      return (
-        <View>
-          <Text>'Loading...'</Text>
-        </View>
-      );
+    if (this.state.isLoading) return <LoadingScreen />;
     if (this.state.isEmpty)
       return (
         <GestureRecognizer
@@ -78,37 +74,35 @@ class MyGarden extends Component<Props> {
             source={require("./graphics/Background.jpg")}
             style={styles.backgroundImage}
           >
-
             <GestureRecognizer
               onSwipeRight={state => this.onSwipeRight(state)}
               style={{ flex: 1 }}
             >
-            <Animatable.View animation="fadeInUpBig">
-              <ScrollView
-                style={{
-                  height: height,
-                }}
-                contentContainerStyle={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-
-                <Text style={styles.pageheader}>My Garden</Text>
-                <Text style={styles.textItalic}>
-                  Click on a plant to see more information
-                </Text>
-                {this.state.myPlants.map(plant => {
-                  return (
-                    <PlantCard
-                      plantInfo={plant}
-                      navigation={this.props.navigation}
-                      isInGarden={true}
-                    />
-                  );
-                })}
-              </ScrollView>
-</Animatable.View>
+              <Animatable.View animation="fadeInUpBig">
+                <ScrollView
+                  style={{
+                    height: height,
+                  }}
+                  contentContainerStyle={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={styles.pageheader}>My Garden</Text>
+                  <Text style={styles.textItalic}>
+                    Click on a plant to see more information
+                  </Text>
+                  {this.state.myPlants.map(plant => {
+                    return (
+                      <PlantCard
+                        plantInfo={plant}
+                        navigation={this.props.navigation}
+                        isInGarden={true}
+                      />
+                    );
+                  })}
+                </ScrollView>
+              </Animatable.View>
             </GestureRecognizer>
           </ImageBackground>
         </View>

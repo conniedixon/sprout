@@ -14,7 +14,9 @@ import PlantCard from "../components/PlantCard";
 import { getUserGarden } from "../components/spec/index";
 import { getImagesForPlants } from "../utils/utils";
 import GestureRecognizer from "react-native-swipe-gestures";
+
 import styles from "./StyleCSS";
+import * as Animatable from "react-native-animatable";
 
 interface Props {
   navigation: any;
@@ -76,10 +78,12 @@ class MyGarden extends Component<Props> {
             source={require("./graphics/Background.jpg")}
             style={styles.backgroundImage}
           >
+
             <GestureRecognizer
               onSwipeRight={state => this.onSwipeRight(state)}
               style={{ flex: 1 }}
             >
+            <Animatable.View animation="fadeInUpBig">
               <ScrollView
                 style={{
                   height: height,
@@ -89,6 +93,7 @@ class MyGarden extends Component<Props> {
                   alignItems: "center",
                 }}
               >
+
                 <Text style={styles.pageheader}>My Garden</Text>
                 <Text style={styles.textItalic}>
                   Click on a plant to see more information
@@ -103,6 +108,7 @@ class MyGarden extends Component<Props> {
                   );
                 })}
               </ScrollView>
+</Animatable.View>
             </GestureRecognizer>
           </ImageBackground>
         </View>

@@ -2,8 +2,12 @@ import { Alert } from "react-native";
 import { medalsRef } from "./medals-ref";
 import { addMedal } from "../components/spec";
 
-export const awardMedal = (plantCount, username, goToMedals) => {
-  const medal = calculateMedal(plantCount);
+export const awardMedal = (page, plantCount, username, goToMedals) => {
+  const medal =
+    page === "GardenPage"
+      ? calculateGardenMedal(plantCount)
+      : calculateMedal(plantCount);
+  console.log(medal);
   if (medal) {
     const { award, description, slug } = medal;
     addMedal(slug, username).then(() => {
@@ -30,4 +34,10 @@ const calculateMedal = plantCount => {
   if (plantCount === 1) return medalsRef.scannedOnePlant;
   else if (plantCount === 10) return medalsRef.scannedTenPlants;
   else if (plantCount === 50) return medalsRef.scannedFiftyPlants;
+};
+
+const calculateGardenMedal = plantCount => {
+  if (plantCount === 1) return medalsRef.addedOnePlant;
+  else if (plantCount === 10) return medalsRef.addedTenPlants;
+  else if (plantCount === 50) return medalsRef.addedFiftyPlants;
 };

@@ -14,6 +14,7 @@ import PlantCard from "../components/PlantCard";
 import { getUserWishlist } from "../components/spec/index";
 import PlantMap from "./PlantMap";
 import styles from "./StyleCSS";
+import * as Animatable from "react-native-animatable";
 
 interface Props {
   navigation: any;
@@ -33,7 +34,7 @@ class Wishlist extends Component<Props> {
 
   render() {
     return (
-      <View style={styles.topMargin}>
+        <Animatable.View animation="fadeInUpBig" style={styles.topMargin}>
         <ImageBackground
           source={require("./graphics/Background.jpg")}
           style={styles.backgroundImage}
@@ -70,7 +71,8 @@ class Wishlist extends Component<Props> {
             <PlantMap />
           </View>
         </ImageBackground>
-      </View>
+      </Animatable.View>
+
     );
   }
 }

@@ -4,7 +4,11 @@ import React, { Component } from "react";
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { getImagesForPlants } from "../utils/utils";
+
 import styles from "./StyleCSS";
+
+import * as Animatable from "react-native-animatable";
+
 
 interface Props {
   navigation: any;
@@ -32,7 +36,9 @@ class ScannedPlants extends Component<Props> {
     if (isLoading) return <Text>Loading...</Text>;
     else {
       return (
+
         <View style={styles.topMargin}>
+        <Animatable.View animation="fadeInUpBig">
           <ImageBackground
             source={require("./graphics/Background.jpg")}
             style={styles.backgroundImage}
@@ -47,7 +53,7 @@ class ScannedPlants extends Component<Props> {
                   <TouchableOpacity
                     onPress={() => {
                       this.props.navigation.navigate("PlantPage", {
-                        plantInfo: plant,
+                        plantInfo: plant.plantInfo,
                         isInGarden: false,
                         username: username,
                         plantImage: plant.uri, //needs to be changed
@@ -69,7 +75,7 @@ class ScannedPlants extends Component<Props> {
               })}
             </View>
           </ImageBackground>
-        </View>
+        </Animatable.View>
       );
     }
   }

@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 import { Text, View, Alert, StyleSheet, ImageBackground } from "react-native";
 import ImageCarousel from "./ImageCarousel";
-import { addPlantToGarden, addToWishlist } from "./spec/index";
+import { addPlantToGarden, addToWishlist, getUserGarden } from "./spec/index";
 import { getUserScannedPlants } from "../components/spec/index";
 import { awardMedal } from "../utils/medals";
 import { addNotifications } from "../utils/notifications";
@@ -56,8 +56,11 @@ class PlantPage extends Component<Props> {
         },
         () => {
           if (justScanned) {
-            awardMedal(this.state.scannedPlantCount, username, () =>
-              this.props.navigation.navigate("UserPage", { username })
+            awardMedal(
+              "ScannedPlants",
+              this.state.scannedPlantCount,
+              username,
+              () => this.props.navigation.navigate("UserPage", { username })
             );
           }
         }
@@ -159,9 +162,24 @@ class PlantPage extends Component<Props> {
               <TouchableOpacity
                 style={styles.button}
                 onPress={() =>
-                  addPlantToGarden(plantInfo, username).then(() => {
-                    this.AsyncAlert("your Garden", "MyGarden");
-                  })
+                  addPlantToGarden(plantInfo, username)
+                    .then(() => {
+                      return getUserGarden(username);
+                    })
+                    .then(garden => {
+                      const gardenCount = Object.keys(garden).length;
+                      return awardMedal(
+                        "GardenPage",
+                        garden.length,
+                        username,
+                        () => {
+                          this.props.navigation.navigate("UserPage");
+                        }
+                      );
+                    })
+                    .then(() => {
+                      this.AsyncAlert("your Garden", "MyGarden");
+                    })
                 }
               >
                 <Text style={styles.button}>Add to My Garden</Text>

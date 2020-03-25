@@ -22,7 +22,6 @@ class PlantCard extends Component<Props> {
   };
 
   render() {
-    let { height, width } = Dimensions.get("window");
     if (this.state.isLoading) return "Loading...";
     const {
       commonName,
@@ -30,10 +29,9 @@ class PlantCard extends Component<Props> {
       lightLevel,
       minTemp,
       wateringSchedule,
-      images,
       trafficlight,
-      uri,
-    } = this.props.plantInfo;
+    } = this.props.plantInfo.plantInfo;
+    const { uri } = this.props.plantInfo;
     return (
       <View>
         <TouchableOpacity

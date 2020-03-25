@@ -9,7 +9,6 @@ import styles from "./StyleCSS";
 
 import * as Animatable from "react-native-animatable";
 
-
 interface Props {
   navigation: any;
   route: any;
@@ -36,9 +35,7 @@ class ScannedPlants extends Component<Props> {
     if (isLoading) return <Text>Loading...</Text>;
     else {
       return (
-
-        <View style={styles.topMargin}>
-        <Animatable.View animation="fadeInUpBig">
+        <Animatable.View animation="fadeInUpBig" style={styles.topMargin}>
           <ImageBackground
             source={require("./graphics/Background.jpg")}
             style={styles.backgroundImage}

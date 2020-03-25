@@ -100,7 +100,7 @@ class PlantPage extends Component<Props> {
             style={styles.backgroundImage}
           >
             <View style={styles.container}>
-              <ImageCarousel images={images} />
+              <ImageCarousel images={this.images} />
 
               <Text style={styles.header}>{plantInfo.commonName}</Text>
               <Text style={styles.subheader}>{plantInfo.scientificName}</Text>
@@ -136,7 +136,7 @@ class PlantPage extends Component<Props> {
             style={styles.backgroundImage}
           >
             <View style={styles.container}>
-              <ImageCarousel images={images} />
+              <ImageCarousel images={this.images} />
 
               <Text style={styles.header}>{plantInfo.commonName}</Text>
               <Text style={styles.subheader}>{plantInfo.scientificName}</Text>

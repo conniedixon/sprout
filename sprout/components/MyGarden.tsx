@@ -14,6 +14,7 @@ import PlantCard from "../components/PlantCard";
 import { getUserGarden } from "../components/spec/index";
 import { getImagesForPlants } from "../utils/utils";
 import GestureRecognizer from "react-native-swipe-gestures";
+import styles from "./StyleCSS";
 
 interface Props {
   navigation: any;
@@ -58,11 +59,13 @@ class MyGarden extends Component<Props> {
           onSwipeRight={state => this.onSwipeRight(state)}
           style={{ flex: 1 }}
         >
-          <View>
-            <Text>
-              "Start scanning and adding plants to your garden to see them
-              here!"
-            </Text>
+          <View style={styles.topMargin}>
+            <ImageBackground source={require("./graphics/Background.jpg")}>
+              <Text style={styles.text}>
+                "Start scanning and adding plants to your garden to see them
+                here!"
+              </Text>
+            </ImageBackground>
           </View>
         </GestureRecognizer>
       );
@@ -71,7 +74,7 @@ class MyGarden extends Component<Props> {
         <View style={{ marginTop: 25 }}>
           <ImageBackground
             source={require("./graphics/Background.jpg")}
-            style={{ width: "100%", height: "100%" }}
+            style={styles.backgroundImage}
           >
             <GestureRecognizer
               onSwipeRight={state => this.onSwipeRight(state)}
@@ -86,17 +89,10 @@ class MyGarden extends Component<Props> {
                   alignItems: "center",
                 }}
               >
-                <Text
-                  style={{
-                    fontSize: 20,
-                    margin: 5,
-                    fontWeight: "bold",
-                    marginTop: 20,
-                  }}
-                >
-                  My Garden
+                <Text style={styles.pageheader}>My Garden</Text>
+                <Text style={styles.textItalic}>
+                  Click on a plant to see more information
                 </Text>
-                <Text>Click on a plant to see more information</Text>
                 {this.state.myPlants.map(plant => {
                   return (
                     <PlantCard

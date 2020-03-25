@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { getImagesForPlants } from "../utils/utils";
+import styles from "./StyleCSS";
 
 interface Props {
   navigation: any;
@@ -31,16 +32,16 @@ class ScannedPlants extends Component<Props> {
     if (isLoading) return <Text>Loading...</Text>;
     else {
       return (
-        <View>
+        <View style={styles.topMargin}>
           <ImageBackground
             source={require("./graphics/Background.jpg")}
             style={styles.backgroundImage}
           >
-            <Text style={styles.text}>
+            <Text style={styles.textItalic}>
               Click on an image to see more information and add to your wishlist
               or garden{" "}
             </Text>
-            <View style={styles.container}>
+            <View style={styles.rowscontainer}>
               {scannedPlants.map(plant => {
                 return (
                   <TouchableOpacity
@@ -76,23 +77,5 @@ class ScannedPlants extends Component<Props> {
   //delete a scanned plant
   //add to my wishlist
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height: 100,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
-  text: {
-    textAlign: "center",
-    fontSize: 14,
-  },
-  backgroundImage: {
-    width: "100%",
-    height: "100%",
-  },
-});
 
 export default ScannedPlants;

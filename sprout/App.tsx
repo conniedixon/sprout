@@ -34,6 +34,9 @@ class App extends React.Component {
   componentDidMount() {
     Font.loadAsync({
       "patrick-hand-sc": require("./assets/fonts/Patrick_Hand_SC/PatrickHandSC-Regular.ttf"),
+      "roboto-regular": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
+      "roboto-bold": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
+      "roboto-italic": require("./assets/fonts/Roboto/Roboto-LightItalic.ttf"),
     });
   }
   authenticateUser = (username, firstLogin) => {

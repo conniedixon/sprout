@@ -1,18 +1,30 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
+// "patrick-hand-sc": require("./assets/fonts/Patrick_Hand_SC/PatrickHandSC-Regular.ttf"),
+//       "roboto-regular": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
+//       "roboto-bold": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
+//       "roboto-italic
+
 const styles = StyleSheet.create({
+  topMargin: {
+    marginTop: 25,
+  },
   text: {
-    fontFamily: "patrick-hand-sc",
+    fontFamily: "roboto-regular",
     fontSize: 14,
     textAlign: "center",
   },
   textItalic: {
-    fontFamily: "Roboto",
+    fontFamily: "roboto-italic",
     fontSize: 14,
     textAlign: "center",
-    fontStyle: "italic",
-    fontWeight: "200",
+  },
+  subHeader: {
+    fontFamily: "roboto-bold",
+    fontSize: 14,
+    textAlign: "center",
+    marginTop: 10,
   },
   backgroundImage: {
     width: "100%",
@@ -22,27 +34,54 @@ const styles = StyleSheet.create({
     backgroundColor: "#aebb8f",
     color: "white",
     fontSize: 15,
+    fontFamily: "roboto-regular",
     textAlign: "center",
     alignSelf: "center",
     width: "50%",
     justifyContent: "space-around",
     margin: 3,
+    borderRadius: 5,
   },
-  header: {
-    fontSize: 28,
+  pageheader: {
+    fontSize: 40,
     textAlign: "center",
-    fontWeight: "bold",
-    fontFamily: "Roboto",
+    fontFamily: "patrick-hand-sc",
   },
-  subheader: {
-    fontSize: 20,
+  header2: {
+    fontSize: 27,
     textAlign: "center",
-    fontStyle: "italic",
+    fontFamily: "patrick-hand-sc",
+    padding: 0,
   },
   container: {
     backgroundColor: "white",
     borderRadius: 10,
     padding: 5,
+  },
+  plantCard: {
+    height: 370,
+    width: 350,
+    margin: 10,
+    backgroundColor: "white",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  rowscontainer: {
+    height: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  map: {
+    marginTop: 15,
+    marginBottom: 8,
+    marginLeft: 8,
+    marginRight: 8,
+  },
+  wishlistcontainer: {
+    height: 100,
   },
 });
 

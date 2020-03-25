@@ -167,7 +167,7 @@ class CameraPage extends Component<Props, State> {
     const { hasPermission } = this.state;
     if (hasPermission === null || hasPermission === false) {
       return (
-        <View>
+        <View style={{ marginTop: 25 }}>
           <SearchBar
             onSearch={this.onSearch}
             toggleSearch={this.toggleSearch}
@@ -195,7 +195,7 @@ class CameraPage extends Component<Props, State> {
       );
     } else {
       return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, marginTop: 20 }}>
           {this.state.searchVisible && (
             <SearchBar
               onSearch={this.onSearch}

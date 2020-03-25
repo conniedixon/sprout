@@ -8,15 +8,12 @@ import { getUserScannedPlants } from "../components/spec/index";
 import { awardMedal } from "../utils/medals";
 import { addNotifications } from "../utils/notifications";
 
-
 interface Props {
   route: any;
   navigation: any;
 }
 
-import { addNotifications } from "./spec/notifications";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
 
 class PlantPage extends Component<Props> {
   state = {
@@ -38,7 +35,6 @@ class PlantPage extends Component<Props> {
     username: "",
     scannedPlantCount: 0,
   };
-
 
   componentDidMount() {
     const {
@@ -64,7 +60,6 @@ class PlantPage extends Component<Props> {
             );
           }
         }
-
       );
     });
   }
@@ -97,102 +92,16 @@ class PlantPage extends Component<Props> {
 
   render() {
     const { plantInfo, username, isInGarden } = this.state;
-   if (isInGarden === "isInWishlist") {
-    return (
-      <View>
-        <ImageBackground
-          source={require("./graphics/Background.jpg")}
-          style={styles.backgroundImage}
-        >
-          <View style={styles.container}>
-            <ImageCarousel images={images} />
+    if (isInGarden === "isInWishlist") {
+      return (
+        <View>
+          <ImageBackground
+            source={require("./graphics/Background.jpg")}
+            style={styles.backgroundImage}
+          >
+            <View style={styles.container}>
+              <ImageCarousel images={images} />
 
-            <Text style={styles.header}>{plantInfo.commonName}</Text>
-            <Text style={styles.subheader}>{plantInfo.scientificName}</Text>
-            <Text style={styles.text}>Duration: {plantInfo.duration}</Text>
-            <Text style={styles.text}> Family: {plantInfo.family}</Text>
-            <Text style={styles.text}>Difficulty: {plantInfo.difficulty}</Text>
-            <Text style={styles.subheader}>How to care for me:</Text>
-            <Text>Light level:{plantInfo.lightLevel} </Text>
-            <Text>Soil pH: {plantInfo.ph}</Text>
-
-            <Text>Watering Needs:{plantInfo.wateringSchedule} </Text>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() =>
-                addPlantToGarden(plantInfo, username).then(() => {
-                  AsyncAlert("your Garden", "MyGarden");
-                })
-              }
-            >
-              <Text style={styles.button}>Add to My Garden</Text>
-            </TouchableOpacity>
-          </View>
-        </ImageBackground>
-      </View>
-    );
-  } else if (!isInGarden) {
-    return (
-      <View>
-        <ImageBackground
-          source={require("./graphics/Background.jpg")}
-          style={styles.backgroundImage}
-        >
-          <View style={styles.container}>
-            <ImageCarousel images={images} />
-
-            <Text style={styles.header}>{plantInfo.commonName}</Text>
-            <Text style={styles.subheader}>{plantInfo.scientificName}</Text>
-            <Text style={styles.text}>Duration: {plantInfo.duration}</Text>
-            <Text style={styles.text}> Family: {plantInfo.family}</Text>
-            <Text style={styles.text}>Difficulty: {plantInfo.difficulty}</Text>
-            <Text style={styles.subheader}>How to care for me:</Text>
-            <Text>Light level:{plantInfo.lightLevel} </Text>
-            <Text>Soil pH: {plantInfo.ph}</Text>
-
-            <Text>Watering Needs:{plantInfo.wateringSchedule} </Text>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() =>
-                addPlantToGarden(plantInfo, username).then(() => {
-                  AsyncAlert("your Garden", "MyGarden");
-                })
-              }
-            >
-              <Text style={styles.button}>Add to My Garden</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() =>
-                addToWishlist(plantInfo, username).then(() => {
-                  AsyncAlert("your Wishlist", "Wishlist");
-                })
-              }
-            >
-              <Text style={styles.button}>Add to My Wishlist</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigation.navigate("CameraPage")}
-            >
-              <Text style={styles.button}>Scan Another Plant</Text>
-            </TouchableOpacity>
-          </View>
-        </ImageBackground>
-      </View>
-    );
-  } else {
-    return (
-      <View>
-        <ImageBackground
-          source={require("./graphics/Background.jpg")}
-          style={styles.backgroundImage}
-        >
-          <View style={styles.container}>
-            <ImageCarousel images={images} />
-            <View>
               <Text style={styles.header}>{plantInfo.commonName}</Text>
               <Text style={styles.subheader}>{plantInfo.scientificName}</Text>
               <Text style={styles.text}>Duration: {plantInfo.duration}</Text>
@@ -201,29 +110,119 @@ class PlantPage extends Component<Props> {
                 Difficulty: {plantInfo.difficulty}
               </Text>
               <Text style={styles.subheader}>How to care for me:</Text>
-              <Text style={styles.text}>
-                Light level:{plantInfo.lightLevel}{" "}
-              </Text>
-              <Text style={styles.text}>Soil pH: {plantInfo.ph}</Text>
-              <Text style={styles.text}>
-                Watering Needs:{plantInfo.wateringSchedule}{" "}
-              </Text>
-            </View>
+              <Text>Light level:{plantInfo.lightLevel} </Text>
+              <Text>Soil pH: {plantInfo.ph}</Text>
 
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                addNotifications(plantInfo);
-              }}
-            >
-              <Text style={styles.button}>Remind Me To Water</Text>
-            </TouchableOpacity>
-          </View>
-        </ImageBackground>
-      </View>
-    );
+              <Text>Watering Needs:{plantInfo.wateringSchedule} </Text>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() =>
+                  addPlantToGarden(plantInfo, username).then(() => {
+                    AsyncAlert("your Garden", "MyGarden");
+                  })
+                }
+              >
+                <Text style={styles.button}>Add to My Garden</Text>
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
+        </View>
+      );
+    } else if (!isInGarden) {
+      return (
+        <View>
+          <ImageBackground
+            source={require("./graphics/Background.jpg")}
+            style={styles.backgroundImage}
+          >
+            <View style={styles.container}>
+              <ImageCarousel images={images} />
+
+              <Text style={styles.header}>{plantInfo.commonName}</Text>
+              <Text style={styles.subheader}>{plantInfo.scientificName}</Text>
+              <Text style={styles.text}>Duration: {plantInfo.duration}</Text>
+              <Text style={styles.text}> Family: {plantInfo.family}</Text>
+              <Text style={styles.text}>
+                Difficulty: {plantInfo.difficulty}
+              </Text>
+              <Text style={styles.subheader}>How to care for me:</Text>
+              <Text>Light level:{plantInfo.lightLevel} </Text>
+              <Text>Soil pH: {plantInfo.ph}</Text>
+
+              <Text>Watering Needs:{plantInfo.wateringSchedule} </Text>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() =>
+                  addPlantToGarden(plantInfo, username).then(() => {
+                    AsyncAlert("your Garden", "MyGarden");
+                  })
+                }
+              >
+                <Text style={styles.button}>Add to My Garden</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() =>
+                  addToWishlist(plantInfo, username).then(() => {
+                    AsyncAlert("your Wishlist", "Wishlist");
+                  })
+                }
+              >
+                <Text style={styles.button}>Add to My Wishlist</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate("CameraPage")}
+              >
+                <Text style={styles.button}>Scan Another Plant</Text>
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
+        </View>
+      );
+    } else {
+      return (
+        <View>
+          <ImageBackground
+            source={require("./graphics/Background.jpg")}
+            style={styles.backgroundImage}
+          >
+            <View style={styles.container}>
+              <ImageCarousel images={images} />
+              <View>
+                <Text style={styles.header}>{plantInfo.commonName}</Text>
+                <Text style={styles.subheader}>{plantInfo.scientificName}</Text>
+                <Text style={styles.text}>Duration: {plantInfo.duration}</Text>
+                <Text style={styles.text}> Family: {plantInfo.family}</Text>
+                <Text style={styles.text}>
+                  Difficulty: {plantInfo.difficulty}
+                </Text>
+                <Text style={styles.subheader}>How to care for me:</Text>
+                <Text style={styles.text}>
+                  Light level:{plantInfo.lightLevel}{" "}
+                </Text>
+                <Text style={styles.text}>Soil pH: {plantInfo.ph}</Text>
+                <Text style={styles.text}>
+                  Watering Needs:{plantInfo.wateringSchedule}{" "}
+                </Text>
+              </View>
+
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  addNotifications(plantInfo);
+                }}
+              >
+                <Text style={styles.button}>Remind Me To Water</Text>
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
+        </View>
+      );
+    }
   }
-}
 }
 
 const styles = StyleSheet.create({

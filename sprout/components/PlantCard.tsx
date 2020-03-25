@@ -45,8 +45,7 @@ class PlantCard extends Component<Props> {
         >
           <View style={styles.plantCard}>
             <Text style={styles.header2}>{commonName}</Text>
-            <Image
-              style={{ width: 250, height: 250, borderRadius: 10, margin: 5 }}
+            <Image, margin: 5 }}
               source={{ uri: uri }}
             />
             <View

@@ -23,10 +23,10 @@ class ImageCarousel extends Component<ImagesProps> {
     });
     if (filteredImages && filteredImages.length) {
       return (
-        <View>
+        <View style={{ padding: 10 }}>
           <ScrollView
             key={images}
-            style={{ width: "100%" }}
+            style={{ width: "100%", height: 295 }}
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={true}

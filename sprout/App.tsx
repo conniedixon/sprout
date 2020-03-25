@@ -18,6 +18,7 @@ import Wishlist from "./components/Wishlist";
 import ScannedPlants from "./components/ScannedPlants";
 import PlantMap from "./components/PlantMap";
 import LandingCarousel from "./components/LandingCarousel";
+import * as Font from "expo-font";
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,11 @@ class App extends React.Component {
     },
   };
 
+  componentDidMount() {
+    Font.loadAsync({
+      "patrick-hand-sc": require("./assets/fonts/Patrick_Hand_SC/PatrickHandSC-Regular.ttf"),
+    });
+  }
   authenticateUser = (username, firstLogin) => {
     this.setState({ user: { authenticated: true, username, firstLogin } });
   };

@@ -7,6 +7,7 @@ import { addPlantToGarden, addToWishlist } from "./spec/index";
 import { getUserScannedPlants } from "../components/spec/index";
 import { awardMedal } from "../utils/medals";
 import { addNotifications } from "../utils/notifications";
+import styles from "./StyleCSS";
 
 interface Props {
   route: any;
@@ -223,42 +224,5 @@ class PlantPage extends Component<Props> {
     }
   }
 }
-
-const styles = StyleSheet.create({
-  backgroundImage: {
-    width: "100%",
-    height: "100%",
-  },
-  button: {
-    backgroundColor: "#aebb8f",
-    color: "white",
-    fontSize: 15,
-    textAlign: "center",
-    alignSelf: "center",
-    width: "50%",
-    justifyContent: "space-around",
-    margin: 3,
-  },
-  header: {
-    fontSize: 28,
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-  text: {
-    textAlign: "center",
-    fontSize: 14,
-  },
-  subheader: {
-    fontSize: 20,
-    textAlign: "center",
-    fontStyle: "italic",
-  },
-  container: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 5,
-  },
-  imagecontainer: {},
-});
 
 export default PlantPage;

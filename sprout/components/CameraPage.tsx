@@ -9,10 +9,16 @@ import {
   TouchableOpacity,
   Platform,
   StyleSheet,
+  Image,
 } from "react-native";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import {
+  FontAwesome,
+  Ionicons,
+  MaterialIcons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import * as api from "../api";
 import SearchBar from "./SearchBar";
@@ -169,19 +175,32 @@ class CameraPage extends Component<Props> {
       return (
         <View style={{ flex: 1 }}>
           <SearchBar onSearch={this.onSearch} />
+
           <Camera
-            style={{ flex: 1, zIndex: -1000 }}
             type={this.state.cameraType}
             ref={ref => {
               this.camera = ref;
             }}
-          >
+            style={styles.camera}
+          ></Camera>
+          <View style={styles.iconContainer}>
+            <Image
+              source={require("./graphics/1585050155337_Untitled_Artwork.jpg")}
+              style={styles.backgroundImage}
+            ></Image>
             <TouchableOpacity
-              style={{
-                alignSelf: "flex-end",
-                alignItems: "center",
-                backgroundColor: "transparent",
-              }}
+              onPress={() => this.props.navigation.navigate("MyGarden")}
+            >
+              {/* <Text> */}
+              <FontAwesome
+                name="leaf"
+                style={{ color: "#fff", fontSize: 40 }}
+              />
+              {/* Account
+              </Text> */}
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.cameraIcon}
               onPress={() => this.takePicture()}
             >
               <FontAwesome
@@ -190,11 +209,7 @@ class CameraPage extends Component<Props> {
               />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{
-                alignSelf: "flex-end",
-                alignItems: "center",
-                backgroundColor: "transparent",
-              }}
+              style={styles.library}
               onPress={() => this.pickImage()}
             >
               <Ionicons
@@ -202,15 +217,19 @@ class CameraPage extends Component<Props> {
                 style={{ color: "#fff", fontSize: 40 }}
               />
             </TouchableOpacity>
-          </Camera>
-          <Button
-            title="Go to My Garden"
-            onPress={() => this.props.navigation.navigate("MyGarden")}
-          />
-          <Button
-            title="Go to My Account"
-            onPress={() => this.props.navigation.navigate("UserPage")}
-          />
+
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("UserPage")}
+            >
+              {/* <Text> */}
+              <MaterialCommunityIcons
+                name="account"
+                style={{ color: "#fff", fontSize: 40 }}
+              />
+              {/* Account
+              </Text> */}
+            </TouchableOpacity>
+          </View>
         </View>
       );
     }
@@ -219,4 +238,30 @@ class CameraPage extends Component<Props> {
 
 export default CameraPage;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  library: {
+    backgroundColor: "transparent",
+  },
+  cameraIcon: {
+    backgroundColor: "transparent",
+  },
+  iconContainer: {
+    flex: 1,
+    flexDirection: "row",
+    height: "10%",
+    justifyContent: "space-around",
+    paddingTop: 15,
+  },
+  backgroundImage: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    opacity: 0.3,
+  },
+  camera: {
+    flex: 8,
+    zIndex: -1000,
+  },
+});

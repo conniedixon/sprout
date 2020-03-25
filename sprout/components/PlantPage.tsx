@@ -7,6 +7,7 @@ import { addPlantToGarden, addToWishlist, getUserGarden } from "./spec/index";
 import { getUserScannedPlants } from "../components/spec/index";
 import { awardMedal } from "../utils/medals";
 import { addNotifications } from "../utils/notifications";
+import styles from "./StyleCSS";
 
 interface Props {
   route: any;
@@ -96,7 +97,7 @@ class PlantPage extends Component<Props> {
     };
     if (isInGarden === "isInWishlist") {
       return (
-        <View>
+        <View style={styles.topMargin}>
           <ImageBackground
             source={require("./graphics/Background.jpg")}
             style={styles.backgroundImage}
@@ -104,18 +105,21 @@ class PlantPage extends Component<Props> {
             <View style={styles.container}>
               <ImageCarousel images={images} />
 
-              <Text style={styles.header}>{plantInfo.commonName}</Text>
-              <Text style={styles.subheader}>{plantInfo.scientificName}</Text>
+              <Text style={styles.header2}>{plantInfo.commonName}</Text>
+              <Text style={styles.textItalic}>{plantInfo.scientificName}</Text>
               <Text style={styles.text}>Duration: {plantInfo.duration}</Text>
               <Text style={styles.text}> Family: {plantInfo.family}</Text>
               <Text style={styles.text}>
                 Difficulty: {plantInfo.difficulty}
               </Text>
-              <Text style={styles.subheader}>How to care for me:</Text>
-              <Text>Light level:{plantInfo.lightLevel} </Text>
-              <Text>Soil pH: {plantInfo.ph}</Text>
-
-              <Text>Watering Needs:{plantInfo.wateringSchedule} </Text>
+              <Text style={styles.subHeader}>How to care for me:</Text>
+              <Text style={styles.text}>
+                Light level: {plantInfo.lightLevel}
+              </Text>
+              <Text style={styles.text}>Soil pH: {plantInfo.ph}</Text>
+              <Text style={styles.text}>
+                Watering Needs: {plantInfo.wateringSchedule}{" "}
+              </Text>
               <TouchableOpacity
                 style={styles.button}
                 onPress={() =>
@@ -132,7 +136,7 @@ class PlantPage extends Component<Props> {
       );
     } else if (!isInGarden) {
       return (
-        <View>
+        <View style={styles.topMargin}>
           <ImageBackground
             source={require("./graphics/Background.jpg")}
             style={styles.backgroundImage}
@@ -140,18 +144,21 @@ class PlantPage extends Component<Props> {
             <View style={styles.container}>
               <ImageCarousel images={images} />
 
-              <Text style={styles.header}>{plantInfo.commonName}</Text>
-              <Text style={styles.subheader}>{plantInfo.scientificName}</Text>
+              <Text style={styles.header2}>{plantInfo.commonName}</Text>
+              <Text style={styles.textItalic}>{plantInfo.scientificName}</Text>
               <Text style={styles.text}>Duration: {plantInfo.duration}</Text>
               <Text style={styles.text}> Family: {plantInfo.family}</Text>
               <Text style={styles.text}>
                 Difficulty: {plantInfo.difficulty}
               </Text>
-              <Text style={styles.subheader}>How to care for me:</Text>
-              <Text>Light level:{plantInfo.lightLevel} </Text>
-              <Text>Soil pH: {plantInfo.ph}</Text>
-
-              <Text>Watering Needs:{plantInfo.wateringSchedule} </Text>
+              <Text style={styles.subHeader}>How to care for me:</Text>
+              <Text style={styles.text}>
+                Light level: {plantInfo.lightLevel}
+              </Text>
+              <Text style={styles.text}>Soil pH: {plantInfo.ph}</Text>
+              <Text style={styles.text}>
+                Watering Needs: {plantInfo.wateringSchedule}{" "}
+              </Text>
               <TouchableOpacity
                 style={styles.button}
                 onPress={() =>
@@ -201,7 +208,7 @@ class PlantPage extends Component<Props> {
       );
     } else {
       return (
-        <View>
+        <View style={styles.topMargin}>
           <ImageBackground
             source={require("./graphics/Background.jpg")}
             style={styles.backgroundImage}
@@ -209,20 +216,22 @@ class PlantPage extends Component<Props> {
             <View style={styles.container}>
               <ImageCarousel images={images} />
               <View>
-                <Text style={styles.header}>{plantInfo.commonName}</Text>
-                <Text style={styles.subheader}>{plantInfo.scientificName}</Text>
+                <Text style={styles.header2}>{plantInfo.commonName}</Text>
+                <Text style={styles.textItalic}>
+                  {plantInfo.scientificName}
+                </Text>
                 <Text style={styles.text}>Duration: {plantInfo.duration}</Text>
                 <Text style={styles.text}> Family: {plantInfo.family}</Text>
                 <Text style={styles.text}>
                   Difficulty: {plantInfo.difficulty}
                 </Text>
-                <Text style={styles.subheader}>How to care for me:</Text>
+                <Text style={styles.subHeader}>How to care for me:</Text>
                 <Text style={styles.text}>
-                  Light level:{plantInfo.lightLevel}{" "}
+                  Light level: {plantInfo.lightLevel}
                 </Text>
                 <Text style={styles.text}>Soil pH: {plantInfo.ph}</Text>
                 <Text style={styles.text}>
-                  Watering Needs:{plantInfo.wateringSchedule}{" "}
+                  Watering Needs: {plantInfo.wateringSchedule}{" "}
                 </Text>
               </View>
 
@@ -232,7 +241,7 @@ class PlantPage extends Component<Props> {
                   addNotifications(plantInfo);
                 }}
               >
-                <Text style={styles.button}>Remind Me To Water</Text>
+                <Text style={styles.button}>Set Watering Reminder</Text>
               </TouchableOpacity>
             </View>
           </ImageBackground>
@@ -241,42 +250,5 @@ class PlantPage extends Component<Props> {
     }
   }
 }
-
-const styles = StyleSheet.create({
-  backgroundImage: {
-    width: "100%",
-    height: "100%",
-  },
-  button: {
-    backgroundColor: "#aebb8f",
-    color: "white",
-    fontSize: 15,
-    textAlign: "center",
-    alignSelf: "center",
-    width: "50%",
-    justifyContent: "space-around",
-    margin: 3,
-  },
-  header: {
-    fontSize: 28,
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-  text: {
-    textAlign: "center",
-    fontSize: 14,
-  },
-  subheader: {
-    fontSize: 20,
-    textAlign: "center",
-    fontStyle: "italic",
-  },
-  container: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 5,
-  },
-  imagecontainer: {},
-});
 
 export default PlantPage;

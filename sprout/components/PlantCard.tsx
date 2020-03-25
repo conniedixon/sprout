@@ -8,6 +8,7 @@ import Temp from "./Temp";
 import Watering from "./Watering";
 import Difficulty from "./Difficulty";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import styles from "./StyleCSS";
 
 interface Props {
   plantInfo: any;
@@ -32,12 +33,7 @@ class PlantCard extends Component<Props> {
     } = this.props.plantInfo.plantInfo;
     const { uri } = this.props.plantInfo;
     return (
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <View>
         <TouchableOpacity
           onPress={() =>
             this.props.navigation.navigate("PlantPage", {
@@ -47,18 +43,8 @@ class PlantCard extends Component<Props> {
             })
           }
         >
-          <View
-            style={{
-              height: 370,
-              width: 350,
-              margin: 10,
-              backgroundColor: "white",
-              borderRadius: 10,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ margin: 5 }}>{commonName}</Text>
+          <View style={styles.plantCard}>
+            <Text style={styles.header2}>{commonName}</Text>
             <Image
               style={{ width: 250, height: 250, borderRadius: 10, margin: 5 }}
               source={{ uri: uri }}
@@ -78,14 +64,9 @@ class PlantCard extends Component<Props> {
               <Watering watering={wateringSchedule}></Watering>
               <Difficulty trafficlight={trafficlight}></Difficulty>
             </View>
-            <Text>Planted: (date here!)</Text>
           </View>
         </TouchableOpacity>
       </View>
-      //set reminder to water
-      //delete
-      //edit values and picture
-      //add date and image from BEN
     );
   }
 }

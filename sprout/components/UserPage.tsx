@@ -7,6 +7,7 @@ import { getUser } from "../components/spec/index";
 import GestureRecognizer from "react-native-swipe-gestures";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { buttonStyle } from "./ButtonCSS";
+import styles from "./StyleCSS";
 
 interface Props {
   navigation: any;
@@ -54,16 +55,18 @@ class UserPage extends Component<Props> {
         onSwipeLeft={state => this.onSwipeLeft(state)}
         style={{ flex: 1 }}
       >
-        <View>
+        <View style={styles.topMargin}>
           <ImageBackground
             source={require("./graphics/Background.jpg")}
             style={styles.backgroundImage}
           >
-            <Text style={styles.header}>Welcome {this.state.username}! </Text>
-            <Text style={styles.text}>
+            <Text style={styles.pageheader}>
+              Welcome {this.state.username}!{" "}
+            </Text>
+            <Text style={styles.header2}>
               Total Plants Scanned: {this.state.scannedPlants.length}
             </Text>
-            <Text style={styles.text}>
+            <Text style={styles.header2}>
               Total Species Scanned: {this.speciesCount()}
             </Text>
             <TouchableOpacity
@@ -87,6 +90,11 @@ class UserPage extends Component<Props> {
             >
               <Text style={styles.button}>Go To My Wishlist</Text>
             </TouchableOpacity>
+            <View style={{ padding: 10 }}>
+              <Text style={styles.textItalic}>
+                Keep scanning and adding plants to your garden to collect medals
+              </Text>
+            </View>
             <MedalsPage userMedals={this.state.userMedals} />
           </ImageBackground>
         </View>
@@ -96,29 +104,3 @@ class UserPage extends Component<Props> {
 }
 
 export default UserPage;
-
-const styles = StyleSheet.create({
-  backgroundImage: {
-    width: "100%",
-    height: "100%",
-  },
-  button: {
-    backgroundColor: "#aebb8f",
-    color: "white",
-    fontSize: 15,
-    textAlign: "center",
-    alignSelf: "center",
-    width: "50%",
-    justifyContent: "space-around",
-    margin: 3,
-  },
-  header: {
-    fontSize: 30,
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-  text: {
-    textAlign: "center",
-    fontSize: 20,
-  },
-});

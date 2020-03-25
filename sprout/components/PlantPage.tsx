@@ -64,10 +64,6 @@ class PlantPage extends Component<Props> {
     });
   }
 
-  images = {
-    images: [{ url: this.state.plantImage }, this.state.plantInfo.images],
-  };
-
   AsyncAlert = async (slug, location) =>
     new Promise((resolve, reject) => {
       Alert.alert(
@@ -92,6 +88,9 @@ class PlantPage extends Component<Props> {
 
   render() {
     const { plantInfo, username, isInGarden } = this.state;
+    const images = {
+      images: [{ url: this.state.plantImage }, ...this.state.plantInfo.images],
+    };
     if (isInGarden === "isInWishlist") {
       return (
         <View>
@@ -100,7 +99,7 @@ class PlantPage extends Component<Props> {
             style={styles.backgroundImage}
           >
             <View style={styles.container}>
-              <ImageCarousel images={this.images} />
+              <ImageCarousel images={images} />
 
               <Text style={styles.header}>{plantInfo.commonName}</Text>
               <Text style={styles.subheader}>{plantInfo.scientificName}</Text>
@@ -118,7 +117,7 @@ class PlantPage extends Component<Props> {
                 style={styles.button}
                 onPress={() =>
                   addPlantToGarden(plantInfo, username).then(() => {
-                    AsyncAlert("your Garden", "MyGarden");
+                    this.AsyncAlert("your Garden", "MyGarden");
                   })
                 }
               >
@@ -136,7 +135,7 @@ class PlantPage extends Component<Props> {
             style={styles.backgroundImage}
           >
             <View style={styles.container}>
-              <ImageCarousel images={this.images} />
+              <ImageCarousel images={images} />
 
               <Text style={styles.header}>{plantInfo.commonName}</Text>
               <Text style={styles.subheader}>{plantInfo.scientificName}</Text>
@@ -154,7 +153,7 @@ class PlantPage extends Component<Props> {
                 style={styles.button}
                 onPress={() =>
                   addPlantToGarden(plantInfo, username).then(() => {
-                    AsyncAlert("your Garden", "MyGarden");
+                    this.AsyncAlert("your Garden", "MyGarden");
                   })
                 }
               >
@@ -165,7 +164,7 @@ class PlantPage extends Component<Props> {
                 style={styles.button}
                 onPress={() =>
                   addToWishlist(plantInfo, username).then(() => {
-                    AsyncAlert("your Wishlist", "Wishlist");
+                    this.AsyncAlert("your Wishlist", "Wishlist");
                   })
                 }
               >
@@ -174,7 +173,7 @@ class PlantPage extends Component<Props> {
 
               <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate("CameraPage")}
+                onPress={() => this.props.navigation.navigate("CameraPage")}
               >
                 <Text style={styles.button}>Scan Another Plant</Text>
               </TouchableOpacity>

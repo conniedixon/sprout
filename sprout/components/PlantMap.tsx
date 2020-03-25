@@ -7,7 +7,7 @@ import {
   Dimensions,
   Linking,
   Button,
-  TouchableHighlight
+  TouchableHighlight,
 } from "react-native";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
@@ -64,8 +64,12 @@ export default class PlantMap extends React.Component {
   createMarkers() {
     return this.state.gardenCentres.map(centre => {
       return (
-        <Marker coordinate={centre.coords} title={centre.name}>
-          <Callout>
+        <Marker
+          coordinate={centre.coords}
+          title={centre.name}
+          pinColor="#aebb8f"
+        >
+          <Callout style={styles.callout}>
             <View>
               <Text>{centre.name}</Text>
               <Text
@@ -95,44 +99,197 @@ export default class PlantMap extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          style={styles.mapStyle}
-          showsUserLocation
-          showsMyLocationButton
-          initialRegion={{
-            latitude: this.state.region.latitude,
-            longitude: this.state.region.longitude,
-            latitudeDelta: this.state.region.latitudeDelta,
-            longitudeDelta: this.state.region.longitudeDelta,
-          }}
-        >
-          {this.createMarkers()}
-        </MapView>
-      </View>
+      <MapView
+        provider={PROVIDER_GOOGLE}
+        style={styles.mapStyle}
+        showsUserLocation
+        customMapStyle={MapStyle}
+        showsMyLocationButton
+        initialRegion={{
+          latitude: this.state.region.latitude,
+          longitude: this.state.region.longitude,
+          latitudeDelta: this.state.region.latitudeDelta,
+          longitudeDelta: this.state.region.longitudeDelta,
+        }}
+      >
+        {this.createMarkers()}
+      </MapView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   mapStyle: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    marginLeft: 8,
+    marginRight: 8,
+    marginBottom: 10,
+    height: 300,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: "#000000",
+  },
+  callout: {
+    flex: 1,
   },
 });
 
-{
-  /* <MapView.Callout>
-<View>
-    <Text>Lat:{marker.latitude}, Lon:{marker.longitude}</Text>
-    <Text>Magnitude:{marker.magnitude}, Depth:{marker.depthkm}</Text>
-</View>
-</MapView.Callout> */
-}
+const MapStyle = [
+  {
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#f5f5f5",
+      },
+    ],
+  },
+  {
+    elementType: "labels.icon",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#616161",
+      },
+    ],
+  },
+  {
+    elementType: "labels.text.stroke",
+    stylers: [
+      {
+        color: "#f5f5f5",
+      },
+    ],
+  },
+  {
+    featureType: "administrative.land_parcel",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#bdbdbd",
+      },
+    ],
+  },
+  {
+    featureType: "poi",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#eeeeee",
+      },
+    ],
+  },
+  {
+    featureType: "poi",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#757575",
+      },
+    ],
+  },
+  {
+    featureType: "poi.park",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#e5e5e5",
+      },
+    ],
+  },
+  {
+    featureType: "poi.park",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#9e9e9e",
+      },
+    ],
+  },
+  {
+    featureType: "road",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#ffffff",
+      },
+    ],
+  },
+  {
+    featureType: "road.arterial",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#757575",
+      },
+    ],
+  },
+  {
+    featureType: "road.highway",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#dadada",
+      },
+    ],
+  },
+  {
+    featureType: "road.highway",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#616161",
+      },
+    ],
+  },
+  {
+    featureType: "road.local",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#9e9e9e",
+      },
+    ],
+  },
+  {
+    featureType: "transit.line",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#e5e5e5",
+      },
+    ],
+  },
+  {
+    featureType: "transit.station",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#eeeeee",
+      },
+    ],
+  },
+  {
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#c9c9c9",
+      },
+    ],
+  },
+  {
+    featureType: "water",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#9e9e9e",
+      },
+    ],
+  },
+];

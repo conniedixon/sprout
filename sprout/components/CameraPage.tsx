@@ -93,6 +93,8 @@ class CameraPage extends Component<Props> {
               result.base64,
               this.props.route.params.username
             );
+          } else {
+            return Promise.reject("cancelled");
           }
         })
         .then(plantInfo => {
@@ -104,6 +106,9 @@ class CameraPage extends Component<Props> {
             plantInfo: this.state.plantInfo,
             plantImage: this.state.plantImage,
           });
+        })
+        .catch(err => {
+          console.log(err);
         });
     });
   }
@@ -131,6 +136,12 @@ class CameraPage extends Component<Props> {
 
   render() {
     const { hasPermission } = this.state;
+
+    const config = {
+      velocityThreshold: 0.1,
+      directionalOffsetThreshold: 50,
+    };
+
     if (hasPermission === null || hasPermission === false) {
       return (
         <View>
@@ -151,7 +162,7 @@ class CameraPage extends Component<Props> {
         <View style={{ flex: 1 }}>
           <SearchBar onSearch={this.onSearch} />
           <Camera
-            style={{ flex: 1 }}
+            style={{ flex: 1, zIndex: -1000 }}
             type={this.state.cameraType}
             ref={ref => {
               this.camera = ref;

@@ -16,8 +16,8 @@ export const getStats = ({
   waterMax,
   waterMin,
   images,
+  timestamp,
 }) => {
-  // console.log(images[0], "<--fro utils page");
   let difficultyRating = 0;
   let precipitation = 70;
   let ph = 6.5;
@@ -91,6 +91,7 @@ export const getStats = ({
     difficulty: trafficLight,
     wateringSchedule: wateringSchedule,
     wateringInterval: wateringInterval,
+    timestamp,
   };
 };
 
@@ -102,4 +103,12 @@ export const getImageForPlant = (username, plant) => {
       uri,
     };
   });
+};
+
+export const getImagesForPlants = (username, plants) => {
+  return Promise.all(
+    plants.map(plant => {
+      return getImageForPlant(username, plant);
+    })
+  );
 };

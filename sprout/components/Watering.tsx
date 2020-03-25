@@ -9,7 +9,6 @@ interface Props {
 
 class Watering extends Component<Props> {
   render() {
-    console.log(this.props.watering);
     if (this.props.watering === "Once a month") {
       return (
         <Image

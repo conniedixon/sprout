@@ -9,7 +9,6 @@ interface Props {
 
 class Watering extends Component<Props> {
   render() {
-    console.log(this.props.trafficlight);
     if (this.props.trafficlight === "red") {
       return (
         <Image

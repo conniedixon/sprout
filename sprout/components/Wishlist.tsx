@@ -33,8 +33,13 @@ class Wishlist extends Component<Props> {
   }
 
   render() {
+    const uniqueWishlist = Array.from(
+      new Set(this.state.wishlist.map(a => a.commonName))
+    ).map(id => {
+      return this.state.wishlist.find(a => a.commonName === id);
+    });
     return (
-        <Animatable.View animation="fadeInUpBig" style={styles.topMargin}>
+      <Animatable.View animation="fadeInUpBig" style={styles.topMargin}>
         <ImageBackground
           source={require("./graphics/Background.jpg")}
           style={styles.backgroundImage}
@@ -44,7 +49,7 @@ class Wishlist extends Component<Props> {
             Select a plant to see more information or add to Your Garden
           </Text>
           <View style={styles.wishlistcontainer}>
-            {this.state.wishlist.map(plant => {
+            {uniqueWishlist.map(plant => {
               return (
                 <TouchableOpacity
                   onPress={() =>
@@ -72,7 +77,6 @@ class Wishlist extends Component<Props> {
           </View>
         </ImageBackground>
       </Animatable.View>
-
     );
   }
 }

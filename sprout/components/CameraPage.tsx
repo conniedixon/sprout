@@ -90,6 +90,7 @@ class CameraPage extends Component<Props, State> {
           })
           .then(() => {
             this.props.navigation.navigate("PlantPage", {
+              justScanned: true,
               isInGarden: false,
               plantInfo: this.state.plantInfo,
               plantImage: this.state.plantImage,

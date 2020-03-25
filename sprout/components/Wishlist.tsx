@@ -8,20 +8,13 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Linking,
-  Dimensions,
-  Image,
-  ImageBackground,
-} from "react-native";
+import { Text, View, Dimensions, Image, ImageBackground } from "react-native";
 
 import PlantCard from "../components/PlantCard";
 import { getUserWishlist } from "../components/spec/index";
 import PlantMap from "./PlantMap";
+import styles from "./StyleCSS";
+import * as Animatable from "react-native-animatable";
 
 interface Props {
   navigation: any;
@@ -40,95 +33,48 @@ class Wishlist extends Component<Props> {
   }
 
   render() {
-    const uniqueWishlist = Array.from(
-      new Set(this.state.wishlist.map(a => a.commonName))
-    ).map(id => {
-      return this.state.wishlist.find(a => a.commonName === id);
-    });
     return (
-      <View style={styles.container}>
-        <Image
+        <Animatable.View animation="fadeInUpBig" style={styles.topMargin}>
+        <ImageBackground
           source={require("./graphics/Background.jpg")}
           style={styles.backgroundImage}
-        ></Image>
-        <Text style={styles.text}>My Wishlist</Text>
-        <View style={styles.wishlistInfo}>
-          {uniqueWishlist.map(plant => {
-            return (
-              <View>
-                {/* <Image
-                  style={{ width: 10, height: 10 }}
-                  source={{ uri: plant.images[0].url }}
-                /> */}
+        >
+          <Text style={styles.pageheader}>My Wishlist</Text>
+          <Text style={styles.textItalic}>
+            Select a plant to see more information or add to Your Garden
+          </Text>
+          <View style={styles.wishlistcontainer}>
+            {this.state.wishlist.map(plant => {
+              return (
+                <TouchableOpacity
+                  onPress={() =>
+                    this.props.navigation.navigate("PlantPage", {
+                      plantInfo: plant,
+                      isInGarden: "isInWishlist",
+                    })
+                  }
+                >
+                  <Text>
+                    <MaterialCommunityIcons
+                      name="flower"
+                      size={20}
+                      color="#719382"
+                    />{" "}
+                    {plant.commonName}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+          <Text style={styles.textItalic}>Find garden centres near you:</Text>
+          <View style={styles.map}>
+            <PlantMap />
+          </View>
+        </ImageBackground>
+      </Animatable.View>
 
-                <Text style={styles.wishlistText}>
-                  <MaterialCommunityIcons
-                    name="flower"
-                    size={20}
-                    color="#719382"
-                  />{" "}
-                  {plant.commonName}
-                </Text>
-              </View>
-            );
-          })}
-        </View>
-
-        <Text style={styles.text2}>Find garden centres</Text>
-        <View style={styles.map}>
-          <PlantMap />
-        </View>
-      </View>
     );
   }
 }
 
 export default Wishlist;
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "column", // inner items will be added vertically
-    flex: 1, // all the available vertical space will be occupied by it
-    justifyContent: "space-between",
-    height: height,
-    backgroundColor: "#ffffff",
-  },
-  map: {
-    marginTop: 15,
-    marginBottom: 8,
-    marginLeft: 8,
-    marginRight: 8,
-  },
-  text: {
-    marginTop: 8,
-    marginLeft: 12,
-    fontFamily: "Verdana",
-    fontSize: 20,
-    fontWeight: "500",
-  },
-  text2: {
-    marginLeft: 14,
-    marginTop: -20,
-    fontFamily: "Verdana",
-    fontSize: 20,
-    fontWeight: "500",
-  },
-  backgroundImage: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    opacity: 0.3,
-  },
-  wishlistInfo: {
-    marginLeft: 12,
-    marginTop: 15,
-    flex: 1,
-  },
-  wishlistText: {
-    fontSize: 16,
-    fontFamily: "Verdana",
-    lineHeight: 25,
-  },
-});

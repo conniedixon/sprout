@@ -1,8 +1,9 @@
 /** @format */
 
-import { View, Text, Image, Alert } from "react-native";
+import { View, Text, Image, Alert, StyleSheet } from "react-native";
 import React, { Component } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import * as Animatable from "react-native-animatable";
 
 interface Props {
   userMedals: any;
@@ -17,6 +18,9 @@ class MedalsPage extends Component<Props> {
       "addedOnePlant",
       "addedTenPlants",
       "addedFiftyPlants",
+      "medal7",
+      "medal8",
+      "medal9",
     ],
     medalSlugs: {
       scannedOnePlant: "Discoverer: Scanned One Plant",
@@ -31,43 +35,57 @@ class MedalsPage extends Component<Props> {
 
   render() {
     return (
-      <View>
-        <Text>My Medals</Text>
-        {this.state.availableMedals.map(medal => {
-          if (this.props.userMedals.includes(medal)) {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  Alert.alert("Medal achieved!", this.state.medalSlugs[medal]);
-                }}
-              >
-                <Image
-                  style={{ width: 50, height: 50 }}
-                  source={require("./graphics/Achieved_.jpg")}
-                />
-              </TouchableOpacity>
-            );
-          } else {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  Alert.alert(
-                    "Medal not yet achieved",
-                    "Keep scanning and adding plants to unlock this medal!"
-                  );
-                }}
-              >
-                <Image
-                  style={{ width: 50, height: 50 }}
-                  source={require("./graphics/Notachieved_.jpg")}
-                />
-              </TouchableOpacity>
-            );
-          }
-        })}
-      </View>
+      <Animatable.View animation="fadeInUpBig">
+        <View style={styles.container}>
+          {this.state.availableMedals.map(medal => {
+            if (this.props.userMedals.includes(medal)) {
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    Alert.alert(
+                      "Medal achieved!",
+                      this.state.medalSlugs[medal]
+                    );
+                  }}
+                >
+                  <Image
+                    style={{ width: 100, height: 100 }}
+                    source={require("./graphics/Achieved_.png")}
+                  />
+                </TouchableOpacity>
+              );
+            } else {
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    Alert.alert(
+                      "Medal not yet achieved",
+                      "Keep scanning and adding plants to unlock this medal!"
+                    );
+                  }}
+                >
+                  <Image
+                    style={{ width: 100, height: 100 }}
+                    source={require("./graphics/Notachieved_.png")}
+                  />
+                </TouchableOpacity>
+              );
+            }
+          })}
+        </View>
+      </Animatable.View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    height: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+});
 
 export default MedalsPage;

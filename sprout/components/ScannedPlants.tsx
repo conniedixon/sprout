@@ -1,9 +1,14 @@
 /** @format */
 
 import React, { Component } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { getImagesForPlants } from "../utils/utils";
+
+import styles from "./StyleCSS";
+
+import * as Animatable from "react-native-animatable";
+
 
 interface Props {
   navigation: any;
@@ -31,29 +36,46 @@ class ScannedPlants extends Component<Props> {
     if (isLoading) return <Text>Loading...</Text>;
     else {
       return (
-        <View>
-          <Text>My Scanned Plants:</Text>
-          {scannedPlants.map(plant => {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  this.props.navigation.navigate("PlantPage", {
-                    plantInfo: plant,
-                    isInGarden: false,
-                    username: username,
-                    plantImage: plant.uri, //needs to be changed
-                  });
-                }}
-                key={plant.timestamp}
-              >
-                <Image
-                  style={{ width: 100, height: 100 }}
-                  source={{ uri: plant.uri }}
-                />
-              </TouchableOpacity>
-            );
-          })}
-        </View>
+
+        <View style={styles.topMargin}>
+        <Animatable.View animation="fadeInUpBig">
+          <ImageBackground
+            source={require("./graphics/Background.jpg")}
+            style={styles.backgroundImage}
+          >
+            <Text style={styles.textItalic}>
+              Click on an image to see more information and add to your wishlist
+              or garden{" "}
+            </Text>
+            <View style={styles.rowscontainer}>
+              {scannedPlants.map(plant => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.props.navigation.navigate("PlantPage", {
+                        plantInfo: plant.plantInfo,
+                        isInGarden: false,
+                        username: username,
+                        plantImage: plant.uri, //needs to be changed
+                      });
+                    }}
+                    key={plant.timestamp}
+                  >
+                    <Image
+                      style={{
+                        width: 150,
+                        height: 150,
+                        borderRadius: 5,
+                        margin: 3,
+                      }}
+                      source={{ uri: plant.uri }}
+                    />
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </ImageBackground>
+        </Animatable.View>
       );
     }
   }

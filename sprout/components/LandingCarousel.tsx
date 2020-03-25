@@ -52,7 +52,7 @@ export default class LandingCarousel extends React.Component<Props> {
 
   _renderItem = ({ item }) => {
     return (
-      <View>
+      <View style={{ marginTop: 25 }}>
         <Ionicons
           name="md-arrow-round-forward"
           color="rgba(255, 255, 255, .9)"

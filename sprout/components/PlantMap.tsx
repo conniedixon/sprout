@@ -12,6 +12,7 @@ import {
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
 import * as api from "../api";
+import * as Animatable from "react-native-animatable";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default class PlantMap extends React.Component {
@@ -21,8 +22,6 @@ export default class PlantMap extends React.Component {
       longitude: -1.54636837019936,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
-      //   latitude: 37.321996988,
-      //   longitude: -122.0325472123455,
     },
     gardenCentres: [],
     errorMessage: "",
@@ -70,7 +69,7 @@ export default class PlantMap extends React.Component {
           pinColor="#aebb8f"
         >
           <Callout style={styles.callout}>
-            <View>
+            <Animatable.View animation="fadeInUpBig">
               <Text>{centre.name}</Text>
               <Text
                 onPress={() =>
@@ -85,7 +84,7 @@ export default class PlantMap extends React.Component {
                 Open now • {centre.opening_hours === true ? "Open" : "Closed"}
               </Text>
               <Text>Ratings • {centre.user_ratings}</Text>
-            </View>
+            </Animatable.View>
           </Callout>
         </Marker>
       );
@@ -93,7 +92,6 @@ export default class PlantMap extends React.Component {
   }
 
   getDirections = (coords): any => {
-    console.log("helllooo");
     console.log(coords);
   };
 

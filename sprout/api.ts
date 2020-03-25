@@ -34,28 +34,32 @@ export const getPlantById = (base64: any, username) => {
 function getPlantByName(scientificName, username, timestamp = null) {
   console.log("in the second function");
 
-  // return index.getPlantInfo(scientificName).then(data => {
-  //   const plantInfo = {
-  //     ...data,
-  //     timestamp,
-  //   };
-  //   index.addPlantToScanned(plantInfo, username);
-  //   return {
-  //     ...plantInfo,
-  //     timestamp,
-  //   };
-  // });
-  return axios
-    .get(
-      `https://trefle.io/api/plants?token=${config.TREFLE_API_KEY}&&scientific_name=${scientificName}`
-    )
-    .then(({ data }) => {
-      const trefleId = data[0].id;
-      return getSingularPlant(trefleId, username, timestamp);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+
+
+  return index.getPlantInfo(scientificName).then(data => {
+    const plantInfo = {
+      ...data,
+      timestamp,
+    };
+    index.addPlantToScanned(plantInfo, username);
+    return {
+      ...plantInfo,
+      timestamp,
+    };
+  });
+  // return axios
+  //   .get(
+  //     `https://trefle.io/api/plants?token=${config.TREFLE_API_KEY}&&scientific_name=${scientificName}`
+  //   )
+  //   .then(({ data }) => {
+  //     const trefleId = data[0].id;
+  //     return getSingularPlant(trefleId, username, timestamp);
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   });
+
+
 }
 
 function getSingularPlant(plantId, username, timestamp) {

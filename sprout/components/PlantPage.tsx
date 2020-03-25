@@ -93,7 +93,7 @@ class PlantPage extends Component<Props> {
   render() {
     const { plantInfo, username, isInGarden } = this.state;
     const images = {
-      images: [{ url: this.state.plantImage }, ...this.state.plantInfo.images],
+      images: [{ url: this.state.plantImage }, this.state.plantInfo.images],
     };
     if (isInGarden === "isInWishlist") {
       return (

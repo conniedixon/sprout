@@ -38,10 +38,10 @@ class ScannedPlants extends Component<Props> {
               <TouchableOpacity
                 onPress={() => {
                   this.props.navigation.navigate("PlantPage", {
-                    plantInfo: plant,
+                    plantInfo: plant.plantInfo,
                     isInGarden: false,
                     username: username,
-                    plantImage: plant.uri, //needs to be changed
+                    plantImage: plant.uri,
                   });
                 }}
                 key={plant.timestamp}

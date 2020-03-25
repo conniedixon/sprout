@@ -14,6 +14,7 @@ import PlantCard from "../components/PlantCard";
 import { getUserGarden } from "../components/spec/index";
 import { getImagesForPlants } from "../utils/utils";
 import GestureRecognizer from "react-native-swipe-gestures";
+import * as Animatable from "react-native-animatable";
 
 interface Props {
   navigation: any;
@@ -76,26 +77,28 @@ class MyGarden extends Component<Props> {
             onSwipeRight={state => this.onSwipeRight(state)}
             style={{ flex: 1 }}
           >
-            <ScrollView
-              style={{
-                height: height,
-              }}
-              contentContainerStyle={{
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text style={{ fontSize: 20, margin: 10 }}>MyGarden</Text>
-              {this.state.myPlants.map(plant => {
-                return (
-                  <PlantCard
-                    plantInfo={plant}
-                    navigation={this.props.navigation}
-                    isInGarden={true}
-                  />
-                );
-              })}
-            </ScrollView>
+            <Animatable.View animation="fadeInUpBig">
+              <ScrollView
+                style={{
+                  height: height,
+                }}
+                contentContainerStyle={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontSize: 20, margin: 10 }}>MyGarden</Text>
+                {this.state.myPlants.map(plant => {
+                  return (
+                    <PlantCard
+                      plantInfo={plant}
+                      navigation={this.props.navigation}
+                      isInGarden={true}
+                    />
+                  );
+                })}
+              </ScrollView>
+            </Animatable.View>
           </GestureRecognizer>
         </ImageBackground>
       );

@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { getImagesForPlants } from "../utils/utils";
+import * as Animatable from "react-native-animatable";
 
 interface Props {
   navigation: any;
@@ -31,8 +32,7 @@ class ScannedPlants extends Component<Props> {
     if (isLoading) return <Text>Loading...</Text>;
     else {
       return (
-        <View>
-
+        <Animatable.View animation="fadeInUpBig">
           <ImageBackground
             source={require("./graphics/Background.jpg")}
             style={styles.backgroundImage}
@@ -69,7 +69,7 @@ class ScannedPlants extends Component<Props> {
               })}
             </View>
           </ImageBackground>
-        </View>
+        </Animatable.View>
       );
     }
   }

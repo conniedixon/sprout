@@ -11,13 +11,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
-import {
-  FontAwesome,
-  Ionicons,
-  MaterialCommunityIcons,
-  MaterialIcons,
-  Entypo,
-} from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 interface SearchProps {
   onSearch: any;
@@ -40,7 +34,6 @@ class SearchBar extends Component<SearchProps> {
   };
 
   dismissKeyboard = () => {
-    console.log("dismissed keyboard");
     Keyboard.dismiss();
     this.props.toggleSearch();
   };
@@ -49,7 +42,6 @@ class SearchBar extends Component<SearchProps> {
     return (
       <TouchableWithoutFeedback
         onPress={() => {
-          console.log("dismissed keyboard");
           Keyboard.dismiss();
         }}
       >
@@ -62,8 +54,10 @@ class SearchBar extends Component<SearchProps> {
             value={this.state.searchText}
             onChangeText={this.handleSearchChange}
             ref={this.state.searchText}
+            returnKeyType="search"
+            onSubmitEditing={() => this.handleSubmit()}
           />
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.searchButton}
             onPress={this.handleSubmit}
           >
@@ -74,7 +68,7 @@ class SearchBar extends Component<SearchProps> {
                 style={{ color: "#aebb8f", fontSize: 40 }}
               />
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             style={styles.cancelButton}
             onPress={this.dismissKeyboard}
@@ -108,28 +102,28 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingTop: 5,
     paddingBottom: 5,
-    width: "60%",
+    width: "85%",
     backgroundColor: "#ffffff",
   },
-  searchButton: {
-    backgroundColor: "transparent",
-    color: "white",
-    fontSize: 15,
-    textAlign: "center",
-    alignSelf: "flex-end",
-    marginLeft: 10,
-    marginRight: -20,
-    marginBottom: 2,
+  // searchButton: {
+  //   backgroundColor: "transparent",
+  //   color: "white",
+  //   fontSize: 15,
+  //   textAlign: "center",
+  //   alignSelf: "flex-end",
+  //   marginLeft: 10,
+  //   marginRight: -20,
+  //   marginBottom: 2,
 
-    width: "30%",
-    height: "100%",
-  },
-  searchButtonText: {
-    marginTop: 8,
-    color: "#FFFFFF",
-    fontSize: 20,
-    textAlign: "center",
-  },
+  //   width: "30%",
+  //   height: "100%",
+  // },
+  // searchButtonText: {
+  //   marginTop: 8,
+  //   color: "#FFFFFF",
+  //   fontSize: 20,
+  //   textAlign: "center",
+  // },
   cancelButton: {
     backgroundColor: "transparent",
     color: "white",

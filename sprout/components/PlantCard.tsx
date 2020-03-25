@@ -37,7 +37,7 @@ class PlantCard extends Component<Props> {
         <TouchableOpacity
           onPress={() =>
             this.props.navigation.navigate("PlantPage", {
-              plantInfo: this.props.plantInfo,
+              plantInfo: this.props.plantInfo.plantInfo,
               isInGarden: this.props.isInGarden,
               plantImage: uri,
             })

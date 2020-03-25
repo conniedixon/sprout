@@ -22,6 +22,7 @@ import {
 import PlantCard from "../components/PlantCard";
 import { getUserWishlist } from "../components/spec/index";
 import PlantMap from "./PlantMap";
+import * as Animatable from "react-native-animatable";
 
 interface Props {
   navigation: any;
@@ -46,7 +47,7 @@ class Wishlist extends Component<Props> {
       return this.state.wishlist.find(a => a.commonName === id);
     });
     return (
-      <View style={styles.container}>
+      <Animatable.View animation="fadeInUpBig" style={styles.container}>
         <Image
           source={require("./graphics/1585050155337_Untitled_Artwork.jpg")}
           style={styles.backgroundImage}
@@ -78,7 +79,7 @@ class Wishlist extends Component<Props> {
         <View style={styles.map}>
           <PlantMap />
         </View>
-      </View>
+      </Animatable.View>
     );
   }
 }

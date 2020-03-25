@@ -32,6 +32,7 @@ class ScannedPlants extends Component<Props> {
     else {
       return (
         <View>
+
           <ImageBackground
             source={require("./graphics/Background.jpg")}
             style={styles.backgroundImage}
@@ -46,7 +47,7 @@ class ScannedPlants extends Component<Props> {
                   <TouchableOpacity
                     onPress={() => {
                       this.props.navigation.navigate("PlantPage", {
-                        plantInfo: plant,
+                        plantInfo: plant.plantInfo,
                         isInGarden: false,
                         username: username,
                         plantImage: plant.uri, //needs to be changed

@@ -60,7 +60,9 @@ class PlantCard extends Component<Props> {
               alignItems: "center",
             }}
           >
-            <Text style={{ margin: 5 }}>{commonName}</Text>
+            <Text style={{ margin: 5, fontSize: 16, fontWeight: "bold" }}>
+              {commonName}
+            </Text>
             <Image
               style={{ width: 250, height: 250, borderRadius: 10, margin: 5 }}
               source={{ uri: uri }}
@@ -80,7 +82,6 @@ class PlantCard extends Component<Props> {
               <Watering watering={wateringSchedule}></Watering>
               <Difficulty trafficlight={trafficlight}></Difficulty>
             </View>
-            <Text>Planted: (date here!)</Text>
           </View>
         </TouchableOpacity>
       </View>

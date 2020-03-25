@@ -5,7 +5,10 @@ import awsConfiguration from "./aws-config";
 Amplify.configure(awsConfiguration);
 import { StyleSheet, Text, View, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  HeaderBackground,
+} from "@react-navigation/stack";
 import CameraPage from "./components/CameraPage";
 import MyGarden from "./components/MyGarden";
 import UserPage from "./components/UserPage";
@@ -38,7 +41,12 @@ class App extends React.Component {
     if (this.state.user.authenticated) {
       return (
         <NavigationContainer>
-          <Stack.Navigator initialRouteName={initialScreen}>
+          <Stack.Navigator
+            initialRouteName={initialScreen}
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
             <Stack.Screen
               name="CameraPage"
               component={CameraPage}

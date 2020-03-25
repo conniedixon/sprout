@@ -68,36 +68,48 @@ class MyGarden extends Component<Props> {
       );
     else
       return (
-        <ImageBackground
-          source={require("./graphics/Background.jpg")}
-          style={{ width: "100%", height: "100%" }}
-        >
-          <GestureRecognizer
-            onSwipeRight={state => this.onSwipeRight(state)}
-            style={{ flex: 1 }}
+        <View style={{ marginTop: 25 }}>
+          <ImageBackground
+            source={require("./graphics/Background.jpg")}
+            style={{ width: "100%", height: "100%" }}
           >
-            <ScrollView
-              style={{
-                height: height,
-              }}
-              contentContainerStyle={{
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+            <GestureRecognizer
+              onSwipeRight={state => this.onSwipeRight(state)}
+              style={{ flex: 1 }}
             >
-              <Text style={{ fontSize: 20, margin: 10 }}>MyGarden</Text>
-              {this.state.myPlants.map(plant => {
-                return (
-                  <PlantCard
-                    plantInfo={plant}
-                    navigation={this.props.navigation}
-                    isInGarden={true}
-                  />
-                );
-              })}
-            </ScrollView>
-          </GestureRecognizer>
-        </ImageBackground>
+              <ScrollView
+                style={{
+                  height: height,
+                }}
+                contentContainerStyle={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 20,
+                    margin: 5,
+                    fontWeight: "bold",
+                    marginTop: 20,
+                  }}
+                >
+                  My Garden
+                </Text>
+                <Text>Click on a plant to see more information</Text>
+                {this.state.myPlants.map(plant => {
+                  return (
+                    <PlantCard
+                      plantInfo={plant}
+                      navigation={this.props.navigation}
+                      isInGarden={true}
+                    />
+                  );
+                })}
+              </ScrollView>
+            </GestureRecognizer>
+          </ImageBackground>
+        </View>
       );
   }
 }

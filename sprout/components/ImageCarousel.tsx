@@ -29,7 +29,8 @@ class ImageCarousel extends Component<ImagesProps> {
             style={{ width: "100%" }}
             horizontal
             pagingEnabled
-            showsHorizontalScrollIndicator={false}
+            showsHorizontalScrollIndicator={true}
+            indicatorStyle="white"
           >
             {filteredImages.map(image => (
               <Image

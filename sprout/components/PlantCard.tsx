@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { Component } from "react";
-import { View, Text, Image, ScrollView, Dimensions } from "react-native";
+import { View, Text, Image } from "react-native";
 import Ph from "./Ph";
 import LightLevel from "./LightLevel";
 import Temp from "./Temp";
@@ -34,38 +34,38 @@ class PlantCard extends Component<Props> {
     const { uri } = this.props.plantInfo;
     return (
       <View>
-        <TouchableOpacity
-          onPress={() =>
-            this.props.navigation.navigate("PlantPage", {
-              plantInfo: this.props.plantInfo.plantInfo,
-              isInGarden: this.props.isInGarden,
-              plantImage: uri,
-            })
-          }
-        >
-          <View style={styles.plantCard}>
-            <Text style={styles.header2}>{commonName}</Text>
+        <View style={styles.plantCard}>
+          <Text style={styles.header2}>{commonName}</Text>
+          <TouchableOpacity
+            onPress={() =>
+              this.props.navigation.navigate("PlantPage", {
+                plantInfo: this.props.plantInfo.plantInfo,
+                isInGarden: this.props.isInGarden,
+                plantImage: uri,
+              })
+            }
+          >
             <Image
               style={{ width: 250, height: 250, borderRadius: 10, margin: 5 }}
               source={{ uri: uri }}
             />
-            <View
-              style={{
-                flex: 1,
-                flexDirection: "row",
-                height: 75,
-                justifyContent: "space-evenly",
-                margin: 5,
-              }}
-            >
-              <Ph ph={ph}></Ph>
-              <LightLevel lightlevel={lightLevel}></LightLevel>
-              <Temp temp={minTemp}></Temp>
-              <Watering watering={wateringSchedule}></Watering>
-              <Difficulty trafficlight={trafficlight}></Difficulty>
-            </View>
+          </TouchableOpacity>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              height: 75,
+              justifyContent: "space-evenly",
+              margin: 5,
+            }}
+          >
+            <Ph ph={ph}></Ph>
+            <LightLevel lightlevel={lightLevel}></LightLevel>
+            <Temp temp={minTemp}></Temp>
+            <Watering watering={wateringSchedule}></Watering>
+            <Difficulty trafficlight={trafficlight}></Difficulty>
           </View>
-        </TouchableOpacity>
+        </View>
       </View>
     );
   }

@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  View,
-  ScrollView,
-  Image,
-  StyleSheet,
-  Dimensions,
-  ImageStore,
-} from "react-native";
+import { View, ScrollView, Image, StyleSheet, Dimensions } from "react-native";
 
 const { width }: any = Dimensions.get("window");
 const height: number = width * 0.8;

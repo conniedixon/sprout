@@ -46,7 +46,7 @@ const getPlantFromDB = (scientificName, username, timestamp) => {
           ...plantInfo,
           timestamp,
         };
-      } //else return getPlantByName(scientificName, username, timestamp);
+      } 
     })
     .catch(() => {
       return getPlantByName(scientificName, username, timestamp);
@@ -55,6 +55,7 @@ const getPlantFromDB = (scientificName, username, timestamp) => {
 
 function getPlantByName(scientificName, username, timestamp = null) {
   console.log("calling trefle instead");
+
   return axios
     .get(
       `https://trefle.io/api/plants?token=${config.TREFLE_API_KEY}&&scientific_name=${scientificName}`

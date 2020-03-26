@@ -5,7 +5,6 @@ import * as React from "react";
 import {
   Text,
   View,
-  Button,
   TouchableOpacity,
   Platform,
   StyleSheet,
@@ -16,7 +15,6 @@ import * as Permissions from "expo-permissions";
 import {
   FontAwesome,
   Ionicons,
-  MaterialIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";

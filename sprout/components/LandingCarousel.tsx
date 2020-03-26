@@ -4,8 +4,7 @@ import AppIntroSlider from "react-native-app-intro-slider";
 import { Image, StyleSheet, View } from "react-native";
 
 interface Props {
-  navigation: any;
-  route: any;
+  seenCarousel: any;
 }
 
 const styles = StyleSheet.create({
@@ -46,10 +45,6 @@ const slides = [
 ];
 
 export default class LandingCarousel extends React.Component<Props> {
-  state = {
-    showRealApp: false,
-  };
-
   _renderItem = ({ item }) => {
     return (
       <View style={{ marginTop: 25 }}>
@@ -90,13 +85,11 @@ export default class LandingCarousel extends React.Component<Props> {
   };
 
   _onDone = () => {
-    this.setState({ showRealApp: true });
-    this.props.navigation.navigate("CameraPage");
+    this.props.seenCarousel();
   };
 
   _onSkip = () => {
-    this.setState({ showRealApp: true });
-    this.props.navigation.navigate("CameraPage");
+    this.props.seenCarousel();
   };
 
   render() {

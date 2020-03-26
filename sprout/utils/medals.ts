@@ -10,7 +10,7 @@ export const awardMedal = (page, plantCount, username, goToMedals) => {
   console.log(medal);
   if (medal) {
     const { award, description, slug } = medal;
-    addMedal(slug, username).then(() => {
+    return addMedal(slug, username).then(() => {
       Alert.alert(
         "Medal achieved!",
         `You've just been awarded the ${award} medal for ${description}`,

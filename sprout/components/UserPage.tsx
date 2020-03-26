@@ -90,6 +90,7 @@ class UserPage extends Component<Props> {
             >
               <Text style={styles.button}>Go To My Wishlist</Text>
             </TouchableOpacity>
+
             <View style={{ padding: 10 }}>
               <Text style={styles.textItalic}>
                 Keep scanning and adding plants to your garden to collect medals

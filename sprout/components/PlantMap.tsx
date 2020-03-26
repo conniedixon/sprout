@@ -28,7 +28,7 @@ export default class PlantMap extends React.Component {
   };
 
   async componentDidMount() {
-    this._getLocation();
+    return this._getLocation();
   }
 
   _getLocation = async () => {
@@ -62,24 +62,22 @@ export default class PlantMap extends React.Component {
 
   createMarkers() {
     return this.state.gardenCentres.map(centre => {
+      var newAddress = centre.address.replace(/[^A-Z0-9]+/gi, "+");
       return (
         <Marker
           coordinate={centre.coords}
           title={centre.name}
           pinColor="#aebb8f"
         >
-          <Callout style={styles.callout}>
+          <Callout
+            style={styles.callout}
+            onPress={() =>
+              Linking.openURL(`http://maps.google.com/?daddr=${newAddress}`)
+            }
+          >
             <Animatable.View animation="fadeInUpBig">
               <Text>{centre.name}</Text>
-              <Text
-                onPress={() =>
-                  Linking.openURL(
-                    `http://maps.google.com/maps?daddr=${centre.coords.latitude},${centre.coords.longitude}`
-                  )
-                }
-              >
-                <Text>{centre.address}</Text>
-              </Text>
+              <Text>{centre.address}</Text>
               <Text>
                 Open now • {centre.opening_hours === true ? "Open" : "Closed"}
               </Text>
@@ -90,10 +88,6 @@ export default class PlantMap extends React.Component {
       );
     });
   }
-
-  getDirections = (coords): any => {
-    console.log(coords);
-  };
 
   render() {
     return (
@@ -121,7 +115,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     marginRight: 8,
     marginBottom: 10,
-    height: 300,
+    height: 375,
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: "#000000",

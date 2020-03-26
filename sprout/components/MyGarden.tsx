@@ -50,7 +50,7 @@ class MyGarden extends Component<Props> {
 
   render() {
     let { height, width } = Dimensions.get("window");
-    if (this.state.isLoading) return <LoadingScreen />;
+    // if (this.state.isLoading) return <LoadingScreen />;
     if (this.state.isEmpty)
       return (
         <GestureRecognizer
@@ -92,6 +92,7 @@ class MyGarden extends Component<Props> {
                   <Text style={styles.textItalic}>
                     Click on a plant to see more information
                   </Text>
+
                   {this.state.myPlants.map(plant => {
                     return (
                       <PlantCard

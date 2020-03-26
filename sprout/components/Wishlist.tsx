@@ -2,15 +2,10 @@
 
 import React, { Component } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import {
-  FontAwesome,
-  Ionicons,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { Text, View, Dimensions, Image, ImageBackground } from "react-native";
 
-import PlantCard from "../components/PlantCard";
 import { getUserWishlist } from "../components/spec/index";
 import PlantMap from "./PlantMap";
 import styles from "./StyleCSS";

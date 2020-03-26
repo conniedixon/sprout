@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { Component } from "react";
-import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
+import { View, Text, Image, ImageBackground } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { getImagesForPlants } from "../utils/utils";
 

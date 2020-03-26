@@ -1,6 +1,6 @@
 /** @format */
 
-import { View, Text, Image, Alert, StyleSheet } from "react-native";
+import { View, Image, Alert, StyleSheet } from "react-native";
 import React, { Component } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import * as Animatable from "react-native-animatable";

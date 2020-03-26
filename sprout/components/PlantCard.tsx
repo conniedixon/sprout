@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { Component } from "react";
-import { View, Text, Image, ScrollView, Dimensions } from "react-native";
+import { View, Text, Image } from "react-native";
 import Ph from "./Ph";
 import LightLevel from "./LightLevel";
 import Temp from "./Temp";
@@ -36,15 +36,6 @@ class PlantCard extends Component<Props> {
       <View>
         <View style={styles.plantCard}>
           <Text style={styles.header2}>{commonName}</Text>
-          {/* <TouchableOpacity
-          onPress={() =>
-            this.props.navigation.navigate("PlantPage", {
-              plantInfo: this.props.plantInfo.plantInfo,
-              isInGarden: this.props.isInGarden,
-              plantImage: uri,
-            })
-          }
-        > */}
           <TouchableOpacity
             onPress={() =>
               this.props.navigation.navigate("PlantPage", {

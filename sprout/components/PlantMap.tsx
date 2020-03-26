@@ -1,19 +1,10 @@
 import React from "react";
 import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  Linking,
-  Button,
-  TouchableHighlight,
-} from "react-native";
+import { StyleSheet, Text, Linking } from "react-native";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
 import * as api from "../api";
 import * as Animatable from "react-native-animatable";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default class PlantMap extends React.Component {
   state = {

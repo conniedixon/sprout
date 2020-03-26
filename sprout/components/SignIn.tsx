@@ -5,10 +5,8 @@ import {
   TouchableOpacity,
   Text,
   KeyboardAvoidingView,
-  StyleSheet,
   Image,
 } from "react-native";
-import ValidationErrorMessage from "./ValidationErrorMessage";
 
 const SignIn = ({ route: { params }, navigation }) => {
   const styles = params.styles;

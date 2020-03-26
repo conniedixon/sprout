@@ -1,10 +1,8 @@
 /** @format */
 
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-import { Authenticator } from "aws-amplify-react-native";
+import { StyleSheet } from "react-native";
 import { Auth } from "aws-amplify";
-import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import ValidationErrorMessage from "./ValidationErrorMessage";
 import SignIn from "./SignIn";

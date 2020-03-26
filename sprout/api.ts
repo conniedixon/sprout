@@ -24,42 +24,49 @@ export const getPlantById = (base64: any, username) => {
     .then(({ data: { suggestions } }) => {
       const scientificName = suggestions[0].plant_details.scientific_name;
 
-      return getPlantByName(scientificName, username, timestamp);
+      return getPlantFromDB(scientificName, username, timestamp);
     })
     .catch(err => {
       console.log(err);
     });
 };
 
-function getPlantByName(scientificName, username, timestamp = null) {
+const getPlantFromDB = (scientificName, username, timestamp) => {
   console.log("in the second function");
+  return index
+    .getPlantInfo(scientificName)
+    .then(data => {
+      if (data) {
+        const plantInfo = {
+          ...data,
+          timestamp,
+        };
+        index.addPlantToScanned(plantInfo, username);
+        return {
+          ...plantInfo,
+          timestamp,
+        };
+      } 
+    })
+    .catch(() => {
+      return getPlantByName(scientificName, username, timestamp);
+    });
+};
 
+function getPlantByName(scientificName, username, timestamp = null) {
+  console.log("calling trefle instead");
 
-
-  return index.getPlantInfo(scientificName).then(data => {
-    const plantInfo = {
-      ...data,
-      timestamp,
-    };
-    index.addPlantToScanned(plantInfo, username);
-    return {
-      ...plantInfo,
-      timestamp,
-    };
-  });
-  // return axios
-  //   .get(
-  //     `https://trefle.io/api/plants?token=${config.TREFLE_API_KEY}&&scientific_name=${scientificName}`
-  //   )
-  //   .then(({ data }) => {
-  //     const trefleId = data[0].id;
-  //     return getSingularPlant(trefleId, username, timestamp);
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   });
-
-
+  return axios
+    .get(
+      `https://trefle.io/api/plants?token=${config.TREFLE_API_KEY}&&scientific_name=${scientificName}`
+    )
+    .then(({ data }) => {
+      const trefleId = data[0].id;
+      return getSingularPlant(trefleId, username, timestamp);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
 function getSingularPlant(plantId, username, timestamp) {
@@ -85,7 +92,6 @@ function getSingularPlant(plantId, username, timestamp) {
 
 const getCareInstructions = (plantFamilyId, plantData, username) => {
   console.log("in the fourth function");
-
   return axios
     .get(
       `https://trefle.io/api/species/${plantFamilyId}?token=${config.TREFLE_API_KEY}`
@@ -110,9 +116,10 @@ const getCareInstructions = (plantFamilyId, plantData, username) => {
         images: plantImages,
       };
       index.addPlantToScanned(plantInfo, username);
+      console.log(utils.getStats(plantInfo));
       return utils.getStats(plantInfo);
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err, "<---error"));
 };
 
 export const getScientificName = (searchText, username) => {

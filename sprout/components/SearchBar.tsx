@@ -7,7 +7,6 @@ import {
   TextInput,
   Keyboard,
   StyleSheet,
-  Image,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
@@ -57,18 +56,6 @@ class SearchBar extends Component<SearchProps> {
             returnKeyType="search"
             onSubmitEditing={() => this.handleSubmit()}
           />
-          {/* <TouchableOpacity
-            style={styles.searchButton}
-            onPress={this.handleSubmit}
-          >
-            <Text style={styles.searchButtonText}>
-              {" "}
-              <MaterialIcons
-                name="search"
-                style={{ color: "#aebb8f", fontSize: 40 }}
-              />
-            </Text>
-          </TouchableOpacity> */}
           <TouchableOpacity
             style={styles.cancelButton}
             onPress={this.dismissKeyboard}
@@ -95,7 +82,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
   },
   textInput: {
-    // borderTopWidth: 1,
     borderBottomWidth: 0.1,
     height: 45,
     fontSize: 19,
@@ -105,25 +91,7 @@ const styles = StyleSheet.create({
     width: "85%",
     backgroundColor: "#ffffff",
   },
-  // searchButton: {
-  //   backgroundColor: "transparent",
-  //   color: "white",
-  //   fontSize: 15,
-  //   textAlign: "center",
-  //   alignSelf: "flex-end",
-  //   marginLeft: 10,
-  //   marginRight: -20,
-  //   marginBottom: 2,
 
-  //   width: "30%",
-  //   height: "100%",
-  // },
-  // searchButtonText: {
-  //   marginTop: 8,
-  //   color: "#FFFFFF",
-  //   fontSize: 20,
-  //   textAlign: "center",
-  // },
   cancelButton: {
     backgroundColor: "transparent",
     color: "white",

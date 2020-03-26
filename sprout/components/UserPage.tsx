@@ -6,7 +6,6 @@ import MedalsPage from "./MedalsPage";
 import { getUser } from "../components/spec/index";
 import GestureRecognizer from "react-native-swipe-gestures";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { buttonStyle } from "./ButtonCSS";
 import styles from "./StyleCSS";
 
 interface Props {
@@ -90,6 +89,7 @@ class UserPage extends Component<Props> {
             >
               <Text style={styles.button}>Go To My Wishlist</Text>
             </TouchableOpacity>
+
             <View style={{ padding: 10 }}>
               <Text style={styles.textItalic}>
                 Keep scanning and adding plants to your garden to collect medals

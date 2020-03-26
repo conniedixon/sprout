@@ -27,8 +27,8 @@ class App extends React.Component {
     user: {
       authenticated: false,
       username: "",
-      firstLogin: false,
     },
+    firstLogin: false,
   };
 
   componentDidMount() {
@@ -40,18 +40,22 @@ class App extends React.Component {
     });
   }
   authenticateUser = (username, firstLogin) => {
-    this.setState({ user: { authenticated: true, username, firstLogin } });
+    this.setState({ user: { authenticated: true, username }, firstLogin });
+  };
+
+  seenCarousel = () => {
+    this.setState({ firstLogin: false });
   };
 
   render() {
-    const initialScreen = this.state.user.firstLogin
-      ? "Intro Carousel"
-      : "CameraPage";
+    if (this.state.firstLogin) {
+      return <LandingCarousel seenCarousel={this.seenCarousel} />;
+    }
     if (this.state.user.authenticated) {
       return (
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName={initialScreen}
+            initialRouteName={"CameraPage"}
             screenOptions={{
               headerShown: false,
             }}
@@ -59,7 +63,10 @@ class App extends React.Component {
             <Stack.Screen
               name="CameraPage"
               component={CameraPage}
-              initialParams={{ username: this.state.user.username }}
+              initialParams={{
+                username: this.state.user.username,
+                firstLogin: this.state.firstLogin,
+              }}
             />
             <Stack.Screen
               name="MyGarden"
@@ -87,7 +94,6 @@ class App extends React.Component {
               initialParams={{ username: this.state.user.username }}
             />
             <Stack.Screen name="PlantMap" component={PlantMap} />
-            <Stack.Screen name="Intro Carousel" component={LandingCarousel} />
           </Stack.Navigator>
         </NavigationContainer>
       );
@@ -110,9 +116,5 @@ class App extends React.Component {
       );
   }
 }
-
-//Take a picture of a plant, upload a picture or search by plant name to identify a plant and how to care for it
-//Add plants to your garden (swipe left) and keep track of their needs
-//Achieve medals for scanning plants and see what plants you've scanned (swipe right)
 
 export default App;

@@ -47,6 +47,7 @@ class MyGarden extends Component<Props> {
   }
 
   render() {
+    let { height, width } = Dimensions.get("window");
     if (this.state.isLoading) return <LoadingScreen />;
     if (this.state.isEmpty)
       return (

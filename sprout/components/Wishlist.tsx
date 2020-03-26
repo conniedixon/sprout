@@ -2,15 +2,10 @@
 
 import React, { Component } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import {
-  FontAwesome,
-  Ionicons,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { Text, View, Dimensions, Image, ImageBackground } from "react-native";
 
-import PlantCard from "../components/PlantCard";
 import { getUserWishlist } from "../components/spec/index";
 import PlantMap from "./PlantMap";
 import styles from "./StyleCSS";
@@ -33,8 +28,13 @@ class Wishlist extends Component<Props> {
   }
 
   render() {
+    const uniqueWishlist = Array.from(
+      new Set(this.state.wishlist.map(a => a.commonName))
+    ).map(id => {
+      return this.state.wishlist.find(a => a.commonName === id);
+    });
     return (
-        <Animatable.View animation="fadeInUpBig" style={styles.topMargin}>
+      <Animatable.View animation="fadeInUpBig" style={styles.topMargin}>
         <ImageBackground
           source={require("./graphics/Background.jpg")}
           style={styles.backgroundImage}
@@ -44,7 +44,7 @@ class Wishlist extends Component<Props> {
             Select a plant to see more information or add to Your Garden
           </Text>
           <View style={styles.wishlistcontainer}>
-            {this.state.wishlist.map(plant => {
+            {uniqueWishlist.map(plant => {
               return (
                 <TouchableOpacity
                   onPress={() =>
@@ -72,7 +72,6 @@ class Wishlist extends Component<Props> {
           </View>
         </ImageBackground>
       </Animatable.View>
-
     );
   }
 }

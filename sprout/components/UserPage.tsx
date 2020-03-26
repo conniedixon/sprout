@@ -6,7 +6,6 @@ import MedalsPage from "./MedalsPage";
 import { getUser } from "../components/spec/index";
 import GestureRecognizer from "react-native-swipe-gestures";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { buttonStyle } from "./ButtonCSS";
 import styles from "./StyleCSS";
 
 interface Props {

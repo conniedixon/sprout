@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { Component } from "react";
-import { Text, View, Alert, StyleSheet, ImageBackground } from "react-native";
+import { Text, View, Alert, ImageBackground } from "react-native";
 import ImageCarousel from "./ImageCarousel";
 import { addPlantToGarden, addToWishlist, getUserGarden } from "./spec/index";
 import { getUserScannedPlants } from "../components/spec/index";

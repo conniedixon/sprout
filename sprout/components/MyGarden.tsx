@@ -49,7 +49,6 @@ class MyGarden extends Component<Props> {
   }
 
   render() {
-    let { height, width } = Dimensions.get("window");
     if (this.state.isLoading) return <LoadingScreen />;
     if (this.state.isEmpty)
       return (
@@ -58,7 +57,10 @@ class MyGarden extends Component<Props> {
           style={{ flex: 1 }}
         >
           <View style={styles.topMargin}>
-            <ImageBackground source={require("./graphics/Background.jpg")}>
+            <ImageBackground
+              style={styles.backgroundImage}
+              source={require("./graphics/Background.jpg")}
+            >
               <Text style={styles.text}>
                 "Start scanning and adding plants to your garden to see them
                 here!"

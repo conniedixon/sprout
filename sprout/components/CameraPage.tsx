@@ -86,8 +86,7 @@ class CameraPage extends Component<Props, State> {
             );
           })
           .then(plantInfo => {
-            console.log(plantInfo);
-            this.setState({ plantInfo });
+            this.setState({ plantInfo, isLoading: false });
           })
           .then(() => {
             this.props.navigation.navigate("PlantPage", {
@@ -166,7 +165,6 @@ class CameraPage extends Component<Props, State> {
 
   render() {
     const { hasPermission, isLoading } = this.state;
-
     if (hasPermission === null || hasPermission === false) {
       return (
         <View style={{ marginTop: 25 }}>

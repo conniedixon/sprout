@@ -4,6 +4,7 @@ import { View, Image, Alert, StyleSheet } from "react-native";
 import React, { Component } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import * as Animatable from "react-native-animatable";
+import { getUserMedals } from "./spec";
 
 interface Props {
   userMedals: any;
@@ -34,11 +35,14 @@ class MedalsPage extends Component<Props> {
   };
 
   render() {
+    const { userMedals } = this.props;
+    console.log(userMedals);
+    const medalSlugs = userMedals.map(medal => medal.slug);
     return (
       <Animatable.View animation="fadeInUpBig">
         <View style={styles.container}>
           {this.state.availableMedals.map(medal => {
-            if (this.props.userMedals.includes(medal)) {
+            if (medalSlugs.includes(medal)) {
               return (
                 <TouchableOpacity
                   onPress={() => {

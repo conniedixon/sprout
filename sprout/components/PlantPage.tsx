@@ -1,7 +1,14 @@
 /** @format */
 
 import React, { Component } from "react";
-import { Text, View, Alert, ImageBackground } from "react-native";
+import {
+  Text,
+  View,
+  Alert,
+  ImageBackground,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import ImageCarousel from "./ImageCarousel";
 import { addPlantToGarden, addToWishlist, getUserGarden } from "./spec/index";
 import { getUserScannedPlants } from "../components/spec/index";
@@ -92,6 +99,8 @@ class PlantPage extends Component<Props> {
 
   render() {
     const { plantInfo, username, isInGarden } = this.state;
+    let { height, width } = Dimensions.get("window");
+
     const images = {
       images: [{ url: this.state.plantImage }, this.state.plantInfo.images],
     };
@@ -102,35 +111,47 @@ class PlantPage extends Component<Props> {
             source={require("./graphics/Background.jpg")}
             style={styles.backgroundImage}
           >
-            <View style={styles.container}>
-              <ImageCarousel images={images} />
+            <ScrollView
+              style={{
+                height: height,
+              }}
+              contentContainerStyle={{
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View style={styles.container}>
+                <ImageCarousel images={images} />
 
-              <Text style={styles.header2}>{plantInfo.commonName}</Text>
-              <Text style={styles.textItalic}>{plantInfo.scientificName}</Text>
-              <Text style={styles.text}>Duration: {plantInfo.duration}</Text>
-              <Text style={styles.text}> Family: {plantInfo.family}</Text>
-              <Text style={styles.text}>
-                Difficulty: {plantInfo.difficulty}
-              </Text>
-              <Text style={styles.subHeader}>How to care for me:</Text>
-              <Text style={styles.text}>
-                Light level: {plantInfo.lightLevel}
-              </Text>
-              <Text style={styles.text}>Soil pH: {plantInfo.ph}</Text>
-              <Text style={styles.text}>
-                Watering Needs: {plantInfo.wateringSchedule}{" "}
-              </Text>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() =>
-                  addPlantToGarden(plantInfo, username).then(() => {
-                    this.AsyncAlert("your Garden", "MyGarden");
-                  })
-                }
-              >
-                <Text style={styles.button}>Add to My Garden</Text>
-              </TouchableOpacity>
-            </View>
+                <Text style={styles.header2}>{plantInfo.commonName}</Text>
+                <Text style={styles.textItalic}>
+                  {plantInfo.scientificName}
+                </Text>
+                <Text style={styles.text}>Duration: {plantInfo.duration}</Text>
+                <Text style={styles.text}> Family: {plantInfo.family}</Text>
+                <Text style={styles.text}>
+                  Difficulty: {plantInfo.difficulty}
+                </Text>
+                <Text style={styles.subHeader}>How to care for me:</Text>
+                <Text style={styles.text}>
+                  Light level: {plantInfo.lightLevel}
+                </Text>
+                <Text style={styles.text}>Soil pH: {plantInfo.ph}</Text>
+                <Text style={styles.text}>
+                  Watering Needs: {plantInfo.wateringSchedule}{" "}
+                </Text>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() =>
+                    addPlantToGarden(plantInfo, username).then(() => {
+                      this.AsyncAlert("your Garden", "MyGarden");
+                    })
+                  }
+                >
+                  <Text style={styles.button}>Add to My Garden</Text>
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
           </ImageBackground>
         </View>
       );

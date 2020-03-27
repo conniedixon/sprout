@@ -33,53 +33,53 @@ class ScannedPlants extends Component<Props> {
 
   render() {
     const { scannedPlants, username, isLoading } = this.state;
-    // if (isLoading) return <LoadingScreen />;
-    // else {
-    return (
-      <Animatable.View animation="fadeInUpBig" style={styles.topMargin}>
-        <ImageBackground
-          source={require("./graphics/Background.jpg")}
-          style={styles.backgroundImage}
-        >
-          <Text style={styles.textItalic}>
-            Click on an image to see more information and add to your wishlist
-            or garden{" "}
-          </Text>
-          <View style={styles.rowscontainer}>
-            {scannedPlants.map(plant => {
-              return (
-                <TouchableOpacity
-                  onPress={() => {
-                    this.props.navigation.navigate("PlantPage", {
-                      plantInfo: plant.plantInfo,
-                      isInGarden: false,
-                      username: username,
-                      plantImage: plant.uri, //needs to be changed
-                    });
-                  }}
-                  key={plant.timestamp}
-                >
-                  <Image
-                    style={{
-                      width: 150,
-                      height: 150,
-                      borderRadius: 5,
-                      margin: 3,
+    if (isLoading) return <LoadingScreen />;
+    else {
+      return (
+        <Animatable.View animation="fadeInUpBig" style={styles.topMargin}>
+          <ImageBackground
+            source={require("./graphics/Background.jpg")}
+            style={styles.backgroundImage}
+          >
+            <Text style={styles.textItalic}>
+              Click on an image to see more information and add to your wishlist
+              or garden{" "}
+            </Text>
+            <View style={styles.rowscontainer}>
+              {scannedPlants.map(plant => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.props.navigation.navigate("PlantPage", {
+                        plantInfo: plant.plantInfo,
+                        isInGarden: false,
+                        username: username,
+                        plantImage: plant.uri, //needs to be changed
+                      });
                     }}
-                    source={{ uri: plant.uri }}
-                  />
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        </ImageBackground>
-      </Animatable.View>
-    );
-    // }
+                    key={plant.timestamp}
+                  >
+                    <Image
+                      style={{
+                        width: 150,
+                        height: 150,
+                        borderRadius: 5,
+                        margin: 3,
+                      }}
+                      source={{ uri: plant.uri }}
+                    />
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </ImageBackground>
+        </Animatable.View>
+      );
+      // }
+    }
+    //sort by date added
+    //delete a scanned plant
+    //add to my wishlist
   }
-  //sort by date added
-  //delete a scanned plant
-  //add to my wishlist
 }
-
 export default ScannedPlants;

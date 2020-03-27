@@ -51,6 +51,7 @@ class Wishlist extends Component<Props> {
                     this.props.navigation.navigate("PlantPage", {
                       plantInfo: plant,
                       isInGarden: "isInWishlist",
+                      plantImage: plant.uri,
                     })
                   }
                 >

@@ -1,0 +1,22 @@
+{
+    "test": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-sprout-test-144024-authRole",
+            "UnauthRoleArn": "arn:aws:iam::610724919955:role/amplify-sprout-test-144024-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::610724919955:role/amplify-sprout-test-144024-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "amplify-sprout-test-144024-deployment",
+            "UnauthRoleName": "amplify-sprout-test-144024-unauthRole",
+            "StackName": "amplify-sprout-test-144024",
+            "StackId": "arn:aws:cloudformation:eu-west-1:610724919955:stack/amplify-sprout-test-144024/680bd0e0-6926-11ea-9fd9-0655dfaca74c",
+            "AmplifyAppId": "d8rsce4gtxyoh"
+        },
+        "categories": {
+            "auth": {
+                "sprout7aac43a9": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"211288233314271\",\"client_secret\":\"07d46fbd6875e6a0acf0dab0dccb52ee\"}]"
+                }
+            }
+        }
+    }
+}
